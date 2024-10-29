@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Tourist Management</title>
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .header {
+            background-color: #343a40;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .sidebar {
+            height: 100vh;
+            background-color: #343a40;
+            padding-top: 20px;
+            width: 250px;
+            position: fixed;
+        }
+
+            .sidebar a {
+                color: white;
+                padding: 15px;
+                text-decoration: none;
+                display: block;
+            }
+
+                .sidebar a:hover {
+                    background-color: #495057;
+                }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            left: 0;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+            .nav-links a {
+                color: white;
+                margin: 0 15px;
+                text-decoration: none;
+                font-size: 1em;
+            }
+
+            .nav-links i {
+                margin-right: 5px;
+            }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-toggle {
+            background-color: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            margin-left: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+            .dropdown-toggle i {
+                margin-right: 5px;
+            }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #fff;
+            color: #000;
+            min-width: 150px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+            .dropdown-menu a {
+                color: #000;
+                padding: 10px;
+                text-decoration: none;
+                display: block;
+            }
+
+                .dropdown-menu a:hover {
+                    background-color: #f1f1f1;
+                }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">Admin</div>
+        <div class="nav-links">
+            <a href="#"><i class="fas fa-home"></i> Website</a>
+            <a href="#"><i class="fas fa-bell"></i></a>
+            <div class="dropdown">
+                <button class="dropdown-toggle">
+                    <i class="fas fa-user"></i> admin
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Profile</a>
+                    <a class="dropdown-item" href="#">Settings</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Sidebar -->
+    <div class="d-flex">
+        <div class="sidebar">
+            <a href="#dashboard">Dashboard</a>
+            <a href="#tours">Manage Tours</a>
+            <a href="#bookings">Manage Bookings</a>
+            <a href="#users">Manage Users</a>
+            <a href="#reports">Reports</a>
+            <a href="#settings">Settings</a>
+            <a href="#logout">Logout</a>
+        </div>
+        <!-- Main Content -->
+        <div class="main-content">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; Quản Lý Du Lịch</p>
+    </div>
+</body>
+</html>
