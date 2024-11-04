@@ -1,0 +1,89 @@
+﻿@model IEnumerable<QuanLy_TourDuLich.Models.Tour>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
+}
+<b style="font-size:45px; color:black">Quản lý Tour</b>
+
+<p>
+    @Html.ActionLink("Thêm Tour", "ThemMoiTour", null, new { @class = "btn btn-primary", @style = "font: bold; color:white; border-radius: 5px; font-weight: bold" })
+</p>
+<table class="table table-bordered">
+    <tr>
+        <th>
+            <label>Loại tour</label>
+        </th>
+        <th>
+            <label>Tên</label>
+        </th>
+        <th>
+            <label>Giá</label>
+        </th>
+        <th>
+            <label>Điểm khởi hành</label>
+        </th>
+        <th>
+            <label>Điểm đến</label>
+        </th>
+
+        <th>
+            <label>Ngày khởi hành</label>
+        </th>
+        <th>
+            <label>Ngày kết thúc</label>
+        </th>
+        <th>
+            <label>Số lượng còn</label>
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LoaiTour)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @String.Format("{0:0,00} VNĐ / người", item.Gia) 
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TinhThanh.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TinhThanh1.Name)
+            </td>
+            <td>
+                @String.Format("{0:dd/MM/yyyy}", item.NgayKhoiHanh)
+            </td>
+            <td>
+                @String.Format("{0:dd/MM/yyyy}", item.NgayKetThuc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoLuongCon)
+            </td>
+
+            <td>
+                @Html.ActionLink("Sửa", "Edit", new { id = item.Tour_id }) |
+                @Html.ActionLink("Chi tiết", "ChiTietTour", new { id = item.Tour_id }) |
+                <a onclick="xoa(@item.Tour_id)" href="#">Xóa</a> |
+                <a href="~/Admin/HomeAdmin/ThemHinhAnhTour/@item.Tour_id">Thêm ảnh</a> |
+                <a href="~/Admin/HomeAdmin/XoaHinhAnh/@item.Tour_id">Xóa ảnh</a>
+
+            </td>
+        </tr>
+    }
+
+</table>
+<script>
+    var xoa = function (id) {
+        if (confirm("Bạn có chắc chắn muốn xóa không?")) {
+            location.href = "XoaTour/" + id
+        }
+    }
+</script>

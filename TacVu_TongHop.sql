@@ -49,8 +49,7 @@ CREATE PROCEDURE proc_ThemMoiTour
     @NgayKetThuc DATE,
     @SoLuongCon INT,
     @LoaiTour NVARCHAR(255),
-    @KhuyenMai_id INT,
-    @TrangThai NVARCHAR(255),
+	@TrangThai NVARCHAR(255),
     @NhaHang_id VARCHAR(36)
 AS
 BEGIN
@@ -59,8 +58,7 @@ BEGIN
 	INSERT INTO [Tour] VALUES (
 		@Tour_id, @Name, @Gia, @MoTa, @LichTrinh, @DiemKhoiHanh_id,
         @DiemDen_id, @KhachSan_id, @NgayKhoiHanh, @NgayKetThuc,
-        @SoLuongCon, @LoaiTour, @KhuyenMai_id, @TrangThai
-	)
+        @SoLuongCon, @LoaiTour,@TrangThai)
     -- Liên kết với nhà hàng nếu có
     IF (@NhaHang_id IS NOT NULL)
     BEGIN
@@ -97,22 +95,6 @@ GO
 
 
 --------------------------Bảo----------------------------------------------------------
-ALTER TABLE [DatTour] 
-ADD 
-	CONSTRAINT CK_DatTour_SoNguoi CHECK ([SoNguoi] > 0),
-    CONSTRAINT CK_DatTour_TongTien CHECK ([TongTien] >= 0);
-
-ALTER TABLE [HuyTour] 
-ADD 
-	CONSTRAINT CK_HuyTour_NgayHuy CHECK ([NgayHuy] >= CAST(GETDATE() AS DATE));
-
-ALTER TABLE [ThanhToan] 
-ADD 
-    CONSTRAINT CK_ThanhToan_HinhThuc CHECK ([HinhThuc_id] IN ('The_ATM', 'Chuyen_Khoan_Ngan_Hang', 'Momo')),
-    CONSTRAINT CK_ThanhToan_TongTien CHECK ([TongTien] >= 0);
-
-
-
 -- trigger Xóa Bản Ghi Trong ThanhToan khi Hủy Tour
 CREATE TRIGGER TR_DeleteThanhToanOnHuyTour
 ON HuyTour
@@ -222,7 +204,7 @@ BEGIN
 
     RETURN;
 END;
-
+Go
 
 
 -----------------------------------Vương-------------------------------------
@@ -239,7 +221,7 @@ begin
 	from Tour t
 	join inserted i on i.Tour_id = t.Tour_id
 end
-
+Go
 
 --Function Trả về số lượng chỗ còn lại (SoLuongCon) của tour dựa trên Tour_id.
 create function SoLuongCon (@tourid varchar(36))
@@ -248,7 +230,7 @@ as
 begin
 	return (select SoLuongCon from Tour where Tour_id  = @tourid)
 end
-
+Go
 
 --Procedure cập nhật thông tin tour:
 --Cập nhật thông tin về tour (tên, giá, lịch trình, ngày khởi hành, v.v.) dựa trên Tour_id.
@@ -295,7 +277,7 @@ begin
 			rollback transaction
 		end
 end
-
+Go
 --Procedure kết hợp cursor tính toán doanh thu tổng của từng tour
 CREATE PROCEDURE DoanhThuCuaTungTour
 AS
@@ -346,7 +328,7 @@ BEGIN
     DROP TABLE #DoanhThuTour;
 END;
 
-
+Go
 ----------------------------Phong--------------------------------------------------
 ------------trigger xóa các đánh giá liên quan đến một tour khi tour bị xóa khỏi bảng [Tour]
 CREATE TRIGGER delete_danhgia 
@@ -415,3 +397,4 @@ GO
 		Where nv.NhanVien_id = pc.NhanVien_id 
 		And  @Tour_id = pc.Tour_id
 		)
+Go

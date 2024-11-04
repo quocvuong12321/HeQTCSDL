@@ -1,7 +1,7 @@
-﻿create database QL_Tour1
+﻿create database QL_Tour
 go
 
-use QL_Tour1
+use QL_Tour
 go
 
 CREATE TABLE [Tour] (
@@ -22,17 +22,20 @@ CREATE TABLE [Tour] (
 GO
 
 CREATE TABLE [Image_Tour] (
-  [Img_id] int identity(1,1) PRIMARY KEY,
+  [Img_id] int not null identity(1,1) PRIMARY KEY,
   [Name] nvarchar(128),
   [Tour_id] varchar(36)
 )
 GO
 
 CREATE TABLE [TinhThanh] (
-  [TinhThanh_id] int identity(1,1) PRIMARY KEY,
+  [TinhThanh_id] int not null identity(1,1) PRIMARY KEY,
   [Name] nvarchar(128)
 )
 GO
+
+
+
 CREATE TABLE [NhanVien] (
   [NhanVien_id] varchar(36) PRIMARY KEY,
   [HoTen] nvarchar(128),
@@ -67,7 +70,7 @@ CREATE TABLE [NhaHang_Tour] (
 GO
 
 CREATE TABLE [DanhGia] (
-  [DanhGia_id] int identity(1,1) PRIMARY KEY,
+  [DanhGia_id] int not null identity(1,1) PRIMARY KEY,
   [Tour_id] varchar(36),
   [KhachHang_id] varchar(36),
   [Noidung] nvarchar(max),
@@ -87,17 +90,17 @@ CREATE TABLE [KhachHang] (
 GO
 
 CREATE TABLE [DatTour] (
-  [DatTour_id] int identity(1,1) PRIMARY KEY,
+  [DatTour_id] int not null identity(1,1) PRIMARY KEY,
   [GhiChu] nvarchar(128),
   [KhachHang_id] varchar(36),
   [NgayDat] datetime,
   [Tour_id] varchar(36),
-  [SoNguoi] int
+  [SoNguoi] int,
 )
 GO
 
 CREATE TABLE [HuyTour] (
-  [HuyTour_id] int identity(1,1) PRIMARY KEY,
+  [HuyTour_id] int  not null identity(1,1) PRIMARY KEY,
   [DatTour_id] int,
   [NgayHuy] date,
   [LyDo] nvarchar(max)
@@ -105,7 +108,7 @@ CREATE TABLE [HuyTour] (
 GO
 
 CREATE TABLE [ThanhToan] (
-  [ThanhToan_id] int identity(1,1) PRIMARY KEY,
+  [ThanhToan_id] int not null identity(1,1) PRIMARY KEY,
   [DatTour_id] int,
   [NgayThanhToan] datetime,
   [HinhThuc_id] nvarchar(255) NOT NULL,
@@ -123,7 +126,7 @@ ALTER Table [KhachSan]
 ADD [Tinhtrang] Nvarchar(128) 
 
 CREATE TABLE [HanhKhach] (
-  [HanhKhach_id] int identity(1,1) PRIMARY KEY,
+  [HanhKhach_id] int not null identity(1,1) PRIMARY KEY,
   [HoTen] nvarchar(128),
   [NgaySinh] date,
   [GioiTinh] bit,
@@ -186,8 +189,8 @@ GO
 ----------------------------Bảo--------------------------------------------------
 ALTER TABLE [DatTour] 
 ADD 
-	CONSTRAINT CK_DatTour_SoNguoi CHECK ([SoNguoi] > 0),
-    CONSTRAINT CK_DatTour_TongTien CHECK ([TongTien] >= 0);
+	CONSTRAINT CK_DatTour_SoNguoi CHECK ([SoNguoi] > 0)
+
 
 ALTER TABLE [HuyTour] 
 ADD 
@@ -222,3 +225,5 @@ Go
 ALTER TABLE [KhachSan] ADD CONSTRAINT CK_TinhTrang CHECK ([Tinhtrang] In (N'Còn Phòng',N'Hết Phòng'))
 Go
 		
+
+

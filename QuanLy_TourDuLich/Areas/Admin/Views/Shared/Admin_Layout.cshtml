@@ -142,7 +142,7 @@
     <!-- Sidebar -->
     <div class="d-flex">
         <div class="sidebar">
-            <a href="#dashboard">Dashboard</a>
+            <a href="~/Admin/Tour/Index">Quản lý tour</a>
             <a href="#tours">Manage Tours</a>
             <a href="#bookings">Manage Bookings</a>
             <a href="#users">Manage Users</a>
@@ -152,13 +152,17 @@
         </div>
         <!-- Main Content -->
         <div class="main-content">
-                @RenderBody()
-            </div>
+            @RenderBody()
         </div>
     </div>
+
     <!-- Footer -->
     <div class="footer">
         <p>&copy; Quản Lý Du Lịch</p>
     </div>
+
+    <script src="~/plugin/ckeditor/ckeditor.js"></script>
+    @RenderSection("TourJS", false)
+    @RenderSection("script", false);
 </body>
 </html>
