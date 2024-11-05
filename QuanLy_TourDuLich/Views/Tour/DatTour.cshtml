@@ -1,6 +1,7 @@
-﻿
+﻿@model QuanLy_TourDuLich.Models.Tour
+
 @{
-    ViewBag.Title = "DatTour";
+    ViewBag.Title = "Đặt Tour";
     Layout = "~/Views/Shared/UserLayout.cshtml";
 }
 
@@ -9,7 +10,7 @@
         <div class="col-md-6">
             <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white text-center">
-                    <h4>Đặt Tour</h4>
+                    <h4>Đặt Tour: @Model.Name</h4>
                 </div>
                 <div class="card-body">
                     <form method="post" action="/dat-tour">
@@ -24,6 +25,12 @@
                             <label for="Tour_id" class="form-label">Chọn Tour</label>
                             <select class="form-control" id="Tour_id" name="Tour_id" required>
                                 <option value="">-- Chọn Tour --</option>
+                                <option value="@Model.Tour_id"
+                                        data-price="@Model.Gia"
+                                        data-start="@Model.NgayKhoiHanh?.ToString(" yyyy-MM-dd")"
+                                        data-end="@Model.NgayKetThuc?.ToString(" yyyy-MM-dd")">
+                                </option>
+                                <!-- Các tùy chọn tour khác nếu có -->
                                 <option value="tour1" data-price="2000000" data-start="2024-12-01" data-end="2024-12-05">Tour Đà Lạt - 2,000,000 VND</option>
                                 <option value="tour2" data-price="3500000" data-start="2024-12-10" data-end="2024-12-15">Tour Phú Quốc - 3,500,000 VND</option>
                                 <option value="tour3" data-price="2800000" data-start="2024-12-20" data-end="2024-12-25">Tour Nha Trang - 2,800,000 VND</option>
@@ -33,19 +40,19 @@
                         <!-- Giá Tour (tự động điền) -->
                         <div class="form-group mb-3">
                             <label for="Gia" class="form-label">Giá Tour</label>
-                            <input type="text" class="form-control" id="Gia" name="Gia" readonly placeholder="5.000.000đ" />
+                            <input type="text" class="form-control" id="Gia" name="Gia" readonly value="@String.Format("{0:N0}", Model.Gia)" />
                         </div>
 
                         <!-- Ngày Khởi Hành (tự động điền) -->
                         <div class="form-group mb-3">
                             <label for="NgayKhoiHanh" class="form-label">Ngày Khởi Hành</label>
-                            <input type="date" class="form-control" id="NgayKhoiHanh" name="NgayKhoiHanh" readonly />
+                            <input type="date" class="form-control" id="NgayKhoiHanh" name="NgayKhoiHanh" readonly value="@Model.NgayKhoiHanh?.ToString(" yyyy-MM-dd")" />
                         </div>
 
                         <!-- Ngày Kết Thúc (tự động điền) -->
                         <div class="form-group mb-3">
                             <label for="NgayKetThuc" class="form-label">Ngày Kết Thúc</label>
-                            <input type="date" class="form-control" id="NgayKetThuc" name="NgayKetThuc" readonly />
+                            <input type="date" class="form-control" id="NgayKetThuc" name="NgayKetThuc" readonly value="@Model.NgayKetThuc?.ToString(" yyyy-MM-dd")" />
                         </div>
 
                         <!-- Số Người -->
@@ -73,8 +80,7 @@
 
                         <!-- Submit Button -->
                         <div class="text-center">
-                            <a href="@Url.Action("ThanhToan", "Tour")" class="btn btn-primary w-100">Tiếp tục</a>
-
+                            <button type="submit" class="btn btn-primary w-100">Tiếp tục</button>
                         </div>
                     </form>
                 </div>
@@ -82,5 +88,4 @@
         </div>
     </div>
 </div>
-
 
