@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewBag.Title = "DatTour";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4>Đặt Tour</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="/dat-tour">
+                        <!-- Mã Khách Hàng -->
+                        <div class="form-group mb-3">
+                            <label for="KhachHang_id" class="form-label">Mã Khách Hàng</label>
+                            <input type="text" class="form-control" id="KhachHang_id" name="KhachHang_id" placeholder="Nhập mã khách hàng" required />
+                        </div>
+
+                        <!-- Chọn Tour -->
+                        <div class="form-group mb-3">
+                            <label for="Tour_id" class="form-label">Chọn Tour</label>
+                            <select class="form-control" id="Tour_id" name="Tour_id" required>
+                                <option value="">-- Chọn Tour --</option>
+                                <option value="tour1" data-price="2000000" data-start="2024-12-01" data-end="2024-12-05">Tour Đà Lạt - 2,000,000 VND</option>
+                                <option value="tour2" data-price="3500000" data-start="2024-12-10" data-end="2024-12-15">Tour Phú Quốc - 3,500,000 VND</option>
+                                <option value="tour3" data-price="2800000" data-start="2024-12-20" data-end="2024-12-25">Tour Nha Trang - 2,800,000 VND</option>
+                            </select>
+                        </div>
+
+                        <!-- Giá Tour (tự động điền) -->
+                        <div class="form-group mb-3">
+                            <label for="Gia" class="form-label">Giá Tour</label>
+                            <input type="text" class="form-control" id="Gia" name="Gia" readonly placeholder="5.000.000đ" />
+                        </div>
+
+                        <!-- Ngày Khởi Hành (tự động điền) -->
+                        <div class="form-group mb-3">
+                            <label for="NgayKhoiHanh" class="form-label">Ngày Khởi Hành</label>
+                            <input type="date" class="form-control" id="NgayKhoiHanh" name="NgayKhoiHanh" readonly />
+                        </div>
+
+                        <!-- Ngày Kết Thúc (tự động điền) -->
+                        <div class="form-group mb-3">
+                            <label for="NgayKetThuc" class="form-label">Ngày Kết Thúc</label>
+                            <input type="date" class="form-control" id="NgayKetThuc" name="NgayKetThuc" readonly />
+                        </div>
+
+                        <!-- Số Người -->
+                        <div class="form-group mb-3">
+                            <label for="SoNguoi" class="form-label">Số Người</label>
+                            <input type="number" class="form-control" id="SoNguoi" name="SoNguoi" min="1" placeholder="Nhập số người tham gia" required />
+                        </div>
+
+                        <!-- Trạng Thái -->
+                        <div class="form-group mb-3">
+                            <label for="TrangThai" class="form-label">Trạng Thái</label>
+                            <select class="form-control" id="TrangThai" name="TrangThai">
+                                <option value="Mở bán">Mở bán</option>
+                                <option value="Hết chỗ">Hết chỗ</option>
+                                <option value="Đang diễn ra">Đang diễn ra</option>
+                                <option value="Đã hoàn thành">Đã hoàn thành</option>
+                            </select>
+                        </div>
+
+                        <!-- Ghi Chú -->
+                        <div class="form-group mb-3">
+                            <label for="GhiChu" class="form-label">Ghi Chú</label>
+                            <textarea class="form-control" id="GhiChu" name="GhiChu" rows="3" placeholder="Nhập ghi chú nếu có"></textarea>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="text-center">
+                            <a href="@Url.Action("ThanhToan", "Tour")" class="btn btn-primary w-100">Tiếp tục</a>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

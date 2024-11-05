@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "ThanhToan";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white text-center">
+                    <h4>Thanh Toán</h4>
+                </div>
+                <div class="card-body">
+                    <!-- Thông Tin Tour -->
+                    <h5>Thông Tin Tour</h5>
+                    <div class="mb-3">
+                        <label for="TourName" class="form-label">Tên Tour</label>
+                        <input type="text" class="form-control" id="TourName" value="Tour Đà Lạt" readonly />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="NgayKhoiHanh" class="form-label">Ngày Khởi Hành</label>
+                            <input type="date" class="form-control" id="NgayKhoiHanh" value="2024-12-01" readonly />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="NgayKetThuc" class="form-label">Ngày Kết Thúc</label>
+                            <input type="date" class="form-control" id="NgayKetThuc" value="2024-12-05" readonly />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="GiaTour" class="form-label">Giá Tour</label>
+                        <input type="text" class="form-control" id="GiaTour" value="2,000,000 VND" readonly />
+                    </div>
+                    <div class="mb-3">
+                        <label for="SoNguoi" class="form-label">Số Người</label>
+                        <input type="number" class="form-control" id="SoNguoi" value="2" readonly />
+                    </div>
+
+                    <!-- Tổng Thanh Toán -->
+                    <div class="mb-3">
+                        <label for="TongTien" class="form-label">Tổng Tiền</label>
+                        <input type="text" class="form-control" id="TongTien" value="4,000,000 VND" readonly />
+                    </div>
+
+                    <!-- Phương Thức Thanh Toán -->
+                    <h5 class="mt-4">Chọn Phương Thức Thanh Toán</h5>
+                    <div class="form-group mb-3">
+                        <select class="form-control" id="PaymentMethod" name="PaymentMethod" required>
+                            <option value="">-- Chọn Phương Thức Thanh Toán --</option>
+                            <option value="credit_card">Thẻ Tín Dụng</option>
+                            <option value="bank_transfer">Chuyển Khoản Ngân Hàng</option>
+                            <option value="momo">Ví MoMo</option>
+                        </select>
+                    </div>
+
+                    <!-- Chi Tiết Thanh Toán -->
+                    <div id="payment-details">
+                        <!-- Nội dung này sẽ được cập nhật theo phương thức thanh toán -->
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-success w-100">Thanh Toán</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
