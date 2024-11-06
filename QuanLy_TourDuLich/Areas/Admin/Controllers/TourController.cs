@@ -4,6 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using QuanLy_TourDuLich.Models;
+using System.Data.SqlClient;
+using System.Dynamic;
+using QuanLy_TourDuLich.Areas.Admin.Models;
+
 namespace QuanLy_TourDuLich.Areas.Admin.Controllers
 {
     public class TourController : Controller
@@ -69,5 +73,46 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
             ViewBag.KhachHang = new SelectList(db.KhachSans.ToList().OrderBy(t => t.KhachSan_id), "KhachSan_id", "Name");
             return View(model);
         }
+
+        public ActionResult HienThiDatTour()
+        {
+            var listDatTour = new List<QuanLyDatTour>(); // Đảm bảo là danh sách
+
+            using (var connection = new SqlConnection(db.Connection.ConnectionString))
+            {
+                connection.Open();
+                using (var command = new SqlCommand("EXEC sp_ShowDatTourDetails", connection))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var item = new QuanLyDatTour
+                            {
+                                DatTour_id = (int)reader["DatTour_id"],
+                                KhachHangName = reader["KhachHangName"].ToString(),
+                                TourName = reader["TourName"].ToString(),
+                                LoaiTour = reader["LoaiTour"].ToString(),
+                                SoNguoi = (int)reader["SoNguoi"],
+                                NgayDat = reader["NgayDat"] != DBNull.Value ? (DateTime)reader["NgayDat"] : default(DateTime),
+                                NgayKhoiHanh = reader["NgayKhoiHanh"] != DBNull.Value ? (DateTime)reader["NgayKhoiHanh"] : default(DateTime),
+                                NgayKetThuc = reader["NgayKetThuc"] != DBNull.Value ? (DateTime)reader["NgayKetThuc"] : default(DateTime),
+                                GhiChu = reader["GhiChu"].ToString(),
+                                TongTien = reader["TongTien"] != DBNull.Value ? (decimal)reader["TongTien"] : 0
+                            };
+
+                            listDatTour.Add(item);
+                        }
+                    }
+                }
+            }
+
+            return View(listDatTour); // Trả về danh sách
+        }
+
+
+
+
+
     }
 }

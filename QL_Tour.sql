@@ -95,7 +95,7 @@ CREATE TABLE [DatTour] (
   [KhachHang_id] varchar(36),
   [NgayDat] datetime,
   [Tour_id] varchar(36),
-  [SoNguoi] int,
+  [SoNguoi] int
 )
 GO
 
@@ -130,6 +130,7 @@ CREATE TABLE [HanhKhach] (
   [HoTen] nvarchar(128),
   [NgaySinh] date,
   [GioiTinh] bit,
+  [DatTour_id] int,
   [Tour_id] varchar(36)
 )
 GO
@@ -184,6 +185,8 @@ GO
 
 ALTER TABLE [HanhKhach] ADD FOREIGN KEY ([Tour_id]) REFERENCES [Tour] ([Tour_id])
 GO
+
+ALTER TABLE [HanhKhach] ADD FOREIGN KEY ([DatTour_id]) REFERENCES [DatTour]([DatTour_id])
 
 --------------------------RÀNG BUỘC--------------------------------------------------
 ----------------------------Bảo--------------------------------------------------

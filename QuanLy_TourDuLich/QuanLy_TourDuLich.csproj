@@ -1107,6 +1107,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\TourController.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyDatTour.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TourController.cs" />
     <Compile Include="Global.asax.cs">
@@ -1137,6 +1138,7 @@
       <LastGenOutput>QuanLyTourDuLich.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Areas\Admin\Views\Tour\HienThiDatTour.cshtml" />
     <None Include="Models\QuanLyTourDuLich.dbml.layout">
       <DependentUpon>QuanLyTourDuLich.dbml</DependentUpon>
     </None>

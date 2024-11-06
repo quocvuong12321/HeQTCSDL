@@ -45,6 +45,3 @@ INSERT INTO [NhaHang] (NhaHang_id, Name, TinhThanh_id) VALUES
 ('NH003', N'Nhà Hàng 3', 3);
 
 
-select * from KhachSan
-
-select * from NhaHang
