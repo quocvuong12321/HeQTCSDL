@@ -1133,12 +1133,12 @@
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Tour\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Tour\ThemMoiTour.cshtml" />
+    <Content Include="Areas\Admin\Views\Tour\HienThiDatTour.cshtml" />
     <Content Include="Models\QuanLyTourDuLich.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>QuanLyTourDuLich.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Areas\Admin\Views\Tour\HienThiDatTour.cshtml" />
     <None Include="Models\QuanLyTourDuLich.dbml.layout">
       <DependentUpon>QuanLyTourDuLich.dbml</DependentUpon>
     </None>

@@ -22,7 +22,7 @@ namespace QuanLy_TourDuLich.Models
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="QL_Tour1")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="QL_Tour")]
 	public partial class QuanLyTourDuLichDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -75,7 +75,7 @@ namespace QuanLy_TourDuLich.Models
     #endregion
 		
 		public QuanLyTourDuLichDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QL_Tour1ConnectionString"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QL_TourConnectionString"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -1116,6 +1116,8 @@ namespace QuanLy_TourDuLich.Models
 		
 		private System.Nullable<int> _SoNguoi;
 		
+		private EntitySet<HanhKhach> _HanhKhaches;
+		
 		private EntitySet<HuyTour> _HuyTours;
 		
 		private EntitySet<ThanhToan> _ThanhToans;
@@ -1144,6 +1146,7 @@ namespace QuanLy_TourDuLich.Models
 		
 		public DatTour()
 		{
+			this._HanhKhaches = new EntitySet<HanhKhach>(new Action<HanhKhach>(this.attach_HanhKhaches), new Action<HanhKhach>(this.detach_HanhKhaches));
 			this._HuyTours = new EntitySet<HuyTour>(new Action<HuyTour>(this.attach_HuyTours), new Action<HuyTour>(this.detach_HuyTours));
 			this._ThanhToans = new EntitySet<ThanhToan>(new Action<ThanhToan>(this.attach_ThanhToans), new Action<ThanhToan>(this.detach_ThanhToans));
 			this._Tour = default(EntityRef<Tour>);
@@ -1279,6 +1282,19 @@ namespace QuanLy_TourDuLich.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DatTour_HanhKhach", Storage="_HanhKhaches", ThisKey="DatTour_id", OtherKey="DatTour_id")]
+		public EntitySet<HanhKhach> HanhKhaches
+		{
+			get
+			{
+				return this._HanhKhaches;
+			}
+			set
+			{
+				this._HanhKhaches.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DatTour_HuyTour", Storage="_HuyTours", ThisKey="DatTour_id", OtherKey="DatTour_id")]
 		public EntitySet<HuyTour> HuyTours
 		{
@@ -1393,6 +1409,18 @@ namespace QuanLy_TourDuLich.Models
 			}
 		}
 		
+		private void attach_HanhKhaches(HanhKhach entity)
+		{
+			this.SendPropertyChanging();
+			entity.DatTour = this;
+		}
+		
+		private void detach_HanhKhaches(HanhKhach entity)
+		{
+			this.SendPropertyChanging();
+			entity.DatTour = null;
+		}
+		
 		private void attach_HuyTours(HuyTour entity)
 		{
 			this.SendPropertyChanging();
@@ -1432,7 +1460,11 @@ namespace QuanLy_TourDuLich.Models
 		
 		private System.Nullable<bool> _GioiTinh;
 		
+		private System.Nullable<int> _DatTour_id;
+		
 		private string _Tour_id;
+		
+		private EntityRef<DatTour> _DatTour;
 		
 		private EntityRef<Tour> _Tour;
 		
@@ -1448,12 +1480,15 @@ namespace QuanLy_TourDuLich.Models
     partial void OnNgaySinhChanged();
     partial void OnGioiTinhChanging(System.Nullable<bool> value);
     partial void OnGioiTinhChanged();
+    partial void OnDatTour_idChanging(System.Nullable<int> value);
+    partial void OnDatTour_idChanged();
     partial void OnTour_idChanging(string value);
     partial void OnTour_idChanged();
     #endregion
 		
 		public HanhKhach()
 		{
+			this._DatTour = default(EntityRef<DatTour>);
 			this._Tour = default(EntityRef<Tour>);
 			OnCreated();
 		}
@@ -1538,6 +1573,30 @@ namespace QuanLy_TourDuLich.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DatTour_id", DbType="Int")]
+		public System.Nullable<int> DatTour_id
+		{
+			get
+			{
+				return this._DatTour_id;
+			}
+			set
+			{
+				if ((this._DatTour_id != value))
+				{
+					if (this._DatTour.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnDatTour_idChanging(value);
+					this.SendPropertyChanging();
+					this._DatTour_id = value;
+					this.SendPropertyChanged("DatTour_id");
+					this.OnDatTour_idChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tour_id", DbType="VarChar(36)")]
 		public string Tour_id
 		{
@@ -1558,6 +1617,40 @@ namespace QuanLy_TourDuLich.Models
 					this._Tour_id = value;
 					this.SendPropertyChanged("Tour_id");
 					this.OnTour_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DatTour_HanhKhach", Storage="_DatTour", ThisKey="DatTour_id", OtherKey="DatTour_id", IsForeignKey=true)]
+		public DatTour DatTour
+		{
+			get
+			{
+				return this._DatTour.Entity;
+			}
+			set
+			{
+				DatTour previousValue = this._DatTour.Entity;
+				if (((previousValue != value) 
+							|| (this._DatTour.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._DatTour.Entity = null;
+						previousValue.HanhKhaches.Remove(this);
+					}
+					this._DatTour.Entity = value;
+					if ((value != null))
+					{
+						value.HanhKhaches.Add(this);
+						this._DatTour_id = value.DatTour_id;
+					}
+					else
+					{
+						this._DatTour_id = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("DatTour");
 				}
 			}
 		}

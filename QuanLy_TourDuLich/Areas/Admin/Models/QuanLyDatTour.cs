@@ -7,15 +7,13 @@ namespace QuanLy_TourDuLich.Areas.Admin.Models
 {
     public class QuanLyDatTour
     {
-        public int DatTour_id { get; set; }
-        public string KhachHangName { get; set; }
-        public string TourName { get; set; }
-        public string LoaiTour { get; set; }
-        public int SoNguoi { get; set; }
-        public DateTime NgayDat { get; set; }
-        public DateTime NgayKhoiHanh { get; set; }
-        public DateTime NgayKetThuc { get; set; }
-        public string GhiChu { get; set; }
-        public decimal TongTien { get; set; }
+        public int DatTour_id { get; set; } // ID của đơn đặt tour
+        public string KhachHang_id { get; set; } // ID của hành khách
+        public string TenKhach { get; set; } // Tên khách hàng
+        public DateTime NgayDat { get; set; } // Ngày đặt tour
+        public int SoNguoi { get; set; } // Số lượng người
+        public string GhiChu { get; set; } // Ghi chú
+        public string Tour_id { get; set; } // ID của tour
+        public decimal TongTien { get; set; } // Tổng tiền từ thanh toán
     }
 }

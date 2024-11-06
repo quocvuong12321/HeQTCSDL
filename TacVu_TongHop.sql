@@ -206,6 +206,31 @@ BEGIN
 END;
 GO
 
+CREATE PROCEDURE ShowDatTour
+AS
+BEGIN
+    SELECT 
+        dt.DatTour_id,
+        hk.HanhKhach_id,
+        hk.HoTen AS TenKhach,
+        dt.NgayDat,
+        dt.SoNguoi,
+        dt.GhiChu,
+        dt.Tour_id,
+        tt.TongTien  
+    FROM 
+        DatTour dt
+    INNER JOIN 
+        HanhKhach hk ON dt.DatTour_id = hk.DatTour_id
+    INNER JOIN 
+        Tour t ON dt.Tour_id = t.Tour_id
+    INNER JOIN
+        ThanhToan tt ON dt.DatTour_id = tt.DatTour_id  
+END
+GO
+
+-- EXEC ShowDatTour;
+
 
 
 -----------------------------------Vương-------------------------------------

@@ -1,7 +1,7 @@
 ﻿@using QuanLy_TourDuLich.Areas.Admin.Models;
 @model List<QuanLyDatTour>
 @{
-    ViewBag.Title = "HienThiDatTour";
+    ViewBag.Title = "Quản lý đặt tour";
     Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
 }
 
@@ -10,16 +10,15 @@
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th>Đặt Tour ID</th>
-            <th>Tên Khách Hàng</th>
-            <th>Tên Tour</th>
-            <th>Loại Tour</th>
-            <th>Số Người</th>
+            <th>Mã Đặt Tour</th>
+            <th>Mã Hành Khách</th>
+            <th>Tên Hành Khách</th>
             <th>Ngày Đặt</th>
-            <th>Ngày Khởi Hành</th>
-            <th>Ngày Kết Thúc</th>
+            <th>Số Người</th>
             <th>Ghi Chú</th>
+            <th>Mã Tour</th>
             <th>Tổng Tiền</th>
+            <th>
         </tr>
     </thead>
     <tbody>
@@ -27,15 +26,16 @@
         {
             <tr>
                 <td>@item.DatTour_id</td>
-                <td>@item.KhachHangName</td>
-                <td>@item.TourName</td>
-                <td>@item.LoaiTour</td>
-                <td>@item.SoNguoi</td>
-                <td>@item.NgayDat.ToString("dd/MM/yyyy")</td>
-                <td>@item.NgayKhoiHanh.ToString("dd/MM/yyyy")</td>
-                <td>@item.NgayKetThuc.ToString("dd/MM/yyyy")</td>
-                <td>@item.GhiChu</td>
-                <td>@item.TongTien.ToString("C")</td>
+                <td>@item.KhachHang_id</td> <!-- Hiển thị ID hành khách -->
+                <td>@item.TenKhach</td> <!-- Hiển thị tên khách hàng -->
+                <td>@item.NgayDat.ToString("dd/MM/yyyy")</td> <!-- Hiển thị ngày đặt -->
+                <td>@item.SoNguoi</td> <!-- Hiển thị số lượng người -->
+                <td>@item.GhiChu</td> <!-- Hiển thị ghi chú -->
+                <td>@item.Tour_id</td> <!-- Hiển thị ID của tour -->
+                <td>@item.TongTien.ToString("C")</td> <!-- Hiển thị tổng tiền dưới dạng tiền tệ -->
+                <td>
+                    @Html.ActionLink("Chi tiết", "Edit", new { id = item.DatTour_id })
+                </td>
             </tr>
         }
     </tbody>

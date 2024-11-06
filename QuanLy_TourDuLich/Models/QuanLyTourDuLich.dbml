@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QL_Tour1" Class="QuanLyTourDuLichDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=LEBAO;Initial Catalog=QL_Tour1;Integrated Security=True;Context Connection=False" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="QL_Tour1ConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QL_Tour" Class="QuanLyTourDuLichDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=LEBAO;Initial Catalog=QL_Tour;Integrated Security=True;Context Connection=False" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="QL_TourConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.DanhGia" Member="DanhGias">
     <Type Name="DanhGia">
       <Column Name="DanhGia_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -45,6 +45,7 @@
       <Column Name="NgayDat" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="Tour_id" Type="System.String" DbType="VarChar(36)" CanBeNull="true" />
       <Column Name="SoNguoi" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="DatTour_HanhKhach" Member="HanhKhaches" ThisKey="DatTour_id" OtherKey="DatTour_id" Type="HanhKhach" />
       <Association Name="DatTour_HuyTour" Member="HuyTours" ThisKey="DatTour_id" OtherKey="DatTour_id" Type="HuyTour" />
       <Association Name="DatTour_ThanhToan" Member="ThanhToans" ThisKey="DatTour_id" OtherKey="DatTour_id" Type="ThanhToan" />
       <Association Name="Tour_DatTour" Member="Tour" ThisKey="Tour_id" OtherKey="Tour_id" Type="Tour" IsForeignKey="true" />
@@ -57,7 +58,9 @@
       <Column Name="HoTen" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
       <Column Name="NgaySinh" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="GioiTinh" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="DatTour_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Tour_id" Type="System.String" DbType="VarChar(36)" CanBeNull="true" />
+      <Association Name="DatTour_HanhKhach" Member="DatTour" ThisKey="DatTour_id" OtherKey="DatTour_id" Type="DatTour" IsForeignKey="true" />
       <Association Name="Tour_HanhKhach" Member="Tour" ThisKey="Tour_id" OtherKey="Tour_id" Type="Tour" IsForeignKey="true" />
     </Type>
   </Table>
