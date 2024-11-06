@@ -280,7 +280,7 @@ BEGIN
         DT.DatTour_id = @DatTour_id;  
 END;
 
-
+go
 --EXEC GetTourDetailsByDatTourId 4;
  --drop proc GetTourDetailsByDatTourId
 
