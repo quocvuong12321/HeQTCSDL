@@ -102,9 +102,10 @@
     <Content Include="img\destination-2.jpg" />
     <Content Include="img\destination-3.jpg" />
     <Content Include="img\destination-4.jpg" />
-    <Content Include="img\package-1.jpg" />
+    <Content Include="img\favicon.png" />
     <Content Include="img\package-2.jpg" />
     <Content Include="img\package-3.jpg" />
+    <Content Include="js\bootstrap.bundle.min.js" />
     <Content Include="js\main.js" />
     <Content Include="lib\animate\animate.css" />
     <Content Include="lib\animate\animate.min.css" />
@@ -1110,8 +1111,9 @@
     <Compile Include="Areas\Admin\Controllers\TourController.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyHanhKhachDatTour.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyDatTour.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\DatTourController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TourController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1135,6 +1137,7 @@
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Tour\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Tour\ThemMoiTour.cshtml" />
+    <Content Include="Areas\Admin\Views\DatTour\HienThiDatTour.cshtml" />
     <Content Include="Models\QuanLyTourDuLich.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>QuanLyTourDuLich.designer.cs</LastGenOutput>
@@ -1142,6 +1145,13 @@
     </Content>
     <Content Include="Areas\Admin\Views\DatTour\HienThiDatTour.cshtml" />
     <Content Include="Areas\Admin\Views\DatTour\HienThiChiTietDatTour.cshtml" />
+    <Content Include="Areas\Admin\Views\Tour\ThemMoiTour.cshtml" />
+    <Content Include="Areas\Admin\Views\Tour\ThemHinhAnhTour.cshtml" />
+    <Content Include="Areas\Admin\Views\Tour\ChiTietTour.cshtml" />
+    <Content Include="Areas\Admin\Views\Tour\dsAnh.cshtml" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Tour\GioiThieu.cshtml" />
     <None Include="Models\QuanLyTourDuLich.dbml.layout">
       <DependentUpon>QuanLyTourDuLich.dbml</DependentUpon>
     </None>
@@ -1163,8 +1173,13 @@
     <Content Include="plugin\ckeditor\skins\moono-lisa\readme.md" />
     <Content Include="plugin\ckfinder\plugins\fileeditor\codemirror\LICENSE" />
     <Content Include="plugin\ckfinder\userfiles\.htaccess" />
-    <Content Include="Views\Tour\DatTour.cshtml" />
-    <Content Include="Views\Tour\ThanhToan.cshtml" />
+    <Content Include="Views\DatTour\DatTour.cshtml" />
+    <Content Include="Views\DatTour\ThanhToan.cshtml" />
+    <Content Include="Views\Tour\HienThiTour.cshtml" />
+    <Content Include="Views\Tour\AnhChoCard.cshtml" />
+    <Content Include="Views\Tour\ChiTietTour.cshtml" />
+    <Content Include="Views\Tour\TimKiemNangCao.cshtml" />
+    <Content Include="Views\Tour\SanPhamLienQuan.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1175,7 +1190,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Views\QuanLyDat_HuyTour\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

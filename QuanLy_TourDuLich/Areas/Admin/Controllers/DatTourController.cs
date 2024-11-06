@@ -12,6 +12,8 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
 {
     public class DatTourController : Controller
     {
+        // GET: Admin/DatTour
+
         QuanLyTourDuLichDataContext db = new QuanLyTourDuLichDataContext();
 
         public ActionResult HienThiDatTour()
@@ -83,8 +85,8 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
                             ViewBag.NgayKhoiHanh = ((DateTime)reader["NgayKhoiHanh"]).ToString("dd/MM/yyyy");
                             ViewBag.NgayKetThuc = ((DateTime)reader["NgayKetThuc"]).ToString("dd/MM/yyyy");
                         }
-                    }
-                }
+    }
+}
 
                 // Lấy thông tin hành khách từ thủ tục ShowHanhKhachDatTour
                 using (var command = new SqlCommand("EXEC ShowHanhKhachDatTour @DatTour_id", connection))

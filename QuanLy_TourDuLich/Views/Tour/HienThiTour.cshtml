@@ -1,0 +1,38 @@
+﻿@model IEnumerable<QuanLy_TourDuLich.Models.Tour>
+
+@{
+    ViewBag.Title = "HienThiTour";
+}
+
+@helper Truncate(string text, int lengh)
+{
+    if (text.Length <= lengh)
+    {
+        @text
+    }
+    else
+    {
+        @text.Substring(0, lengh)<text></text>
+    }
+}
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="card col-md-4 m-3" style="width: 20rem; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.23);">
+                @Html.Action("AnhChoCard", "Tour", new { id = item.Tour_id })
+                <div class="card-body ">
+                    <a href="~/Tour/ChiTietTour/@item.Tour_id" class="nav-link" style="font-size:20px;"><b>@Truncate(item.Name, 50)</b></a>
+                    <hr />
+                    <div style="">
+                        <p class="">Khởi hành: @String.Format("{0:dd/MM/yyyy}", item.NgayKhoiHanh)</p>
+                        <p class="">Số chỗ còn nhận: @item.SoLuongCon</p>
+                        <p class="">Xuất phát từ @item.TinhThanh1.Name</p>
+                        <p class="text-danger" style="text-align:right;">@string.Format("{0:0,00} đ",item.Gia)</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

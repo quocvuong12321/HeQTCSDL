@@ -9,8 +9,10 @@ namespace QuanLy_TourDuLich.Controllers
 {
     public class DatTourController : Controller
     {
-        // GET: Tour
+
+        // GET: DatTour
         QuanLyTourDuLichDataContext db = new QuanLyTourDuLichDataContext();
+
         public ActionResult DatTour(string tour_id)
         {
             // Lấy thông tin tour từ cơ sở dữ liệu theo tour_id

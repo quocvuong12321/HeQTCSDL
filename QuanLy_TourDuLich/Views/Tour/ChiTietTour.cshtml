@@ -1,0 +1,92 @@
+﻿@using QuanLy_TourDuLich.Models;
+@model Tour
+@{
+    ViewBag.Title = "ChiTietTour";
+    List<Image_Tour> lst = ViewBag.HienThiAnh as List<Image_Tour>;
+
+}
+
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <!-- Carousel -->
+        <div class="row">
+            <div class="col-md-8">
+                <div class="container">
+                    <div id="demo" class="carousel slide" data-bs-ride="carousel">
+                        <!-- Indicators/dots -->
+                        <div class="carousel-indicators">
+                            @for (int i = 0; i < lst.Count; i++)
+                            {
+                                <button type="button" data-bs-target="#demo" data-bs-slide-to="@i" class="@(i == 0 ? "active" : "")"></button>}
+                        </div>
+                        <!-- The slideshow/carousel -->
+                        <div class="carousel-inner">
+                            @for (int i = 0; i < lst.Count; i++)
+                            {
+                                <div class="carousel-item @(i == 0 ? "active" : "")">
+                                    <img src="~/img/@lst[i].Name" alt="Image @i" class="d-block " style="width:100%;height:500px">
+                                </div>}
+                        </div>
+                        <!-- Left and right controls/icons -->
+                        <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </button>
+                    </div>
+                </div>
+
+                <strong style="font-size:36px" class="text-success text-center">@Model.Name</strong>
+                <hr style="border: 4px solid MediumSeaGreen" />
+
+
+
+                @Html.Raw(Model.MoTa)
+                @Html.Raw(Model.LichTrinh)
+
+                <a href="~/Home/Index" class="btn btn-success m-4" style="width:150px">Trở về</a>
+            </div>
+            <div class="col-md-4 ">
+                <div style="border: 2px solid grey;">
+                    <div class="p-4">
+                        <strong style="font-size:22px;" class="text-danger">@Model.Name</strong>
+                        <table class="table table-striped-columns" style="font-size:20px; ">
+                            <tr>
+                                <th>Mã tour:</th>
+                                <td>@Model.Tour_id</td>
+                            </tr>
+                            <tr>
+                                <th>Thời gian:</th>
+                                <td>@String.Format("{0:dd/MM/yyyy}", Model.NgayKhoiHanh) - @String.Format("{0:dd/MM/yyyy}", Model.NgayKetThuc)</td>
+                            </tr>
+                            <tr>
+                                <th>Loại tour</th>
+                                <td>@Model.LoaiTour</td>
+                            </tr>
+                            <tr>
+                                <th>Xuất phát:</th>
+                                <td>@Model.TinhThanh1.Name</td>
+                            </tr>
+
+                            <tr>
+                                <th>Giá:</th>
+                                <td>@String.Format("{0:0,00}", Model.Gia) đ</td>
+                            </tr>
+                        </table>
+                        <a href="/Home/DatHang/@Model.Tour_id" class="btn btn-success m-4 " style="font-size:25px;width:80%">Đặt tour</a>
+                    </div>
+                </div>
+                <br /><br />
+
+                <div class="text-center">
+                    @Html.Action("SanPhamLienQuan", "Tour", new { d = Model.TinhThanh1.Name, id = Model.Tour_id })
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
