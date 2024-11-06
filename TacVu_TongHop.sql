@@ -211,8 +211,8 @@ AS
 BEGIN
     SELECT 
         dt.DatTour_id,
-        hk.HanhKhach_id,
-        hk.HoTen AS TenKhach,
+        kh.KhachHang_id,
+        kh.Name AS TenKhach,
         dt.NgayDat,
         dt.SoNguoi,
         dt.GhiChu,
@@ -221,7 +221,7 @@ BEGIN
     FROM 
         DatTour dt
     INNER JOIN 
-        HanhKhach hk ON dt.DatTour_id = hk.DatTour_id
+        KhachHang kh ON dt.KhachHang_id = kh.KhachHang_id
     INNER JOIN 
         Tour t ON dt.Tour_id = t.Tour_id
     INNER JOIN
@@ -229,8 +229,38 @@ BEGIN
 END
 GO
 
+
 -- EXEC ShowDatTour;
 
+-- drop proc ShowDatTour
+
+
+CREATE PROCEDURE ShowDatTourDetails
+    @DatTour_id INT
+AS
+BEGIN
+    SELECT 
+        T.Tour_id,
+        T.Name AS TenTour,
+        TT.Name AS DiemXuatPhat,
+        T.NgayKhoiHanh,
+        T.NgayKetThuc,
+        HK.HanhKhach_id,
+        HK.HoTen
+    FROM 
+        Tour T
+    INNER JOIN 
+        DatTour DT ON T.Tour_id = DT.Tour_id
+    INNER JOIN 
+        TinhThanh TT ON T.DiemKhoiHanh_id = TT.TinhThanh_id
+    INNER JOIN 
+        HanhKhach HK ON HK.DatTour_id = DT.DatTour_id
+    WHERE 
+        DT.DatTour_id = @DatTour_id;
+END;
+
+EXEC ShowDatTourDetails 6;
+ --drop proc ShowDatTourDetails
 
 
 -----------------------------------Vương-------------------------------------
