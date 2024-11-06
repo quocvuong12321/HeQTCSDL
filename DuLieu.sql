@@ -30,17 +30,21 @@
 (N'Đăk Lăk'),           -- Có Buôn Đôn, du lịch sinh thái và văn hóa dân tộc
 (N'Gia Lai');           -- Nổi tiếng với Biển Hồ và các di tích văn hóa dân tộc
 
+go
 
 INSERT INTO [KhachSan] (KhachSan_id, Name, TinhThanh_id) VALUES 
 ('KS001', N'Khách Sạn 1', 1),
 ('KS002', N'Khách Sạn 2', 2),
 ('KS003', N'Khách Sạn 3', 3);
 
+go
 
 INSERT INTO [NhaHang] (NhaHang_id, Name, TinhThanh_id) VALUES 
 ('NH001', N'Nhà Hàng 1', 1),
 ('NH002', N'Nhà Hàng 2', 2),
 ('NH003', N'Nhà Hàng 3', 3);
+
+go
 
 INSERT INTO [KhachHang] ([KhachHang_id], [Name], [Email], [DienThoai], [DiaChi], [Password], [Gioitinh])
 VALUES 
@@ -49,6 +53,8 @@ VALUES
 ('KH003', N'Lê Minh C', N'leminhc@example.com', '0912345678', N'789 Đường 123, Sapa', N'password789', 1),
 ('KH004', N'Hoàng Thị D', N'hoangthid@example.com', '0908765432', N'101 Đường 456, Phú Quốc', N'password101', 0),
 ('KH005', N'Trần Minh E', N'tranmine@example.com', '0986123456', N'202 Đường 789, Thái Lan', N'password202', 1);
+
+go
 
 INSERT [dbo].[Tour] ([Tour_id], [Name], [Gia], [MoTa], [LichTrinh], [DiemKhoiHanh_id], [DiemDen_id], [KhachSan_id], [NgayKhoiHanh], [NgayKetThuc], [SoLuongCon], [LoaiTour], [TrangThai]) VALUES (N'Tour001', N'Du lịch Đà Nẵng mùa Thu - Hội An - Huế 3N2Đ từ Sài Gòn 2024', CAST(5999000.00 AS Decimal(12, 2)), N'<div class="title" style="-webkit-text-stroke-width:0px; border-bottom:1px solid rgba(0, 0, 0, 0.15); margin-bottom:10px; margin-left:0px; margin-right:0px; margin-top:0px; padding:0px 0px 10px; text-align:start"><span style="font-size:20px"><strong><span style="color:#333333"><span style="font-family:Muli,sans-serif"><span style="background-color:#ffffff">Điểm nhấn hành trình</span></span></span></strong></span></div>
 
@@ -428,13 +434,56 @@ INSERT [dbo].[Tour] ([Tour_id], [Name], [Gia], [MoTa], [LichTrinh], [DiemKhoiHan
 </ul>
 ', 2, 19, N'KS003', CAST(0x8F470B00 AS Date), CAST(0x93470B00 AS Date), 25, N'Ngoài nước', N'Mở bán')
 
+go
 
+INSERT [dbo].[Image_Tour] ([Img_id], [Name], [Tour_id]) VALUES (1, N'DL07.jpg', N'Tour001')
+GO
+INSERT [dbo].[Image_Tour] ([Img_id], [Name], [Tour_id]) VALUES (2, N'DN01.jpg', N'Tour001')
+GO
+INSERT [dbo].[Image_Tour] ([Img_id], [Name], [Tour_id]) VALUES (3, N'DN02.jpg', N'Tour001')
+GO
+INSERT [dbo].[Image_Tour] ([Img_id], [Name], [Tour_id]) VALUES (4, N'DN03.jpg', N'Tour001')
+GO
+INSERT [dbo].[Image_Tour] ([Img_id], [Name], [Tour_id]) VALUES (5, N'DN04.jpg', N'Tour001')
+GO
+INSERT [dbo].[Image_Tour] ([Img_id], [Name], [Tour_id]) VALUES (6, N'DN05.jpg', N'Tour001')
+GO
+INSERT [dbo].[Image_Tour] ([Img_id], [Name], [Tour_id]) VALUES (7, N'DN06.jpg', N'Tour001')
+GO
+INSERT [dbo].[Image_Tour] ([Img_id], [Name], [Tour_id]) VALUES (8, N'DN07.jpg', N'Tour001')
+GO
+INSERT [dbo].[Image_Tour] ([Img_id], [Name], [Tour_id]) VALUES (9, N'DN08.jpg', N'Tour001')
+GO
+INSERT [dbo].[Image_Tour] ([Img_id], [Name], [Tour_id]) VALUES (10, N'DN09.jpg', N'Tour001')
+GO
+INSERT [dbo].[Image_Tour] ([Img_id], [Name], [Tour_id]) VALUES (11, N'NT_DL1.jpg', N'Tour002')
+GO
+INSERT [dbo].[Image_Tour] ([Img_id], [Name], [Tour_id]) VALUES (12, N'NT_DL2.jpg', N'Tour002')
+GO
+INSERT [dbo].[Image_Tour] ([Img_id], [Name], [Tour_id]) VALUES (13, N'NT_DL3.jpg', N'Tour002')
+GO
+INSERT [dbo].[Image_Tour] ([Img_id], [Name], [Tour_id]) VALUES (14, N'NT_DL4.jpg', N'Tour002')
+GO
+INSERT [dbo].[Image_Tour] ([Img_id], [Name], [Tour_id]) VALUES (15, N'NT_DL5.jpg', N'Tour002')
+GO
+INSERT [dbo].[Image_Tour] ([Img_id], [Name], [Tour_id]) VALUES (16, N'NT_DL6.jpg', N'Tour002')
+GO
+INSERT [dbo].[Image_Tour] ([Img_id], [Name], [Tour_id]) VALUES (17, N'NT_DL7.jpg', N'Tour002')
+GO
+INSERT [dbo].[Image_Tour] ([Img_id], [Name], [Tour_id]) VALUES (18, N'NT_DL8.jpg', N'Tour002')
+GO
+INSERT [dbo].[Image_Tour] ([Img_id], [Name], [Tour_id]) VALUES (19, N'NT01.jpg', N'Tour002')
+
+go
+	
 INSERT INTO [DatTour] ([GhiChu], [KhachHang_id], [NgayDat], [Tour_id], [SoNguoi])
 VALUES 
 (N'Đặt tour cho gia đình', 'KH001', '2024-11-01', 'Tour001', 4),
 (N'Đặt tour cho nhóm bạn', 'KH002', '2024-11-05', 'Tour001', 3),
 (N'Đặt tour cho gia đình', 'KH004', '2024-11-15', 'Tour002', 5),
 (N'Đặt tour cho nhóm bạn', 'KH005', '2024-11-18', 'Tour001', 6);
+
+go
 
 INSERT INTO [ThanhToan] ([DatTour_id], [NgayThanhToan], [HinhThuc_id], [TongTien])
 VALUES 
@@ -444,6 +493,7 @@ VALUES
 (5, '2024-11-17', N'Chuyển khoản ngân hàng', 40000000.00),
 (6, '2024-11-20', N'Momo', 72000000.00);
 
+go
 
 INSERT INTO HanhKhach (HoTen, NgaySinh, GioiTinh, DatTour_id, Tour_id)
 VALUES 
