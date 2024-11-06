@@ -1,0 +1,36 @@
+﻿@model QuanLy_TourDuLich.Models.Tour
+
+@{
+    ViewBag.Title = "ChiTietTour";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
+}
+
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+            <h2>@Model.Name</h2>
+            <p><strong>Mã tour:</strong> @Model.Tour_id</p>
+            <p><strong>Loại tour:</strong> @Model.LoaiTour</p>
+            <p><strong>Giá:</strong> @Model.Gia</p>
+            <p><strong>Mô tả:</strong></p>
+            <p>@Html.Raw(Model.MoTa)</p>
+            <p><strong>Lịch trình:</strong></p>
+            <p>@Html.Raw(Model.LichTrinh)</p>
+            <p><strong>Điểm khởi hành:</strong> @Model.DiemKhoiHanh_id</p>
+            <p><strong>Điểm đến:</strong> @Model.DiemDen_id</p>
+            <p><strong>Ngày khởi hành:</strong> @String.Format("{0: dd/MM/yyyy}", Model.NgayKhoiHanh)</p>
+            <p><strong>Ngày kết thúc:</strong> @String.Format("{0: dd/MM/yyyy}", Model.NgayKetThuc)</p>
+            <p><strong>Số lượng còn:</strong> @Model.SoLuongCon</p>
+            <p>Danh sách ảnh</p>
+            @Html.Action("dsAnh", "Tour")
+            <p>
+                @Html.ActionLink("Trở về", "Index", null, new { @class = "btn btn-primary" })
+            </p>
+        </div>
+    </div>
+</div>
+
+
+

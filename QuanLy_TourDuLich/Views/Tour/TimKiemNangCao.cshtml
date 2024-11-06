@@ -1,0 +1,54 @@
+﻿@using QuanLy_TourDuLich.Models;
+@{
+    ViewBag.Title = "Tìm kiếm ";
+    List<TinhThanh> lst = ViewBag.lstTinhThanh as List<TinhThanh>;
+}
+
+<div class="container col-md-7 text-center ">
+    <b style="font-size:xx-large;" class="text-info">TÌM KIẾM NÂNG CAO</b>
+    <form action="~/Tour/KQTimKiem" method="get">
+        <div class="row">
+            <div class="col-md-3">
+                <label>Ngày khởi hành</label>
+                <input type="date" name="ngaykh" value="" class="form-control" style="margin:10px 0 10px 0" placeholder="Ngày khởi hành" />
+            </div>
+            <div class="col-md-3">
+                <label>Điểm đến</label>
+                <select class="form-select" name="noiden" style="margin: 10px 0 15px 0px; width: auto; min-width: 190px; padding-right: 10px;">
+                    <option selected>Chọn nơi muốn đến</option>
+                    @foreach (var item in lst)
+                    {
+                        <option value="@item.TinhThanh_id" name="noiden">@item.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label>Mức giá</label>
+                <select style="margin:10px 0 10px 0" name="mucgia" class="form-select">
+                    <option selected>Chọn giá tour</option>
+                    <option value="1">Dưới 2tr</option>
+                    <option value="2">Từ 2tr - 4tr</option>
+                    <option value="3">Từ 4tr - 6tr</option>
+                    <option value="4">Từ 6tr - 10tr</option>
+                    <option value="5">Từ 10tr - 20tr</option>
+                    <option value="6">Từ 20tr - 50tr</option>
+                    <option value="7">Trên 50tr</option>
+                </select>
+            </div>
+            <div class="col-md-3" style="">
+                <label>Loại Tour</label>
+                <div class="form-check" style="margin:10px 0 10px 0">
+                    <input class="form-check-input" type="radio" value="1" name="ltour">
+                    <label class="form-check-label">Trong nước</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" value="2" name="ltour">
+                    <label class="form-check-label">Ngoài nước</label>
+                </div>
+            </div>
+            <input style="margin:10px 0 10px 0" type="submit" class="btn btn-primary" />
+        </div>
+
+    </form>
+</div>
+

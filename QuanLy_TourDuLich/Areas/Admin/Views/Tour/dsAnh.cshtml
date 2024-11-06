@@ -1,0 +1,10 @@
+﻿@model List<QuanLy_TourDuLich.Models.Image_Tour>
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <li style="list-style:none">
+            <img src="~/img/@item.Name" />
+        </li>
+    }
+</ul>

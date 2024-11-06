@@ -9,8 +9,13 @@
     <meta content="" name="keywords">
     <meta content="" name="description">
 
+    <link href="~/img/favicon.png" rel="icon">
+
+    @*--font--*@
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <!-- Favicon -->
-    <link href="~/img/favicon.ico" rel="icon">
     <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
     <!-- Libraries Stylesheet -->
     <link href="~/lib/animate/animate.min.css" rel="stylesheet">
@@ -36,9 +41,9 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0">
-                        <a href="@Url.Action("Index", "Home")" class="nav-item nav-link active">Trang chủ</a>
-                        <a href="#" class="nav-item nav-link">Tours</a>
-                        <a href="#" class="nav-item nav-link">Giới thiệu</a>
+                        <a href="@Url.Action("HienThiTour", "Tour")" class="nav-item nav-link">Trang chủ</a>
+                        <a href="~/Tour/TimKiemNangCao" class="nav-item nav-link">Tours</a>
+                        <a href="~/Tour/GioiThieu" class="nav-item nav-link">Giới thiệu</a>
                         <a href="#" class="nav-item nav-link">Đăng nhập</a>
                         <a href="#" class="nav-item nav-link">Đăng ký</a>
                     </div>
@@ -51,8 +56,10 @@
                         <div class="col-lg-10 pt-lg-5 mt-lg-5 text-center">
                             <h1 class="display-4 text-white mb-3 animated slideInDown">ENJOY YOUR VACATION WITH US</h1>
                             <div class="position-relative w-75 mx-auto animated slideInDown">
-                                <input class="form-control border-0 rounded-pill w-100 py-3 ps-4 pe-5" type="text" placeholder="Eg: Thailand">
-                                <button type="button" class="btn btn-primary rounded-pill py-2 px-4 position-absolute top-0 end-0 me-2" style="margin-top: 7px;">Search</button>
+                                <form action="~/Tour/TimKiem" method="get">
+                                    <input class="form-control border-0 rounded-pill w-100 py-3 ps-4 pe-5" name="search" type="text" placeholder="Eg: Thailand">
+                                    <button type="submit" class="btn btn-primary rounded-pill py-2 px-4 position-absolute top-0 end-0 me-2" style="margin-top: 7px;">Search</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -157,6 +164,7 @@
 
     <!-- Template Javascript -->
     <script src="~/js/main.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

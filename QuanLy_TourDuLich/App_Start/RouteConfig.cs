@@ -17,9 +17,10 @@ namespace QuanLy_TourDuLich
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
-                namespaces: new[] { "QuanLy_TourDuLich.Controllers" }
 
-            );
+            namespaces: new[] { "QuanLy_TourDuLich.Controllers" }
+
+            ) ;
         }
     }
 }
