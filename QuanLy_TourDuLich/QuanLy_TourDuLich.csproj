@@ -1106,10 +1106,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DatTourController.cs" />
     <Compile Include="Areas\Admin\Controllers\TourController.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyHanhKhachDatTour.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyDatTour.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\TourController.cs" />
+    <Compile Include="Controllers\DatTourController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1133,12 +1135,13 @@
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Tour\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Tour\ThemMoiTour.cshtml" />
-    <Content Include="Areas\Admin\Views\Tour\HienThiDatTour.cshtml" />
     <Content Include="Models\QuanLyTourDuLich.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>QuanLyTourDuLich.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Areas\Admin\Views\DatTour\HienThiDatTour.cshtml" />
+    <Content Include="Areas\Admin\Views\DatTour\HienThiChiTietDatTour.cshtml" />
     <None Include="Models\QuanLyTourDuLich.dbml.layout">
       <DependentUpon>QuanLyTourDuLich.dbml</DependentUpon>
     </None>
@@ -1172,6 +1175,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Views\QuanLyDat_HuyTour\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

@@ -1,0 +1,110 @@
+﻿@{
+    ViewBag.Title = "HienThiChiTietDatTour";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
+}
+
+<style>
+    /* Định dạng tổng thể cho phần hiển thị thông tin tour */
+    .tour-info {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+    }
+
+    /* Định dạng cho mỗi item thông tin trong tour */
+    .tour-info-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+    }
+
+        /* Định dạng cho các label (tên thông tin) */
+        .tour-info-item strong {
+            font-size: 16px;
+            color: #333;
+        }
+
+        /* Định dạng cho giá trị thông tin */
+        .tour-info-item span {
+            font-size: 16px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        /* Tạo hiệu ứng hover cho từng mục */
+        .tour-info-item:hover {
+            background-color: #f1f1f1;
+            cursor: pointer;
+        }
+
+    /* Định dạng cho tiêu đề */
+    .b-tour-title {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+
+    /* Định dạng cho các thẻ h2 hoặc các tiêu đề con */
+    h2 {
+        font-size: 28px;
+        font-weight: 600;
+        margin-top: 30px;
+        color: #333;
+    }
+</style>
+
+
+<!-- Hiển thị thông tin mã tour và tên tour -->
+<div class="tour-info">
+    <h2 class="b-tour-title">Chi tiết Tour</h2>
+
+    <!-- Hiển thị thông tin mã tour và tên tour -->
+    <div class="tour-info-item">
+        <strong>Mã Tour: </strong><span>@ViewBag.TourId</span>
+    </div>
+    <div class="tour-info-item">
+        <strong>Tên Tour: </strong><span>@ViewBag.TenTour</span>
+    </div>
+    <div class="tour-info-item">
+        <strong>Điểm Khởi Hành: </strong><span>@ViewBag.DiemKhoiHanh</span>
+    </div>
+    <div class="tour-info-item">
+        <strong>Điểm Đến: </strong><span>@ViewBag.DiemDen</span>
+    </div>
+    <div class="tour-info-item">
+        <strong>Ngày Khởi Hành: </strong><span>@ViewBag.NgayKhoiHanh</span>
+    </div>
+    <div class="tour-info-item">
+        <strong>Ngày Kết Thúc: </strong><span>@ViewBag.NgayKetThuc</span>
+    </div>
+</div>
+
+<b style="font-size:45px; color:black">Danh Sách Hành Khách</b>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Mã Hành Khách</th>
+            <th>Họ Tên</th>
+            <th>Ngày Sinh</th>
+            <th>Giới Tính</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.HanhKhachId</td>
+                <td>@item.HoTen</td>
+                <td>@item.NgaySinh.ToString("dd/MM/yyyy")</td>
+                <td>@(item.GioiTinh ? "Nữ" : "Nam")</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -34,9 +34,10 @@
                 <td>@item.Tour_id</td> <!-- Hiển thị ID của tour -->
                 <td>@item.TongTien.ToString("C")</td> <!-- Hiển thị tổng tiền dưới dạng tiền tệ -->
                 <td>
-                    @Html.ActionLink("Chi tiết", "Edit", new { id = item.DatTour_id })
+                    @Html.ActionLink("Chi tiết", "HienThiChiTietDatTour", new { DatTour_id = item.DatTour_id })
                 </td>
             </tr>
         }
     </tbody>
 </table>
+    

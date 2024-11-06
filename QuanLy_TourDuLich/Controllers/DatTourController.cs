@@ -7,7 +7,7 @@ using QuanLy_TourDuLich.Models;
 
 namespace QuanLy_TourDuLich.Controllers
 {
-    public class TourController : Controller
+    public class DatTourController : Controller
     {
         // GET: Tour
         QuanLyTourDuLichDataContext db = new QuanLyTourDuLichDataContext();

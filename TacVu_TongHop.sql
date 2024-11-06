@@ -235,33 +235,54 @@ GO
 -- drop proc ShowDatTour
 
 
-CREATE PROCEDURE ShowDatTourDetails
+CREATE PROCEDURE ShowHanhKhachDatTour
     @DatTour_id INT
 AS
 BEGIN
     SELECT 
-        T.Tour_id,
-        T.Name AS TenTour,
-        TT.Name AS DiemXuatPhat,
-        T.NgayKhoiHanh,
-        T.NgayKetThuc,
-        HK.HanhKhach_id,
-        HK.HoTen
+        HK.HanhKhach_id,  
+        HK.HoTen,
+		HK.NgaySinh,        
+        HK.GioiTinh
     FROM 
-        Tour T
+        DatTour DT
     INNER JOIN 
-        DatTour DT ON T.Tour_id = DT.Tour_id
-    INNER JOIN 
-        TinhThanh TT ON T.DiemKhoiHanh_id = TT.TinhThanh_id
-    INNER JOIN 
-        HanhKhach HK ON HK.DatTour_id = DT.DatTour_id
+        HanhKhach HK ON DT.DatTour_id = HK.DatTour_id
     WHERE 
-        DT.DatTour_id = @DatTour_id;
+        DT.DatTour_id = @DatTour_id;  
 END;
+go
 
-EXEC ShowDatTourDetails 6;
+--EXEC ShowHanhKhachDatTour 4;
  --drop proc ShowDatTourDetails
 
+
+CREATE PROCEDURE GetTourDetailsByDatTourId
+    @DatTour_id INT
+AS
+BEGIN
+    SELECT 
+        T.Tour_id,              
+        T.Name AS TenTour,     
+        TK.Name AS DiemKhoiHanh,    -- Lấy tên điểm khởi hành từ bảng TinhThanh
+        DN.Name AS DiemDen,         -- Lấy tên điểm đến từ bảng TinhThanh
+        T.NgayKhoiHanh,      
+        T.NgayKetThuc        
+    FROM 
+        DatTour DT
+    INNER JOIN 
+        Tour T ON DT.Tour_id = T.Tour_id
+    INNER JOIN 
+        TinhThanh TK ON T.DiemKhoiHanh_id = TK.TinhThanh_id  -- Kết nối với bảng TinhThanh cho điểm khởi hành
+    INNER JOIN 
+        TinhThanh DN ON T.DiemDen_id = DN.TinhThanh_id        -- Kết nối với bảng TinhThanh cho điểm đến
+    WHERE 
+        DT.DatTour_id = @DatTour_id;  
+END;
+
+
+--EXEC GetTourDetailsByDatTourId 4;
+ --drop proc GetTourDetailsByDatTourId
 
 -----------------------------------Vương-------------------------------------
 --Trigger cập nhật số lượng còn của 1 tour khi thêm 1 đặt tour mới
