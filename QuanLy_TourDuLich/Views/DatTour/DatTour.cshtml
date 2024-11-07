@@ -10,14 +10,27 @@
         <div class="col-md-6">
             <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white text-center">
-                    <h4>Đặt Tour: @Model.Name</h4>
+                    <h4>Đặt Tour</h4>
                 </div>
                 <div class="card-body">
                     <form method="post" action="/dat-tour">
-                        <!-- Mã Khách Hàng -->
+
+                        <!-- Tên Khách Hàng -->
                         <div class="form-group mb-3">
                             <label for="KhachHang_id" class="form-label">Tên Khách Hàng</label>
-                            <input type="text" class="form-control" id="KhachHang_id" name="KhachHang_id" placeholder="Nhập mã khách hàng" required />
+                            <input type="text" class="form-control" id="KhachHang_id" name="KhachHang_id" placeholder="Nhập tên khách hàng" required />
+                        </div>
+
+                        <!-- Số điện thoại khách hàng -->
+                        <div class="form-group mb-3">
+                            <label for="SdtKhachHang" class="form-label">Số Điện Thoại</label>
+                            <input type="tel" class="form-control" id="SdtKhachHang" name="SdtKhachHang" placeholder="Nhập số điện thoại" required />
+                        </div>
+
+                        <!-- Email khách hàng -->
+                        <div class="form-group mb-3">
+                            <label for="EmailKhachHang" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="EmailKhachHang" name="EmailKhachHang" placeholder="Nhập email" required />
                         </div>
 
                         <!-- Hiển thị tên tour -->
@@ -44,14 +57,20 @@
                             </div>
                         </div>
 
-
                         <!-- Số Người -->
                         <div class="form-group mb-3">
-                            <label for="SoNguoi" class="form-label">Số Người</label>
-                            <input type="number" class="form-control" id="SoNguoi" name="SoNguoi" min="1" value="1" placeholder="Nhập số người tham gia" required />
+                            <label class="form-label">Số Người</label>
+                            <div class="input-group mt-2 justify-content-center align-items-center">
+                                <button type="button" class="btn btn-outline-secondary" onclick="decreaseValue()">-</button>
+                                <input type="number" class="form-control text-center mx-2" id="SoNguoi" name="SoNguoi" min="1" value="1" readonly style="width: 60px;" />
+                                <button type="button" class="btn btn-outline-secondary" onclick="increaseValue()">+</button>
+                            </div>
                         </div>
 
-                        <!-- Trạng Thái  -->
+                        <!-- Thông Tin Khách Hàng Dòng Đặc Biệt -->
+                        <div id="customerInfoContainer"></div>
+
+                        <!-- Trạng Thái -->
                         <div class="form-group mb-3">
                             <label class="form-label">Trạng Thái</label>
                             <div class="border rounded p-2 bg-light">
@@ -59,6 +78,16 @@
                             </div>
                         </div>
 
+                        <!-- Hình Thức Thanh Toán -->
+                        <div class="form-group mb-3">
+                            <label for="HinhThuc" class="form-label">Hình Thức Thanh Toán</label>
+                            <select class="form-control" id="HinhThuc" name="HinhThuc" required>
+                                <option value="">Chọn hình thức thanh toán</option>
+                                <option value="Thẻ ATM">Thẻ ATM</option>
+                                <option value="Chuyển khoản ngân hàng">Chuyển khoản ngân hàng</option>
+                                <option value="Momo">Momo</option>
+                            </select>
+                        </div>
 
                         <!-- Ghi Chú -->
                         <div class="form-group mb-3">
@@ -66,9 +95,16 @@
                             <textarea class="form-control" id="GhiChu" name="GhiChu" rows="3" placeholder="Nhập ghi chú nếu có"></textarea>
                         </div>
 
+                        <!-- Tổng Tiền -->
+                        <div class="form-group mb-3 text-end">
+                            <label class="form-label">Tổng Tiền:</label>
+                            <span class="text-danger" style="font-size: 1.5rem; font-weight: bold;" id="TongTienText">: @ViewBag.GiaTien</span>
+                        </div>
+
+
                         <!-- Submit Button -->
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary w-100">Tiếp tục</button>
+                            <button type="submit" class="btn btn-primary w-100">Đặt tour</button>
                         </div>
                     </form>
                 </div>
@@ -77,3 +113,68 @@
     </div>
 </div>
 
+<script>
+    // Tăng số người lên
+    function increaseValue() {
+        let input = document.getElementById("SoNguoi");
+        let numberOfPeople = parseInt(input.value) + 1;
+        input.value = numberOfPeople;
+        updateTotalPrice(numberOfPeople);
+        renderCustomerInfo(numberOfPeople);
+    }
+
+    // Giảm số người xuống
+    function decreaseValue() {
+        let input = document.getElementById("SoNguoi");
+        let numberOfPeople = parseInt(input.value);
+        if (numberOfPeople > 1) {
+            input.value = numberOfPeople - 1;
+            updateTotalPrice(numberOfPeople - 1);
+            renderCustomerInfo(numberOfPeople - 1);
+        }
+    }
+
+    // Cập nhật tổng tiền
+    function updateTotalPrice(numberOfPeople) {
+        let pricePerPerson = parseFloat('@ViewBag.GiaTien');
+        let totalPrice = pricePerPerson * numberOfPeople;
+        document.getElementById("TongTienText").textContent = " " + totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+    }
+
+
+    // Thêm các thông tin khách hàng tương ứng với số người
+    function renderCustomerInfo(numberOfPeople) {
+        const customerInfoContainer = document.getElementById("customerInfoContainer");
+        customerInfoContainer.innerHTML = ''; // Xóa các thông tin khách hàng cũ trước khi thêm mới
+
+        for (let i = 0; i < numberOfPeople; i++) {
+            const customerInfoDiv = document.createElement('div');
+            customerInfoDiv.classList.add('form-group', 'mb-3');
+
+            // Tạo phần thông tin khách hàng với tên, ngày sinh và giới tính
+            customerInfoDiv.innerHTML = `
+            <label class="form-label">Thông Tin Hành Khách ${i + 1}</label>
+            <div class="d-flex">
+                <input type="text" class="form-control me-2" id="HoTen${i + 1}" name="HoTen${i + 1}" placeholder="Họ Tên" required />
+                <input type="date" class="form-control me-2" id="NgaySinh${i + 1}" name="NgaySinh${i + 1}" required />
+                <select class="form-control" id="GioiTinh${i + 1}" name="GioiTinh${i + 1}" required>
+                    <option value="">Giới Tính</option>
+                    <option value="Nam">Nam</option>
+                    <option value="Nữ">Nữ</option>
+                    <option value="Khác">Khác</option>
+                </select>
+            </div>
+        `;
+
+            // Thêm thông tin khách hàng vào container
+            customerInfoContainer.appendChild(customerInfoDiv);
+        }
+    }
+
+
+    // Gọi hàm để hiển thị 1 dòng khách hàng khi trang được tải
+    window.onload = function () {
+        updateTotalPrice(1);  // Hiển thị tổng tiền khi trang tải
+        renderCustomerInfo(1); // Hiển thị thông tin khách hàng ban đầu
+    }
+</script>

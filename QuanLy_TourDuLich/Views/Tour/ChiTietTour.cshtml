@@ -76,7 +76,7 @@
                                 <td>@String.Format("{0:0,00}", Model.Gia) đ</td>
                             </tr>
                         </table>
-                        <a href="/Home/DatHang/@Model.Tour_id" class="btn btn-success m-4 " style="font-size:25px;width:80%">Đặt tour</a>
+                        <a href="@Url.Action("DatTour", "DatTour", new { @tour_id = @Model.Tour_id })" class="btn btn-success m-4 " style="font-size:25px;width:80%">Đặt tour</a>
                     </div>
                 </div>
                 <br /><br />
