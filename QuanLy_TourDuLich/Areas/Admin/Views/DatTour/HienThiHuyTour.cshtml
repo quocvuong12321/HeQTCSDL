@@ -1,0 +1,39 @@
+﻿@using QuanLy_TourDuLich.Areas.Admin.Models;
+@model List<QuanLyHuyTour>
+@{ ViewBag.Title = "HienThiHuyTour";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml"; }
+
+<b style="font-size:45px; color:black">Quản lý hủy tour</b>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Mã Hủy Tour</th>
+            <th>Mã Đặt Tour</th>
+            <th>Ngày Hủy</th>
+            <th>Lý Do</th>
+            <th>Mã Tour</th>
+            <th>Tên Tour</th>
+            <th>Mã Nhân Viên</th>
+            <th>Mã Hành Khách</th>
+            <th>Tên Khách Hàng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+<tr>
+    <td>@item.HuyTour_id</td>
+    <td>@item.DatTour_id</td> <!-- Hiển thị mã đặt tour -->
+    <td>@item.NgayHuy.ToString("dd/MM/yyyy")</td> <!-- Hiển thị ngày hủy -->
+    <td>@item.LyDo</td> <!-- Hiển thị lý do hủy -->
+    <td>@item.Tour_id</td> <!-- Hiển thị mã tour -->
+    <td>@item.TenTour</td> <!-- Hiển thị tên tour -->
+    <td>@item.NhanVien_id</td> <!-- Hiển thị mã nhân viên -->
+    <td>@item.KhachHang_id</td> <!-- Hiển thị mã hành khách -->
+    <td>@item.TenKhach</td> <!-- Hiển thị tên hành khách -->
+</tr>
+}
+    </tbody>
+</table>
+

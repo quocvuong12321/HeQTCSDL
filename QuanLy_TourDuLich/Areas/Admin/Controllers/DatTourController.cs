@@ -116,5 +116,43 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
         }
 
 
+        public ActionResult HienThiHuyTour()
+        {
+            var listHuyTour = new List<QuanLyHuyTour>(); // Khởi tạo danh sách để chứa dữ liệu
+
+            using (var connection = new SqlConnection(db.Connection.ConnectionString))
+            {
+                connection.Open();
+
+                // Gọi thủ tục ShowHuyTour
+                using (var command = new SqlCommand("EXEC ShowHuyTour", connection))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var item = new QuanLyHuyTour
+                            {
+                                HuyTour_id = reader["HuyTour_id"] != DBNull.Value ? (int)reader["HuyTour_id"] : 0,
+                                DatTour_id = reader["DatTour_id"] != DBNull.Value ? (int)reader["DatTour_id"] : 0,
+                                NgayHuy = reader["NgayHuy"] != DBNull.Value ? (DateTime)reader["NgayHuy"] : default(DateTime),
+                                LyDo = reader["LyDo"] != DBNull.Value ? reader["LyDo"].ToString() : string.Empty,
+                                Tour_id = reader["Tour_id"] != DBNull.Value ? reader["Tour_id"].ToString() : string.Empty,
+                                TenTour = reader["TenTour"] != DBNull.Value ? reader["TenTour"].ToString() : string.Empty,
+                                NhanVien_id = reader["NhanVien_id"] != DBNull.Value ? reader["NhanVien_id"].ToString() : string.Empty,
+                                KhachHang_id = reader["KhachHang_id"] != DBNull.Value ? reader["KhachHang_id"].ToString() : string.Empty,
+                                TenKhach = reader["TenKhach"] != DBNull.Value ? reader["TenKhach"].ToString() : string.Empty
+                            };
+
+                            listHuyTour.Add(item); // Thêm đối tượng vào danh sách
+                        }
+                    }
+                }
+            }
+
+            return View(listHuyTour); // Trả về danh sách cho view
+        }
+
+
     }
 }

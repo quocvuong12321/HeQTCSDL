@@ -1111,6 +1111,7 @@
     <Compile Include="Areas\Admin\Controllers\TourController.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyHanhKhachDatTour.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyDatTour.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyHuyTour.cs" />
     <Compile Include="Controllers\DatTourController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TourController.cs" />
@@ -1138,11 +1139,6 @@
     <Content Include="Areas\Admin\Views\Tour\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Tour\ThemMoiTour.cshtml" />
     <Content Include="Areas\Admin\Views\DatTour\HienThiDatTour.cshtml" />
-    <Content Include="Models\QuanLyTourDuLich.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>QuanLyTourDuLich.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Areas\Admin\Views\DatTour\HienThiDatTour.cshtml" />
     <Content Include="Areas\Admin\Views\DatTour\HienThiChiTietDatTour.cshtml" />
     <Content Include="Areas\Admin\Views\Tour\ThemMoiTour.cshtml" />
@@ -1152,6 +1148,12 @@
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Tour\GioiThieu.cshtml" />
+    <Content Include="Areas\Admin\Views\DatTour\HienThiHuyTour.cshtml" />
+    <Content Include="Models\QuanLyTourDuLich.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>QuanLyTourDuLich.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Models\QuanLyTourDuLich.dbml.layout">
       <DependentUpon>QuanLyTourDuLich.dbml</DependentUpon>
     </None>

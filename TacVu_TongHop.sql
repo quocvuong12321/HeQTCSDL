@@ -284,6 +284,36 @@ go
 --EXEC GetTourDetailsByDatTourId 4;
  --drop proc GetTourDetailsByDatTourId
 
+ CREATE PROCEDURE showHuyTour
+AS
+BEGIN
+    SELECT 
+        HT.HuyTour_id,
+        HT.DatTour_id,
+        HT.NgayHuy,
+        HT.LyDo,
+        T.Tour_id,
+        T.Name AS TenTour,
+        PC.NhanVien_id,
+        KH.KhachHang_id,
+        KH.Name AS TenKhach
+    FROM 
+        HuyTour HT
+    INNER JOIN 
+        DatTour DT ON HT.DatTour_id = DT.DatTour_id
+    INNER JOIN 
+        Tour T ON DT.Tour_id = T.Tour_id
+    LEFT JOIN 
+        PhanCong_NhanVien PC ON T.Tour_id = PC.Tour_id
+    INNER JOIN 
+        KhachHang KH ON DT.KhachHang_id = KH.KhachHang_id
+END;
+
+
+
+--EXEC showHuyTour;
+ --drop proc showHuyTour
+
 -----------------------------------Vương-------------------------------------
 --Trigger cập nhật số lượng còn của 1 tour khi thêm 1 đặt tour mới
 --Khi thêm bản ghi mới vào bảng DatTour, tự động giảm SoLuongCon trong bảng Tour.
