@@ -1108,6 +1108,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\DatTourController.cs" />
+    <Compile Include="Areas\Admin\Controllers\NhanVienController.cs" />
     <Compile Include="Areas\Admin\Controllers\TourController.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyHanhKhachDatTour.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyDatTour.cs" />
@@ -1154,6 +1155,11 @@
       <LastGenOutput>QuanLyTourDuLich.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Areas\Admin\Views\NhanVien\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\NhanVien\ChinhSuaNhanVien.cshtml" />
+    <Content Include="Areas\Admin\Views\NhanVien\ChiTietNhanVien.cshtml" />
+    <Content Include="Areas\Admin\Views\NhanVien\ThemMoiNhanVien.cshtml" />
+    <Content Include="Areas\Admin\Views\NhanVien\XoaNhanVien.cshtml" />
     <None Include="Models\QuanLyTourDuLich.dbml.layout">
       <DependentUpon>QuanLyTourDuLich.dbml</DependentUpon>
     </None>
