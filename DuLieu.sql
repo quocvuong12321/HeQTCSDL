@@ -516,4 +516,17 @@ VALUES
     (N'Đặng Thị Hồng', '1990-10-05', 0, 4, 'Tour002'),
     (N'Lương Văn Hùng', '1986-04-12', 1, 4, 'Tour002'),
     (N'Hoàng Ngọc Yến', '1994-09-30', 0, 4, 'Tour002');
+go
+
+INSERT INTO [NhanVien] ([NhanVien_id], [HoTen], [Email], [DiaChi], [DienThoai], [GioiTinh], [Password], [VaiTro])
+VALUES 
+('NV001', N'Lê Nhựt Hùng', 'hung.le@example.com', N'123 Đường ABC, Hà Nội', '0123456789', 1, 'password1', N'Quản lý'),
+('NV002', N'Hoàng Văn Dũng', 'dung.hoang@example.com', N'321 Đường JKL, Hà Nội', '0934567890', 1, 'password4', N'Hướng dẫn viên'),
+('NV003', N'Lê Thị Mai', 'mai.le@example.com', N'654 Đường MNO, Đà Nẵng', '0976543210', 0, 'password5', N'Nhân viên');
+go
+
+INSERT INTO [PhanCong_NhanVien] ([Tour_id], [NhanVien_id])
+VALUES 
+('Tour001', 'NV002'),
+('Tour002', 'NV002')
 
