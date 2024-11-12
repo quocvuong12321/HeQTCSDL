@@ -1,0 +1,63 @@
+﻿@model IEnumerable<QuanLy_TourDuLich.Models.NhanVien>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
+}
+<b style="font-size:45px; color:black">Quản lý Nhân Viên</b>
+
+<p>
+    @Html.ActionLink("Thêm Nhân Viên", "ThemMoiNhanVien", null, new { @class = "btn btn-primary", @style = "font: bold; color:white; border-radius: 5px; font-weight: bold" })
+</p>
+<table class="table table-bordered">
+    <tr>
+        <th>
+            <label>Mã Nhân Viên</label>
+        </th>
+        <th>
+            <label>Họ Tên</label>
+        </th>
+        <th>
+            <label>Email</label>
+        </th>
+        <th>
+            <label>Địa Chỉ</label>
+        </th>
+        <th>
+            <label>Điện Thoại</label>
+        </th>
+        <th>
+            <label>Giới Tính</label>
+        </th>
+        <th>
+            <label>Vai Trò</label>
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.NhanVien_id)</td>
+            <td>@Html.DisplayFor(modelItem => item.HoTen)</td>
+            <td>@Html.DisplayFor(modelItem => item.Email)</td>
+            <td>@Html.DisplayFor(modelItem => item.DiaChi)</td>
+            <td>@Html.DisplayFor(modelItem => item.DienThoai)</td>
+            <td>@(Convert.ToBoolean(item.GioiTinh) ? "Nam" : "Nữ")</td>
+            <td>@Html.DisplayFor(modelItem => item.VaiTro)</td>
+            <td>
+                <a href="~/Admin/NhanVien/ChinhSuaNhanVien/@item.NhanVien_id">Sửa</a> |
+                <a href="~/Admin/NhanVien/ChiTietNhanVien/@item.NhanVien_id">Chi tiết</a> |
+                <a onclick="xoa('@item.NhanVien_id')" href="#">Xóa</a>
+            </td>
+        </tr>
+    }
+</table>
+
+<script>
+    var xoa = function (id) {
+        if (confirm("Bạn có chắc chắn muốn xóa không?")) {
+            location.href = "XoaNhanVien/" + id;
+        }
+    }
+</script>
