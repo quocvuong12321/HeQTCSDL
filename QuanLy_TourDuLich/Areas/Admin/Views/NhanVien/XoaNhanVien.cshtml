@@ -1,8 +1,80 @@
-﻿
+﻿@model QuanLy_TourDuLich.Models.NhanVien
+
 @{
-    ViewBag.Title = "XoaNhanVien";
+    ViewBag.Title = "Xóa Nhân Viên";
     Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
 }
 
-<h2>XoaNhanVien</h2>
+<h2>Xóa Nhân Viên</h2>
 
+<h3>Bạn có chắc chắn muốn xóa nhân viên này?</h3>
+<div>
+    <h4>Nhân Viên</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NhanVien_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NhanVien_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HoTen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HoTen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiaChi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiaChi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DienThoai)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DienThoai)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GioiTinh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GioiTinh)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VaiTro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VaiTro)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa" class="btn btn-default" /> |
+            @Html.ActionLink("Trở về", "Index")
+        </div>
+    }
+</div>

@@ -435,7 +435,7 @@ INSERT [dbo].[Tour] ([Tour_id], [Name], [Gia], [MoTa], [LichTrinh], [DiemKhoiHan
 ', 2, 19, N'KS003', CAST(0x8F470B00 AS Date), CAST(0x93470B00 AS Date), 25, N'Ngoài nước', N'Mở bán')
 
 go
-
+set identity_insert [Image_Tour] on
 INSERT [dbo].[Image_Tour] ([Img_id], [Name], [Tour_id]) VALUES (1, N'DL07.jpg', N'Tour001')
 GO
 INSERT [dbo].[Image_Tour] ([Img_id], [Name], [Tour_id]) VALUES (2, N'DN01.jpg', N'Tour001')
@@ -473,7 +473,7 @@ GO
 INSERT [dbo].[Image_Tour] ([Img_id], [Name], [Tour_id]) VALUES (18, N'NT_DL8.jpg', N'Tour002')
 GO
 INSERT [dbo].[Image_Tour] ([Img_id], [Name], [Tour_id]) VALUES (19, N'NT01.jpg', N'Tour002')
-
+set identity_insert [Image_Tour] off
 go
 	
 INSERT INTO [DatTour] ([GhiChu], [KhachHang_id], [NgayDat], [Tour_id], [SoNguoi])
@@ -492,7 +492,6 @@ VALUES
 (4, '2024-11-12', N'Chuyển khoản ngân hàng', 65000000.00),
 (5, '2024-11-17', N'Chuyển khoản ngân hàng', 40000000.00),
 (6, '2024-11-20', N'Momo', 72000000.00);
-
 go
 
 INSERT INTO HanhKhach (HoTen, NgaySinh, GioiTinh, DatTour_id, Tour_id)
@@ -520,11 +519,12 @@ go
 
 INSERT INTO [NhanVien] ([NhanVien_id], [HoTen], [Email], [DiaChi], [DienThoai], [GioiTinh], [Password], [VaiTro])
 VALUES 
-('NV001', N'Lê Nhựt Hùng', 'hung.le@example.com', N'123 Đường ABC, Hà Nội', '0123456789', 1, 'password1', N'Quản lý'),
-('NV002', N'Hoàng Văn Dũng', 'dung.hoang@example.com', N'321 Đường JKL, Hà Nội', '0934567890', 1, 'password4', N'Hướng dẫn viên'),
-('NV003', N'Lê Thị Mai', 'mai.le@example.com', N'654 Đường MNO, Đà Nẵng', '0976543210', 0, 'password5', N'Nhân viên');
+('NV001', N'Lê Nhựt Hùng', 'hung.le@example.com', N'123 Đường ABC, Hà Nội', '0123456789', 0, 'password1', N'Quản lý'),
+('NV002', N'Hoàng Văn Dũng', 'dung.hoang@example.com', N'321 Đường JKL, Hà Nội', '0934567890', 0, 'password4', N'Hướng dẫn viên'),
+('NV003', N'Lê Thị Mai', 'mai.le@example.com', N'654 Đường MNO, Đà Nẵng', '0976543210', 1, 'password5', N'Nhân viên'),
+('NV004', N'Lê Thị Trúc Mai', 'maitruc.le@example.com', N'654 Đường MNO, Đà Nẵng', '0971143210', 1, 'password2', N'Hướng dẫn viên');
 go
-
+select*from nhanvien
 INSERT INTO [PhanCong_NhanVien] ([Tour_id], [NhanVien_id])
 VALUES 
 ('Tour001', 'NV002'),

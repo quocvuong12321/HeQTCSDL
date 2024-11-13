@@ -53,12 +53,13 @@
         <div class="form-group">
             @Html.LabelFor(model => model.GioiTinh, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <select class="form-control" id="GioiTinh${i + 1}" name="GioiTinh${i + 1}" required>
-                    <option value="">Giới Tính</option>
-                    <option value="Nam">Nam</option>
-                    <option value="Nữ">Nữ</option>
-                    <option value="Khác">Khác</option>
-                </select>
+                @Html.DropDownListFor(model => model.GioiTinh, new SelectList(new List<SelectListItem>
+                {
+                    new SelectListItem { Text = "Nam", Value = "0" },
+                    new SelectListItem { Text = "Nữ", Value = "1" }
+                }, "Value", "Text"), new { @class = "form-control" })
+
+                @Html.ValidationMessageFor(model => model.GioiTinh, "", new { @class = "text-danger" })
             </div>
         </div>
 
