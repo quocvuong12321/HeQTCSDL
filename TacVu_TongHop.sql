@@ -302,7 +302,7 @@ BEGIN
     INNER JOIN 
         KhachHang KH ON DT.KhachHang_id = KH.KhachHang_id
 END;
-
+go
 
 
 --EXEC showHuyTour;

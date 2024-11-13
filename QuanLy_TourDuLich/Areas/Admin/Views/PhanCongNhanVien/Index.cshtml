@@ -1,0 +1,43 @@
+﻿@model IEnumerable<QuanLy_TourDuLich.Models.PhanCong_NhanVien>
+
+@{
+    ViewBag.Title = "Danh sách Phân Công Nhân Viên";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
+}
+<b style="font-size:45px; color:black">Quản lý Phân Công Nhân Viên</b>
+
+<p>
+    @Html.ActionLink("Thêm Phân Công", "ThemMoiPhanCong", null, new { @class = "btn btn-primary", @style = "font: bold; color:white; border-radius: 5px; font-weight: bold" })
+</p>
+<table class="table table-bordered">
+    <tr>
+        <th>
+            <label>Tour</label>
+        </th>
+        <th>
+            <label>Nhân Viên</label>
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Tour.Name)</td>
+            <td>@Html.DisplayFor(modelItem => item.NhanVien.HoTen)</td>
+            <td>
+                <a href="~/Admin/PhanCongNhanVien/ChinhSuaPhanCong/@item.Tour_id">Sửa</a> |
+                <a href="~/Admin/PhanCongNhanVien/ChiTietPhanCong/@item.Tour_id">Chi tiết</a> |
+                <a onclick="xoa(@item.Tour_id&&@item.NhanVien_id)" href="#">Xóa</a>
+            </td>
+        </tr>
+    }
+</table>
+
+<script>
+    var xoa = function (id) {
+        if (confirm("Bạn có chắc chắn muốn xóa không?")) {
+            location.href = "XoaPhanCong/" + id;
+        }
+    }
+</script>

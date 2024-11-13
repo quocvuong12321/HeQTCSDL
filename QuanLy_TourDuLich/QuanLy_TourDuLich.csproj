@@ -1109,6 +1109,7 @@
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\DatTourController.cs" />
     <Compile Include="Areas\Admin\Controllers\NhanVienController.cs" />
+    <Compile Include="Areas\Admin\Controllers\phancong_NhanVienController.cs" />
     <Compile Include="Areas\Admin\Controllers\TourController.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyHanhKhachDatTour.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyDatTour.cs" />
@@ -1163,6 +1164,11 @@
     <Content Include="Areas\Admin\Views\Tour\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Tour\XoaHinhAnh.cshtml" />
     <Content Include="Areas\Admin\Views\Tour\ThemNhaHang.cshtml" />
+    <Content Include="Areas\Admin\Views\PhanCongNhanVien\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\PhanCongNhanVien\ThemMoi.cshtml" />
+    <Content Include="Areas\Admin\Views\PhanCongNhanVien\ChinhSuaPhanCong.cshtml" />
+    <Content Include="Areas\Admin\Views\PhanCongNhanVien\XoaPhanCong.cshtml" />
+    <Content Include="Areas\Admin\Views\PhanCongNhanVien\ChiTietPhanCong.cshtml" />
     <None Include="Models\QuanLyTourDuLich.dbml.layout">
       <DependentUpon>QuanLyTourDuLich.dbml</DependentUpon>
     </None>

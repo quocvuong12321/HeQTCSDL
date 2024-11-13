@@ -43,12 +43,12 @@
             <td>@Html.DisplayFor(modelItem => item.Email)</td>
             <td>@Html.DisplayFor(modelItem => item.DiaChi)</td>
             <td>@Html.DisplayFor(modelItem => item.DienThoai)</td>
-            <td>@(Convert.ToBoolean(item.GioiTinh) ? "Nam" : "Nữ")</td>
+            <td>@(item.GioiTinh == false ? "Nam" : "Nữ")</td>
             <td>@Html.DisplayFor(modelItem => item.VaiTro)</td>
             <td>
                 <a href="~/Admin/NhanVien/ChinhSuaNhanVien/@item.NhanVien_id">Sửa</a> |
                 <a href="~/Admin/NhanVien/ChiTietNhanVien/@item.NhanVien_id">Chi tiết</a> |
-                <a onclick="xoa('@item.NhanVien_id')" href="#">Xóa</a>
+                <a onclick="xoa('@item.NhanVien_id')" href="/Admin/NhanVien/XoaNhanVien/@item.NhanVien_id">Xóa</a>
             </td>
         </tr>
     }
