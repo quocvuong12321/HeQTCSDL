@@ -49,8 +49,7 @@ CREATE PROCEDURE proc_ThemMoiTour
     @NgayKetThuc DATE,
     @SoLuongCon INT,
     @LoaiTour NVARCHAR(255),
-	@TrangThai NVARCHAR(255),
-    @NhaHang_id VARCHAR(36)
+	@TrangThai NVARCHAR(255)
 AS
 BEGIN
 	begin transaction
@@ -59,12 +58,6 @@ BEGIN
 		@Tour_id, @Name, @Gia, @MoTa, @LichTrinh, @DiemKhoiHanh_id,
         @DiemDen_id, @KhachSan_id, @NgayKhoiHanh, @NgayKetThuc,
         @SoLuongCon, @LoaiTour,@TrangThai)
-    -- Liên kết với nhà hàng nếu có
-    IF (@NhaHang_id IS NOT NULL)
-    BEGIN
-		INSERT INTO NhaHang_Tour (NhaHang_id, Tour_id)
-        VALUES (@NhaHang_id, @Tour_id)
-	END
 
 	if @@ERROR = 0 
 		commit transaction
@@ -72,6 +65,7 @@ BEGIN
 		rollback transaction
 END
 GO
+
 
 -- 4. Cursor: Kiểm tra các tour hết chỗ
 -- Cursor này sẽ duyệt qua các tour và kiểm tra tour nào đã hết chỗ (`SoLuongCon = 0`), rồi tự động chuyển trạng thái thành `Da_Dong`.
@@ -339,6 +333,8 @@ begin
 end
 Go
 
+select dbo.SoLuongCon ('Tour001')
+
 --Procedure cập nhật thông tin tour:
 --Cập nhật thông tin về tour (tên, giá, lịch trình, ngày khởi hành, v.v.) dựa trên Tour_id.
 create procedure UpdateTour
@@ -434,8 +430,44 @@ BEGIN
     -- Xóa bảng tạm
     DROP TABLE #DoanhThuTour;
 END;
-
 Go
+
+
+--Procedure thêm nhà hàng vào tour
+create proc sp_ThemNhaHang @maTour varchar(36), @maNhaHang varchar(36)
+as
+begin
+	SET NOCOUNT ON;
+
+    -- Kiểm tra nếu Tour với mã @maTour có tồn tại
+    IF NOT EXISTS (SELECT 1 FROM Tour WHERE Tour_id = @maTour)
+    BEGIN
+        PRINT 'Không tìm thấy mã Tour này.';
+        RETURN;
+    END
+
+    -- Kiểm tra nếu Nhà Hàng với mã @maNhaHang có tồn tại
+    IF NOT EXISTS (SELECT 1 FROM NhaHang WHERE NhaHang_id = @maNhaHang)
+    BEGIN
+        PRINT 'Không tìm thấy mã Nhà Hàng này.';
+        RETURN;
+    END
+
+    -- Kiểm tra nếu mối quan hệ giữa Tour và Nhà Hàng đã tồn tại
+    IF EXISTS (SELECT 1 FROM NhaHang_Tour WHERE Tour_id = @maTour AND NhaHang_id = @maNhaHang)
+    BEGIN
+        PRINT 'Nhà Hàng đã được liên kết với Tour này.';
+        RETURN;
+    END
+
+    -- Chèn dữ liệu nếu các điều kiện trên thỏa mãn
+    INSERT INTO NhaHang_Tour (Tour_id, NhaHang_id)
+    VALUES (@maTour, @maNhaHang);
+
+    PRINT 'Thêm thành công.';
+END
+go
+
 ----------------------------Phong--------------------------------------------------
 ------------trigger xóa các đánh giá liên quan đến một tour khi tour bị xóa khỏi bảng [Tour]
 CREATE TRIGGER delete_danhgia 

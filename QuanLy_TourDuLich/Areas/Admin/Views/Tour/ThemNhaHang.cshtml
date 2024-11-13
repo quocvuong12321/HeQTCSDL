@@ -1,0 +1,68 @@
+﻿@using QuanLy_TourDuLich.Models;
+@model Tour
+@{
+    ViewBag.Title = "ThemNhaHang";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
+    List<NhaHang> lst = ViewBag.NhaHang as List<NhaHang>;
+    List<NhaHang_Tour> lst_nh_t = ViewBag.NhaHang_Tour as List<NhaHang_Tour>;
+
+}
+
+<h1 class="text-center">THÊM NHÀ HÀNG</h1>
+<br />
+<H3 style="font-family:Tahoma;color:mediumvioletred">@Model.Name</H3>
+<br />
+<h4>Mã tour: @Model.Tour_id</h4>
+<br />
+<h4 style="font-family:Tahoma">Danh sách nhà hàng</h4>
+<br />
+<table class="table table-responsive">
+    <thead>
+        <tr>
+            <th>Mã nhà hàng</th>
+            <th>Tên nhà hàng</th>
+        </tr>
+    </thead>
+    @if (lst_nh_t != null)
+    {
+        <tbody>
+            @foreach (var item in lst_nh_t)
+            {
+                <tr>
+                    <td> @item.NhaHang.NhaHang_id </td>
+                    <td>@item.NhaHang.Name</td>
+                </tr>
+            }
+        </tbody>
+
+    }
+</table>
+<br />
+<h4 class="text-center">THÊM NHÀ HÀNG MỚI</h4>
+<form action="~/Admin/Tour/kqThemNhaHang" method="post">
+    <input type="hidden" name="id" value="@Model.Tour_id" />
+    <select name="maNhaHang" class="form-select">
+        <option selected disabled>Chọn nhà hàng</option>
+        @foreach (var item in lst)
+        {
+            <option value="@item.NhaHang_id">@item.Name</option>
+        }
+    </select>
+    <br />
+    <button class="btn btn-danger" type="submit">Thêm</button>
+    <a class="btn btn-danger" style="float:right" href="~/Admin/Tour/Index">Trở về</a>
+    <br />
+    <br />
+    @if (!string.IsNullOrEmpty(ViewBag.ThongBao))
+    {
+        <div class="alert alert-success text-center">@ViewBag.ThongBao</div>}
+</form>
+
+<br />
+
+@if (TempData["ThongBao"] != null)
+{
+<script>
+var thongBao = "@TempData["ThongBao"]";
+        alert(thongBao);
+</script>}

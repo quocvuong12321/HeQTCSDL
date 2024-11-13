@@ -1,29 +1,21 @@
 ﻿@model QuanLy_TourDuLich.Models.Tour
-@using QuanLy_TourDuLich.Models;
+@using QuanLy_TourDuLich.Models
+
 @{
-    ViewBag.Title = "Thêm tour mới";
+    ViewBag.Title = "Chỉnh sửa tour";
     Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
 }
 
 <div class="container col-md-10">
     <h2>Thêm tour</h2>
 
-    @using (Html.BeginForm("ThemMoiTour", "Tour", FormMethod.Post))
+    @using (Html.BeginForm("Edit", "Tour", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
-
+        @Html.HiddenFor(t => t.Tour_id)
         <div class="form-horizontal">
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-            <div class="form-group">
-                <label class="col-md-2 form-label ">Mã tour</label>
-                <div class="col-md-10">
-                    <input type="text" name="Tour_id" value="@ViewBag.MaTour" class="form-control" readonly />
-                    @Html.ValidationMessageFor(model => model.LoaiTour, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
             <div class="form-group">
                 <label class="col-md-2 form-label ">Loại tour</label>
                 <div class="col-md-10">
@@ -54,7 +46,6 @@
                     @Html.ValidationMessageFor(model => model.Gia, "", new { @class = "text-danger" })
                 </div>
             </div>
-
 
             <div class="form-group">
                 <label class="col-md-2 form-label">Mô tả</label>
@@ -123,6 +114,7 @@
 
 
             <div class="form-group">
+                <label class="col-md-2 form-label">Trạng thái</label>
                 <div class="col-md-10">
                     @Html.HiddenFor(model => model.TrangThai, new { Value = "Mở bán", @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.TrangThai, "", new { @class = "text-danger" })
@@ -132,13 +124,15 @@
             <br />
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Thêm" class="btn btn-danger" />
-                    <a style="float:right" href="~/Tour/Index" class="btn btn-danger">Trở về</a>
+                    <input type="submit" value="Sửa" class="btn btn-danger" />
                 </div>
             </div>
         </div>
     }
 
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
 </div>
 
 @section TourJS {
@@ -147,3 +141,5 @@
         CKEDITOR.replace('inputLichTrinh')
     </script>
 }
+
+

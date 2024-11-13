@@ -1,0 +1,26 @@
+﻿@model List<QuanLy_TourDuLich.Models.Image_Tour>
+
+@{
+    ViewBag.Title = "XoaHinhAnh";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
+}
+
+<b style="font-size:45px; color:black">Ảnh hiện tại</b>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3">
+            <img src="~/img/@item.Name" alt="@item.Name" style="width: 95%;" />
+            @using (Html.BeginForm("XoaHinhAnh", "Tour", FormMethod.Post))
+            {
+                @Html.Hidden("imageId", item.Img_id)
+                @Html.Hidden("tourId", item.Tour_id)
+                <button type="submit" class="btn btn-danger">Xóa</button>
+            }
+        </div>
+    }
+</div>
+<br />
+
+<a href="~/Admin/Tour/Index" class="btn btn-info">Trở về</a>
+

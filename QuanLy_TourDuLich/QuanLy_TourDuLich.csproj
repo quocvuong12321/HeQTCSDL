@@ -1160,6 +1160,9 @@
     <Content Include="Areas\Admin\Views\NhanVien\ChiTietNhanVien.cshtml" />
     <Content Include="Areas\Admin\Views\NhanVien\ThemMoiNhanVien.cshtml" />
     <Content Include="Areas\Admin\Views\NhanVien\XoaNhanVien.cshtml" />
+    <Content Include="Areas\Admin\Views\Tour\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Tour\XoaHinhAnh.cshtml" />
+    <Content Include="Areas\Admin\Views\Tour\ThemNhaHang.cshtml" />
     <None Include="Models\QuanLyTourDuLich.dbml.layout">
       <DependentUpon>QuanLyTourDuLich.dbml</DependentUpon>
     </None>

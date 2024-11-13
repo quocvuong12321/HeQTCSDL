@@ -28,6 +28,12 @@ namespace QuanLy_TourDuLich.Controllers
             var danhgia = db.DanhGias.Where(f => f.Tour_id == id).ToList();
             ViewBag.DanhgiaCount = danhgia.Count;
             ViewBag.HienThiAnh = db.Image_Tours.Where(t => t.Tour_id == id).ToList();
+
+            //function Hien thị số chỗ còn
+            int soChoCon = db.SoLuongCon(id)!=null?(int)(db.SoLuongCon(id)):0;
+
+            ViewBag.SoChoCon = soChoCon;
+
             return View(db.Tours.FirstOrDefault(t => t.Tour_id == id));
         }
         public ActionResult GioiThieu()
@@ -122,5 +128,7 @@ namespace QuanLy_TourDuLich.Controllers
             return PartialView(ds ?? new List<Tour>());
 
         }
+
+
     }
 }
