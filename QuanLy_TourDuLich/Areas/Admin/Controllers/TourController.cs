@@ -226,7 +226,7 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
                 message = "Add a successful restaurant!";
             }
 
-            TempData["ThongBao"] = message;  // Sử dụng TempData thay vì ViewBag
+            TempData["ThongBao"] = message;  
             return RedirectToAction("ThemNhaHang", new { id = id });
         }
     }

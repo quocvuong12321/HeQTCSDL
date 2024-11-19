@@ -58,63 +58,14 @@ namespace QuanLy_TourDuLich.Controllers
         public ActionResult KQTimKiem(DateTime? ngaykh, string mucgia, string noiden, string ltour)
         {
             ViewBag.lstTinhThanh = db.TinhThanhs.ToList();
-            var query = db.Tours.AsQueryable();
+           //Procedure lọc tour nâng cao
+            var kq = db.sp_TimKiemTours(ngaykh, mucgia, noiden, ltour).ToList();
 
-            if (ngaykh.HasValue)
-            {
-                query = query.Where(t => t.NgayKhoiHanh == ngaykh);
-            }
+            var tours = kq.Select(t => t.Tour_id).ToList();
 
-            if (!string.IsNullOrEmpty(noiden))
-            {
-                query = query.Where(t => t.TinhThanh.Name.Contains(noiden));
-            }
+            var lstTour = db.Tours.Where(t => tours.Contains(t.Tour_id)).ToList();
 
-            if (!string.IsNullOrEmpty(mucgia))
-            {
-                switch (mucgia)
-                {
-                    case "1":
-                        query = query.Where(t => t.Gia < 2000000);
-                        break;
-                    case "2":
-                        query = query.Where(t => t.Gia >= 2000000 && t.Gia <= 4000000);
-                        break;
-                    case "3":
-                        query = query.Where(t => t.Gia >= 4000000 && t.Gia <= 6000000);
-                        break;
-                    case "4":
-                        query = query.Where(t => t.Gia >= 6000000 && t.Gia <= 10000000);
-                        break;
-                    case "5":
-                        query = query.Where(t => t.Gia >= 10000000 && t.Gia <= 20000000);
-                        break;
-                    case "6":
-                        query = query.Where(t => t.Gia >= 20000000 && t.Gia <= 50000000);
-                        break;
-                    case "7":
-                        query = query.Where(t => t.Gia > 50000000);
-                        break;
-                }
-            }
-
-            if (!string.IsNullOrEmpty(ltour))
-            {
-                switch (ltour)
-                {
-                    case "1":
-                        query = query.Where(t => t.LoaiTour == "Trong nước");
-                        break;
-                    case "2":
-                        query = query.Where(t => t.LoaiTour == "Ngoài nước");
-                        break;
-                }
-            }
-
-            List<Tour> kq = query.Where(t => t.TrangThai.Equals("Mở bán")).ToList();
-
-
-            return View("HienThiTour", kq);
+            return View("HienThiTour", lstTour);
         }
 
         public ActionResult SanPhamLienQuan(string diemkh, string id)
@@ -126,9 +77,6 @@ namespace QuanLy_TourDuLich.Controllers
             List<Tour> ds = db.Tours.Where(t => t.TinhThanh1.Name.Contains(diemkh) && t.Tour_id != id && t.TrangThai.Equals("Mở bán")).Take(4).ToList();
 
             return PartialView(ds ?? new List<Tour>());
-
         }
-
-
     }
 }

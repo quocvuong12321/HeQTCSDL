@@ -468,6 +468,51 @@ begin
 END
 go
 
+--procedure lọc tour nâng cao với các dữ kiện (ngày khởi hành, mức giá, nơi đến, loại tour)
+CREATE PROCEDURE sp_TimKiemTours
+    @NgayKH DATE = NULL,
+    @MucGia NVARCHAR(10) = NULL,
+    @NoiDen NVARCHAR(255) = NULL,
+    @LoaiTour NVARCHAR(10) = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT *
+    FROM Tour t
+    INNER JOIN TinhThanh tt ON t.DiemDen_id = tt.TinhThanh_id
+    WHERE 
+        -- Lọc trạng thái "Mở bán"
+        t.TrangThai = N'Mở bán'
+        
+        -- Lọc theo ngày khởi hành (nếu có)
+        AND (@NgayKH IS NULL OR t.NgayKhoiHanh = @NgayKH)
+        
+        -- Lọc theo nơi đến (nếu có)
+        AND (@NoiDen IS NULL OR tt.TinhThanh_id = @NoiDen)
+        
+        -- Lọc theo mức giá (nếu có)
+        AND (
+            @MucGia IS NULL OR
+            (@MucGia = '1' AND t.Gia < 2000000) OR
+            (@MucGia = '2' AND t.Gia BETWEEN 2000000 AND 4000000) OR
+            (@MucGia = '3' AND t.Gia BETWEEN 4000000 AND 6000000) OR
+            (@MucGia = '4' AND t.Gia BETWEEN 6000000 AND 10000000) OR
+            (@MucGia = '5' AND t.Gia BETWEEN 10000000 AND 20000000) OR
+            (@MucGia = '6' AND t.Gia BETWEEN 20000000 AND 50000000) OR
+            (@MucGia = '7' AND t.Gia > 50000000)
+        )
+        
+        -- Lọc theo loại tour (nếu có)
+        AND (
+            @LoaiTour IS NULL OR
+            (@LoaiTour = '1' AND t.LoaiTour = N'Trong nước') OR
+            (@LoaiTour = '2' AND t.LoaiTour = N'Ngoài nước')
+        );
+END;
+
+
+
 ----------------------------Phong--------------------------------------------------
 ------------trigger xóa các đánh giá liên quan đến một tour khi tour bị xóa khỏi bảng [Tour]
 CREATE TRIGGER delete_danhgia 

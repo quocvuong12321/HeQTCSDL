@@ -203,4 +203,27 @@
     <Parameter Name="maNhaHang" Type="System.String" DbType="VarChar(36)" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.sp_TimKiemTours" Method="sp_TimKiemTours">
+    <Parameter Name="NgayKH" Parameter="ngayKH" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="MucGia" Parameter="mucGia" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="NoiDen" Parameter="noiDen" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="LoaiTour" Parameter="loaiTour" Type="System.String" DbType="NVarChar(10)" />
+    <ElementType Name="sp_TimKiemToursResult">
+      <Column Name="Tour_id" Type="System.String" DbType="VarChar(36) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Gia" Type="System.Decimal" DbType="Decimal(12,2)" CanBeNull="true" />
+      <Column Name="MoTa" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="LichTrinh" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="DiemKhoiHanh_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DiemDen_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="KhachSan_id" Type="System.String" DbType="VarChar(36)" CanBeNull="true" />
+      <Column Name="NgayKhoiHanh" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="NgayKetThuc" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="SoLuongCon" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LoaiTour" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="TrangThai" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="TinhThanh_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name1" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+    </ElementType>
+  </Function>
 </Database>
