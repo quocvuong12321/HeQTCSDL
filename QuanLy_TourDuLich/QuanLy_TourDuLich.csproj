@@ -1194,12 +1194,13 @@
     <Content Include="plugin\ckfinder\plugins\fileeditor\codemirror\LICENSE" />
     <Content Include="plugin\ckfinder\userfiles\.htaccess" />
     <Content Include="Views\DatTour\DatTour.cshtml" />
-    <Content Include="Views\DatTour\ThanhToan.cshtml" />
+    <Content Include="Views\DatTour\XacNhan.cshtml" />
     <Content Include="Views\Tour\HienThiTour.cshtml" />
     <Content Include="Views\Tour\AnhChoCard.cshtml" />
     <Content Include="Views\Tour\ChiTietTour.cshtml" />
     <Content Include="Views\Tour\TimKiemNangCao.cshtml" />
     <Content Include="Views\Tour\SanPhamLienQuan.cshtml" />
+    <Content Include="Views\DatTour\ThanhToan.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

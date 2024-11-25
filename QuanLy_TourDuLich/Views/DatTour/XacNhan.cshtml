@@ -1,0 +1,28 @@
+﻿@model QuanLy_TourDuLich.Models.DatTour
+
+@{
+    ViewBag.Title = "Xác Nhận Đặt Tour";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+
+<h2>Xác Nhận Đặt Tour: @Model.Tour.Name</h2>
+
+<p><strong>Tên khách hàng:</strong> @ViewBag.TenKhachHang</p>
+<p><strong>Email:</strong> @ViewBag.Email</p>
+<p><strong>Số điện thoại:</strong> @ViewBag.SoDienThoai</p>
+<p><strong>Địa chỉ:</strong> @ViewBag.DiaChi</p>
+<p><strong>Số người:</strong> @ViewBag.SoNguoi</p>
+<p><strong>Ngày khởi hành:</strong> @ViewBag.NgayKhoiHanh</p>
+<p><strong>Ngày kết thúc:</strong> @ViewBag.NgayKetThuc</p>
+<p><strong>Ghi chú:</strong> @ViewBag.GhiChu</p>
+
+<h3>Thông Tin Hành Khách</h3>
+@foreach (var hanhKhach in ViewBag.HanhKhachs)
+{
+    <p><strong>Tên:</strong> @hanhKhach.HoTen</p>
+    <p><strong>Ngày sinh:</strong> @hanhKhach.NgaySinh.ToString("dd/MM/yyyy")</p>
+    <p><strong>Giới tính:</strong> @(hanhKhach.GioiTinhHienThi)</p>
+}
+<p>
+    @Html.ActionLink("Trở về", "Index", "Home")
+</p>

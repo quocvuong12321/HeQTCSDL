@@ -1655,8 +1655,16 @@ namespace QuanLy_TourDuLich.Models
 		
 		private string _Password;
 		
-		private System.Nullable<bool> _Gioitinh;
-		
+		private int _Gioitinh;
+		[NotMapped]
+		public string GioiTinhHienThi
+		{
+			get
+			{
+				return Gioitinh == 0 ? "Nam" : "Nữ";
+			}
+		}
+
 		private EntitySet<DanhGia> _DanhGias;
 		
 		private EntitySet<DatTour> _DatTours;
@@ -1677,7 +1685,7 @@ namespace QuanLy_TourDuLich.Models
     partial void OnDiaChiChanged();
     partial void OnPasswordChanging(string value);
     partial void OnPasswordChanged();
-    partial void OnGioitinhChanging(System.Nullable<bool> value);
+    partial void OnGioitinhChanging(int value);
     partial void OnGioitinhChanged();
     #endregion
 		
@@ -1809,7 +1817,7 @@ namespace QuanLy_TourDuLich.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Gioitinh", DbType="Bit")]
-		public System.Nullable<bool> Gioitinh
+		public int Gioitinh
 		{
 			get
 			{

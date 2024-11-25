@@ -13,24 +13,46 @@
                     <h4>Đặt Tour</h4>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="/dat-tour">
+                    <form method="post">
 
                         <!-- Tên Khách Hàng -->
                         <div class="form-group mb-3">
                             <label for="KhachHang_id" class="form-label">Tên Khách Hàng</label>
-                            <input type="text" class="form-control" id="KhachHang_id" name="KhachHang_id" placeholder="Nhập tên khách hàng" required />
+                            <div class="border rounded p-2 bg-light">
+                                @ViewBag.KhachHang.KhachHang_id
+                            </div>
                         </div>
 
                         <!-- Số điện thoại khách hàng -->
                         <div class="form-group mb-3">
                             <label for="SdtKhachHang" class="form-label">Số Điện Thoại</label>
-                            <input type="tel" class="form-control" id="SdtKhachHang" name="SdtKhachHang" placeholder="Nhập số điện thoại" required />
+                            <div class="border rounded p-2 bg-light">
+                                @ViewBag.KhachHang.DienThoai
+                            </div>
                         </div>
 
                         <!-- Email khách hàng -->
                         <div class="form-group mb-3">
                             <label for="EmailKhachHang" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="EmailKhachHang" name="EmailKhachHang" placeholder="Nhập email" required />
+                            <div class="border rounded p-2 bg-light">
+                                @ViewBag.KhachHang.Email
+                            </div>
+                        </div>
+
+                        <!-- Địa chỉ khách hàng -->
+                        <div class="form-group mb-3">
+                            <label for="DiaChiKhachHang" class="form-label">Địa chỉ</label>
+                            <div class="border rounded p-2 bg-light">
+                                @ViewBag.KhachHang.DiaChi
+                            </div>
+                        </div>
+
+                        <!-- Giới tính khách hàng -->
+                        <div class="form-group mb-3">
+                            <label for="GioitinhKhachHang" class="form-label">Giới tính</label>
+                            <div class="border rounded p-2 bg-light">
+                                @ViewBag.KhachHang.GioiTinhHienThi
+                            </div>
                         </div>
 
                         <!-- Hiển thị tên tour -->
@@ -155,13 +177,11 @@
             customerInfoDiv.innerHTML = `
             <label class="form-label">Thông Tin Hành Khách ${i + 1}</label>
             <div class="d-flex">
-                <input type="text" class="form-control me-2" id="HoTen${i + 1}" name="HoTen${i + 1}" placeholder="Họ Tên" required />
-                <input type="date" class="form-control me-2" id="NgaySinh${i + 1}" name="NgaySinh${i + 1}" required />
-                <select class="form-control" id="GioiTinh${i + 1}" name="GioiTinh${i + 1}" required>
-                    <option value="">Giới Tính</option>
-                    <option value="Nam">Nam</option>
-                    <option value="Nữ">Nữ</option>
-                    <option value="Khác">Khác</option>
+                <input type="text" class="form-control me-2" id="HoTen${i}" name="HoTen${i}" placeholder="Họ Tên" required />
+                <input type="date" class="form-control me-2" id="NgaySinh${i}" name="NgaySinh${i}" required />
+                <select class="form-control" id="GioiTinh${i}" name="GioiTinh${i}" placeholder="Giới Tính" required>
+                    <option value="0">Nam</option>
+                    <option value="1">Nữ</option>
                 </select>
             </div>
         `;
@@ -170,7 +190,14 @@
             customerInfoContainer.appendChild(customerInfoDiv);
         }
     }
-
+    function formatDates() {
+        const dateInputs = document.querySelectorAll('input[type="date"]');
+        dateInputs.forEach(input => {
+            const date = new Date(input.value);
+            const formattedDate = date.toISOString().split('T')[0]; // Định dạng YYYY-MM-DD 
+            input.value = formattedDate;
+        });
+    }
 
     // Gọi hàm để hiển thị 1 dòng khách hàng khi trang được tải
     window.onload = function () {

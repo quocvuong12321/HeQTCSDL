@@ -503,25 +503,25 @@ go
 
 INSERT INTO HanhKhach (HoTen, NgaySinh, GioiTinh, DatTour_id, Tour_id)
 VALUES 
-    (N'Nguyễn Văn An', '1985-06-15', 1, 2, 'Tour001'),
-    (N'Lê Thị Bích', '1990-08-20', 0, 2, 'Tour001'),
-    (N'Trần Văn Cường', '1975-11-05', 1, 2, 'Tour001'),
-    (N'Phạm Thị Dung', '1988-02-13', 0, 2, 'Tour001'),
+    (N'Nguyễn Văn An', '1985-06-15', 0, 2, 'Tour001'),
+    (N'Lê Thị Bích', '1990-08-20', 1, 2, 'Tour001'),
+    (N'Trần Văn Cường', '1975-11-05', 0, 2, 'Tour001'),
+    (N'Phạm Thị Dung', '1988-02-13', 1, 2, 'Tour001'),
 
-    (N'Đỗ Mạnh Hùng', '1992-03-22', 1, 3, 'Tour001'),
+    (N'Đỗ Mạnh Hùng', '1992-03-22', 0, 3, 'Tour001'),
     (N'Vũ Minh Khánh', '1987-12-01', 1, 3, 'Tour001'),
-    (N'Nguyễn Hương Lan', '1995-07-07', 0, 3, 'Tour001'),
+    (N'Nguyễn Hương Lan', '1995-07-07', 1, 3, 'Tour001'),
 
-    (N'Bùi Văn Mạnh', '1983-09-10', 1, 4, 'Tour002'),
-    (N'Trương Ngọc Oanh', '1996-01-25', 0, 4, 'Tour002'),
-    (N'Phan Văn Quý', '1989-04-30', 1, 4, 'Tour002'),
-    (N'Hà Thị Mai', '1991-05-14', 0, 4, 'Tour002'),
-    (N'Lê Trung Kiên', '1982-07-21', 1, 4, 'Tour002'),
-    (N'Võ Văn Bình', '1993-03-18', 1, 4, 'Tour002'),
-    (N'Phạm Minh Tuyết', '1997-08-29', 0, 4, 'Tour002'),
-    (N'Đặng Thị Hồng', '1990-10-05', 0, 4, 'Tour002'),
-    (N'Lương Văn Hùng', '1986-04-12', 1, 4, 'Tour002'),
-    (N'Hoàng Ngọc Yến', '1994-09-30', 0, 4, 'Tour002');
+    (N'Bùi Văn Mạnh', '1983-09-10', 0, 4, 'Tour002'),
+    (N'Trương Ngọc Oanh', '1996-01-25', 1, 4, 'Tour002'),
+    (N'Phan Văn Quý', '1989-04-30', 0, 4, 'Tour002'),
+    (N'Hà Thị Mai', '1991-05-14', 1, 4, 'Tour002'),
+    (N'Lê Trung Kiên', '1982-07-21', 0, 4, 'Tour002'),
+    (N'Võ Văn Bình', '1993-03-18', 0, 4, 'Tour002'),
+    (N'Phạm Minh Tuyết', '1997-08-29', 1, 4, 'Tour002'),
+    (N'Đặng Thị Hồng', '1990-10-05', 1, 4, 'Tour002'),
+    (N'Lương Văn Hùng', '1986-04-12', 0, 4, 'Tour002'),
+    (N'Hoàng Ngọc Yến', '1994-09-30', 1, 4, 'Tour002');
 go
 
 
