@@ -333,8 +333,6 @@ begin
 end
 Go
 
-select dbo.SoLuongCon ('Tour001')
-
 --Procedure cập nhật thông tin tour:
 --Cập nhật thông tin về tour (tên, giá, lịch trình, ngày khởi hành, v.v.) dựa trên Tour_id.
 create procedure UpdateTour
@@ -510,7 +508,7 @@ BEGIN
             (@LoaiTour = '2' AND t.LoaiTour = N'Ngoài nước')
         );
 END;
-
+go
 
 
 ----------------------------Phong--------------------------------------------------

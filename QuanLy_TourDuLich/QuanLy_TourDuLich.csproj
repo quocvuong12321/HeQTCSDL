@@ -1106,6 +1106,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\QuanLyHanhKhachTourController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\DatTourController.cs" />
     <Compile Include="Areas\Admin\Controllers\NhanVienController.cs" />
@@ -1169,6 +1170,8 @@
     <Content Include="Areas\Admin\Views\PhanCongNhanVien\ChinhSuaPhanCong.cshtml" />
     <Content Include="Areas\Admin\Views\PhanCongNhanVien\XoaPhanCong.cshtml" />
     <Content Include="Areas\Admin\Views\PhanCongNhanVien\ChiTietPhanCong.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLyHanhKhachTour\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLyHanhKhachTour\details.cshtml" />
     <None Include="Models\QuanLyTourDuLich.dbml.layout">
       <DependentUpon>QuanLyTourDuLich.dbml</DependentUpon>
     </None>

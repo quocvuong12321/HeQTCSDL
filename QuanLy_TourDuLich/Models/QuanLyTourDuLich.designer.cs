@@ -19,6 +19,7 @@ namespace QuanLy_TourDuLich.Models
 	using System.Linq;
 	using System.Linq.Expressions;
 	using System.ComponentModel;
+	using System.ComponentModel.DataAnnotations.Schema;
 	using System;
 	
 	
@@ -75,7 +76,7 @@ namespace QuanLy_TourDuLich.Models
     #endregion
 		
 		public QuanLyTourDuLichDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QL_TourConnectionString1"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QL_TourConnectionString2"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -1050,8 +1051,16 @@ namespace QuanLy_TourDuLich.Models
 		
 		private System.Nullable<System.DateTime> _NgaySinh;
 		
-		private System.Nullable<bool> _GioiTinh;
-		
+		private int _GioiTinh;
+		[NotMapped]
+		public string GioiTinhHienThi
+		{
+			get
+			{
+				return GioiTinh == 0 ? "Nam" : "Nữ";
+			}
+		}
+
 		private System.Nullable<int> _DatTour_id;
 		
 		private string _Tour_id;
@@ -1070,7 +1079,7 @@ namespace QuanLy_TourDuLich.Models
     partial void OnHoTenChanged();
     partial void OnNgaySinhChanging(System.Nullable<System.DateTime> value);
     partial void OnNgaySinhChanged();
-    partial void OnGioiTinhChanging(System.Nullable<bool> value);
+    partial void OnGioiTinhChanging(int value);
     partial void OnGioiTinhChanged();
     partial void OnDatTour_idChanging(System.Nullable<int> value);
     partial void OnDatTour_idChanged();
@@ -1146,7 +1155,7 @@ namespace QuanLy_TourDuLich.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GioiTinh", DbType="Bit")]
-		public System.Nullable<bool> GioiTinh
+		public int GioiTinh
 		{
 			get
 			{
@@ -2456,8 +2465,16 @@ namespace QuanLy_TourDuLich.Models
 		
 		private string _DienThoai;
 		
-		private System.Nullable<bool> _GioiTinh;
-		
+		private int _GioiTinh;
+		[NotMapped]
+		public string GioiTinhHienThi
+		{
+			get
+			{
+				return GioiTinh == 0 ? "Nam" : "Nữ";
+			}
+		}
+
 		private string _Password;
 		
 		private string _VaiTro;
@@ -2478,7 +2495,7 @@ namespace QuanLy_TourDuLich.Models
     partial void OnDiaChiChanged();
     partial void OnDienThoaiChanging(string value);
     partial void OnDienThoaiChanged();
-    partial void OnGioiTinhChanging(System.Nullable<bool> value);
+    partial void OnGioiTinhChanging(int value);
     partial void OnGioiTinhChanged();
     partial void OnPasswordChanging(string value);
     partial void OnPasswordChanged();
@@ -2593,7 +2610,7 @@ namespace QuanLy_TourDuLich.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GioiTinh", DbType="Bit")]
-		public System.Nullable<bool> GioiTinh
+		public int GioiTinh
 		{
 			get
 			{
@@ -2697,7 +2714,12 @@ namespace QuanLy_TourDuLich.Models
 			entity.NhanVien = null;
 		}
 	}
-	
+	public class TourDetailsViewModel
+	{
+		public Tour Tour { get; set; }
+		public NhanVien HuongDanVien { get; set; }
+		public List<HanhKhach> HanhKhachs { get; set; }
+	}
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PhanCong_NhanVien")]
 	public partial class PhanCong_NhanVien : INotifyPropertyChanging, INotifyPropertyChanged
 	{

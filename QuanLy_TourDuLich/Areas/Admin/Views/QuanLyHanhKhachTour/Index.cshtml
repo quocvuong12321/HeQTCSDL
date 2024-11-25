@@ -1,0 +1,35 @@
+﻿@model IEnumerable<QuanLy_TourDuLich.Models.Tour>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
+}
+<h2>Quản Lý Tour</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Mã Tour</th>
+            <th>Tên Tour</th>
+            <th>Ngày Khởi Hành</th>
+            <th>Ngày Kết Thúc</th>
+            <th>Giá</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Tour_id)</td>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.NgayKhoiHanh)</td>
+                <td>@Html.DisplayFor(modelItem => item.NgayKetThuc)</td>
+                <td>@Html.DisplayFor(modelItem => item.Gia)</td>
+                <td>
+                    @Html.ActionLink("Chi tiết", "Details", new { id = item.Tour_id }, new { @class = "btn btn-info" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
