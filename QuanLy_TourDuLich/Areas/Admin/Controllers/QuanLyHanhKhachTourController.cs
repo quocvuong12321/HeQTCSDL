@@ -46,6 +46,12 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
 
             return View(viewModel);
         }
+        public class TourDetailsViewModel
+        {
+            public Tour Tour { get; set; }
+            public NhanVien HuongDanVien { get; set; }
+            public List<HanhKhach> HanhKhachs { get; set; }
+        }
     }
     
 }

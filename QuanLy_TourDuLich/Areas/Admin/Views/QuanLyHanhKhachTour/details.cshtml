@@ -1,67 +1,54 @@
-﻿@model QuanLy_TourDuLich.Models.TourDetailsViewModel
+﻿@model QuanLy_TourDuLich.Areas.Admin.Controllers.QuanLyHanhKhachTourController.TourDetailsViewModel
 
 @{
-    ViewBag.Title = "Chi tiết Tour";
+    ViewBag.Title = "Thông Tin Tour";
     Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
 }
 
-<h2>Chi tiết Tour</h2>
-
-<div>
-    <h4>Thông Tin Hướng Dẫn Viên</h4>
-    <hr />
-    @if (Model.HuongDanVien != null)
-    {
-        <dl class="dl-horizontal">
-            <dt>@Html.DisplayNameFor(model => model.HuongDanVien.NhanVien_id)</dt>
-            <dd>@Html.DisplayFor(model => model.HuongDanVien.NhanVien_id)</dd>
-
-            <dt>@Html.DisplayNameFor(model => model.HuongDanVien.HoTen)</dt>
-            <dd>@Html.DisplayFor(model => model.HuongDanVien.HoTen)</dd>
-
-            <dt>@Html.DisplayNameFor(model => model.HuongDanVien.Email)</dt>
-            <dd>@Html.DisplayFor(model => model.HuongDanVien.Email)</dd>
-
-            <dt>@Html.DisplayNameFor(model => model.HuongDanVien.DiaChi)</dt>
-            <dd>@Html.DisplayFor(model => model.HuongDanVien.DiaChi)</dd>
-
-            <dt>@Html.DisplayNameFor(model => model.HuongDanVien.DienThoai)</dt>
-            <dd>@Html.DisplayFor(model => model.HuongDanVien.DienThoai)</dd>
-
-            <dt>@Html.DisplayNameFor(model => model.HuongDanVien.GioiTinh)</dt>
-            <dd>@Html.DisplayFor(model => model.HuongDanVien.GioiTinhHienThi)</dd>
-        </dl>
-    }
-    else
-    {
-        <p>Không có thông tin hướng dẫn viên.</p>
-    }
-</div>
-
-<div>
-    <h4>Danh Sách Hành Khách</h4>
-    <hr />
+<h3>Thông Tin Hướng Dẫn Viên</h3>
+@if (Model.HuongDanVien != null)
+{
     <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Họ Tên</th>
-                <th>Ngày Sinh</th>
-                <th>Giới Tính</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.HanhKhachs)
-            {
-                <tr>
-                    <td>@Html.DisplayFor(modelItem => item.HoTen)</td>
-                    <td>@Html.DisplayFor(modelItem => item.NgaySinh)</td>
-                    <td>@Html.DisplayFor(modelItem => item.GioiTinhHienThi)</td>
-                </tr>
-            }
-        </tbody>
+        <tr>
+            <th>Tên Hướng Dẫn Viên</th>
+            <td>@Html.DisplayFor(model => model.HuongDanVien.HoTen)</td>
+        </tr>
+        <tr>
+            <th>Điện Thoại</th>
+            <td>@Html.DisplayFor(model => model.HuongDanVien.DienThoai)</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>@Html.DisplayFor(model => model.HuongDanVien.Email)</td>
+        </tr>
     </table>
-</div>
+}
+else
+{
+    <p>Không có thông tin hướng dẫn viên.</p>
+}
+
+<h3>Danh Sách Hành Khách</h3>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Họ Tên</th>
+            <th>Ngày Sinh</th>
+            <th>Giới Tính</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.HanhKhachs)
+        {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.HoTen)</td>
+            <td>@Html.DisplayFor(modelItem => item.NgaySinh)</td>
+            <td>@(Convert.ToBoolean(item.GioiTinh) ? "Nam" : "Nữ")</td>
+        </tr>
+        }
+    </tbody>
+</table>
 
 <p>
-    @Html.ActionLink("Trở về danh sách", "Index", "QuanLyHanhKhachTour", null, new { @class = "btn btn-primary", @style = "font: bold; color:white; border-radius: 5px; font-weight: bold" })
+    @Html.ActionLink("Trở lại danh sách", "Index", "QuanLyHanhKhachTour", null, new { @class = "btn btn-primary", @style = "font: bold; color:white; border-radius: 5px; font-weight: bold" })
 </p>

@@ -51,7 +51,11 @@
                         <div class="form-group mb-3">
                             <label for="GioitinhKhachHang" class="form-label">Giới tính</label>
                             <div class="border rounded p-2 bg-light">
-                                @ViewBag.KhachHang.GioiTinhHienThi
+                                @{ 
+                                    var gioiTinh = ViewBag.KhachHang.Gioitinh;
+                                    var gioiTinhHienThi = gioiTinh ? "Nam" : "Nữ"; 
+                                }
+                                @gioiTinhHienThi
                             </div>
                         </div>
 
@@ -180,8 +184,8 @@
                 <input type="text" class="form-control me-2" id="HoTen${i}" name="HoTen${i}" placeholder="Họ Tên" required />
                 <input type="date" class="form-control me-2" id="NgaySinh${i}" name="NgaySinh${i}" required />
                 <select class="form-control" id="GioiTinh${i}" name="GioiTinh${i}" placeholder="Giới Tính" required>
-                    <option value="0">Nam</option>
-                    <option value="1">Nữ</option>
+                    <option value="false">Nam</option>
+                    <option value="true">Nữ</option>
                 </select>
             </div>
         `;

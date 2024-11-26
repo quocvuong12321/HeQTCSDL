@@ -21,7 +21,7 @@
 {
     <p><strong>Tên:</strong> @hanhKhach.HoTen</p>
     <p><strong>Ngày sinh:</strong> @hanhKhach.NgaySinh.ToString("dd/MM/yyyy")</p>
-    <p><strong>Giới tính:</strong> @(hanhKhach.GioiTinhHienThi)</p>
+    <p><strong>Giới tính:</strong> @(hanhKhach.GioiTinh ? "Nữ" : "Nam")</p>
 }
 <p>
     @Html.ActionLink("Trở về", "Index", "Home")

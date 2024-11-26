@@ -61,8 +61,8 @@
         <div class="col-md-10">
             @Html.DropDownListFor(model => model.GioiTinh, new SelectList(new List<SelectListItem>
             {
-                new SelectListItem { Text = "Nam", Value = "0" },
-                new SelectListItem { Text = "Nữ", Value = "1" }
+                new SelectListItem { Text = "Nam", Value = "false" },
+                new SelectListItem { Text = "Nữ", Value = "true" }
             }, "Value", "Text"), new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.GioiTinh, "", new { @class = "text-danger" })
         </div>

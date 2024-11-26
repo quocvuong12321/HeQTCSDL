@@ -31,7 +31,6 @@ namespace QuanLy_TourDuLich.Controllers
 
             KhachHang kh= db.KhachHangs.SingleOrDefault(t => t.KhachHang_id == "KH001");
             ViewBag.KhachHang = kh;
-
             // Trả về view DatTour với thông tin tour
             return View(tour);
         }
@@ -82,7 +81,7 @@ namespace QuanLy_TourDuLich.Controllers
                     DatTour_id = datTour.DatTour_id,
                     HoTen = form[$"HoTen{i}"],
                     NgaySinh = Convert.ToDateTime(form[$"NgaySinh{i}"]),
-                    GioiTinh = Convert.ToInt32(form[$"GioiTinh{i}"])
+                    GioiTinh = Convert.ToBoolean(form[$"GioiTinh{i}"])
                 };
                 db.HanhKhaches.InsertOnSubmit(hanhKhach);
             }

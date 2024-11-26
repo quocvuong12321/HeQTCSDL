@@ -43,7 +43,7 @@
             <td>@Html.DisplayFor(modelItem => item.Email)</td>
             <td>@Html.DisplayFor(modelItem => item.DiaChi)</td>
             <td>@Html.DisplayFor(modelItem => item.DienThoai)</td>
-            <td>@Html.DisplayFor(modelItem => item.GioiTinhHienThi)</td>
+            <td>@(Convert.ToBoolean(item.GioiTinh) ? "Nữ" : "Nam")</td>
             <td>@Html.DisplayFor(modelItem => item.VaiTro)</td>
             <td>
                 <a href="~/Admin/NhanVien/ChinhSuaNhanVien/@item.NhanVien_id">Sửa</a> |
