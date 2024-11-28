@@ -5,24 +5,66 @@
     Layout = "~/Views/Shared/UserLayout.cshtml";
 }
 
-<h2>Xác Nhận Đặt Tour: @Model.Tour.Name</h2>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- Card chính -->
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white text-center">
+                    <h2 class="mb-0 fw-bold">Xác Nhận Đặt Tour</h2>
+                    <h4>@Model.Tour.Name</h4>
+                </div>
+                <div class="card-body">
+                    <!-- Thông tin khách hàng -->
+                    <h5 class="text-info mb-3">Thông Tin Khách Hàng</h5>
+                    <ul class="list-group mb-4">
+                        <li class="list-group-item"><strong>Tên khách hàng:</strong> @ViewBag.TenKhachHang</li>
+                        <li class="list-group-item"><strong>Email:</strong> @ViewBag.Email</li>
+                        <li class="list-group-item"><strong>Số điện thoại:</strong> @ViewBag.SoDienThoai</li>
+                        <li class="list-group-item"><strong>Địa chỉ:</strong> @ViewBag.DiaChi</li>
+                        <li class="list-group-item"><strong>Số người:</strong> @ViewBag.SoNguoi</li>
+                        <li class="list-group-item">
+                            <strong>Ngày khởi hành:</strong> @ViewBag.NgayKhoiHanh
+                        </li>
+                        <li class="list-group-item"><strong>Ngày kết thúc:<strong>Ngày khởi hành:</strong> @ViewBag.NgayKetThuc</li>
+                        <li class="list-group-item"><strong>Ghi chú:</strong> @ViewBag.GhiChu</li>
+                    </ul>
 
-<p><strong>Tên khách hàng:</strong> @ViewBag.TenKhachHang</p>
-<p><strong>Email:</strong> @ViewBag.Email</p>
-<p><strong>Số điện thoại:</strong> @ViewBag.SoDienThoai</p>
-<p><strong>Địa chỉ:</strong> @ViewBag.DiaChi</p>
-<p><strong>Số người:</strong> @ViewBag.SoNguoi</p>
-<p><strong>Ngày khởi hành:</strong> @ViewBag.NgayKhoiHanh</p>
-<p><strong>Ngày kết thúc:</strong> @ViewBag.NgayKetThuc</p>
-<p><strong>Ghi chú:</strong> @ViewBag.GhiChu</p>
+                    <!-- Thông tin hành khách -->
+                    <h5 class="text-info mb-3">Thông Tin Hành Khách</h5>
+                    <div class="accordion mb-4" id="accordionHanhKhachs">
+                        @for (var i = 0; i < ViewBag.HanhKhachs.Count; i++)
+                        {
+                            var hanhKhach = ViewBag.HanhKhachs[i];
+                            <div class="card">
+                                <div class="card-header" id="heading-@i">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link text-dark text-decoration-none" type="button" data-toggle="collapse" data-target="#collapse-@i" aria-expanded="true" aria-controls="collapse-@i">
+                                            Hành khách @(i + 1): @hanhKhach.HoTen
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="collapse-@i" class="collapse @((i == 0) ? "show" : "")" aria-labelledby="heading-@i" data-parent="#accordionHanhKhachs">
+                                    <div class="card-body">
+                                        <p><strong>Ngày sinh:</strong> @hanhKhach.NgaySinh.ToString("dd/MM/yyyy")</p>
+                                        <p><strong>Giới tính:</strong> @(hanhKhach.GioiTinh ? "Nữ" : "Nam")</p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
 
-<h3>Thông Tin Hành Khách</h3>
-@foreach (var hanhKhach in ViewBag.HanhKhachs)
-{
-    <p><strong>Tên:</strong> @hanhKhach.HoTen</p>
-    <p><strong>Ngày sinh:</strong> @hanhKhach.NgaySinh.ToString("dd/MM/yyyy")</p>
-    <p><strong>Giới tính:</strong> @(hanhKhach.GioiTinh ? "Nữ" : "Nam")</p>
-}
-<p>
-    @Html.ActionLink("Trở về", "Index", "Home")
-</p>
+                    <!-- Nút trở về -->
+                    <div class="text-center">
+                        @Html.ActionLink("Trở về", "Index", "Home", null, new { @class = "btn btn-secondary btn-lg" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
