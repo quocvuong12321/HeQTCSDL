@@ -9,7 +9,7 @@
 
 <div class="row">
     <div class="col-md-1"></div>
-    <div class="col-md-10">
+    <div class="col-md-11">
         <!-- Carousel -->
         <div class="row">
             <div class="col-md-8">
@@ -53,7 +53,7 @@
                 <div style="border: 2px solid grey;">
                     <div class="p-4">
                         <strong style="font-size:22px;" class="text-danger">@Model.Name</strong>
-                        <table class="table table-striped-columns" style="font-size:20px; ">
+                        <table class="table table-striped-columns" style="font-size:18px; ">
                             <tr>
                                 <th>Mã tour:</th>
                                 <td>@Model.Tour_id</td>
@@ -85,7 +85,7 @@
                 <br /><br />
 
                 <div class="text-center">
-                    @Html.Action("SanPhamLienQuan", "Tour", new { d = Model.TinhThanh1.Name, id = Model.Tour_id })
+                    @Html.Action("SanPhamLienQuan", "Tour", new { diemden = Model.DiemDen_id, id = Model.Tour_id })
 
                 </div>
             </div>

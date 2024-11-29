@@ -68,13 +68,13 @@ namespace QuanLy_TourDuLich.Controllers
             return View("HienThiTour", lstTour);
         }
 
-        public ActionResult SanPhamLienQuan(string diemkh, string id)
+        public ActionResult SanPhamLienQuan(int diemden, string id)
         {
-            if (string.IsNullOrEmpty(diemkh) || string.IsNullOrEmpty(id))
+            if (/*string.IsNullOrEmpty(diemden)*/ string.IsNullOrEmpty(id))
             {
                 return PartialView(new List<Tour>());
             }
-            List<Tour> ds = db.Tours.Where(t => t.TinhThanh1.Name.Contains(diemkh) && t.Tour_id != id && t.TrangThai.Equals("Mở bán")).Take(4).ToList();
+            List<Tour> ds = db.Tours.Where(t => t.DiemDen_id.Equals(diemden) && t.Tour_id != id && t.TrangThai.Equals("Mở bán")).Take(4).ToList();
 
             return PartialView(ds ?? new List<Tour>());
         }

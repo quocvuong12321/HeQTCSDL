@@ -84,7 +84,11 @@
             <div class="form-group">
                 <label class="col-md-2 form-label">Điểm đến</label>
                 <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.DiemDen_id, (SelectList)ViewBag.TinhThanh, new { @class = "form-select" })
+                    @*@Html.DropDownListFor(model => model.DiemDen_id, (SelectList)ViewBag.TinhThanh, new { @class = "form-select" })*@
+                    @Html.DropDownListFor(
+                   model => model.DiemDen_id,
+                   (SelectList)ViewBag.TinhThanh,
+                   new { @class = "form-select", id = "DiemDenDropdown" })
                     @Html.ValidationMessageFor(model => model.DiemDen_id, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -116,7 +120,11 @@
             <div class="form-group">
                 <label class="col-md-2 form-label">Khách sạn</label>
                 <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.KhachSan_id, (SelectList)ViewBag.KhachSan, new { @class = "form-select" })
+                    @*@Html.DropDownListFor(model => model.KhachSan_id, (SelectList)ViewBag.KhachSan, new { @class = "form-select" })*@
+                    @Html.DropDownListFor(
+                    model => model.KhachSan_id,
+                    Enumerable.Empty<SelectListItem>(),
+                    new { @class = "form-select", id = "KhachSanDropdown" })
                     @Html.ValidationMessageFor(model => model.KhachSan_id, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -147,3 +155,38 @@
         CKEDITOR.replace('inputLichTrinh')
     </script>
 }
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const diemDenDropdown = document.getElementById("DiemDenDropdown");
+        const khachSanDropdown = document.getElementById("KhachSanDropdown");
+
+        diemDenDropdown.addEventListener("change", function () {
+            const tinhThanhId = this.value; // Lấy giá trị Điểm đến
+
+            // Kiểm tra nếu giá trị hợp lệ
+            if (tinhThanhId) {
+                fetch('/admin/Tour/GetKhachSanByTinhThanh?tinhThanhId=' + tinhThanhId)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Xóa các option cũ
+                        khachSanDropdown.innerHTML = '<option value="">-- Chọn khách sạn --</option>';
+                        // Thêm option mới
+                        data.forEach(item => {
+                            const option = document.createElement("option");
+                            option.value = item.KhachSan_id;
+                            option.textContent = item.Name;
+                            khachSanDropdown.appendChild(option);
+                        });
+                    })
+                    .catch(error => {
+                        console.error("Lỗi khi tải danh sách khách sạn:", error);
+                        alert("Không thể tải danh sách khách sạn.");
+                    });
+            } else {
+                // Xóa dữ liệu nếu Điểm đến không hợp lệ
+                khachSanDropdown.innerHTML = '<option value="">-- Chọn khách sạn --</option>';
+            }
+        });
+    });
+</script>

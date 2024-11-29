@@ -10,20 +10,21 @@
 
     <div class="row">
         <div class="col-md-12">
-            <h2>@Model.Name</h2>
+            <h2 style="font-family:Tahoma">@Model.Name</h2>
             <p><strong>Mã tour:</strong> @Model.Tour_id</p>
             <p><strong>Loại tour:</strong> @Model.LoaiTour</p>
             <p><strong>Giá:</strong> @Model.Gia</p>
+            <p><strong>Điểm khởi hành:</strong> @Model.TinhThanh1.Name</p>
+            <p><strong>Điểm đến:</strong> @Model.TinhThanh.Name</p>
+            <p><strong>Ngày khởi hành:</strong> @String.Format("{0: dd/MM/yyyy}", Model.NgayKhoiHanh)</p>
+            <p><strong>Ngày kết thúc:</strong> @String.Format("{0: dd/MM/yyyy}", Model.NgayKetThuc)</p>
+            <p><strong>Số lượng còn:</strong> @Model.SoLuongCon</p>
             <p><strong>Mô tả:</strong></p>
             <p>@Html.Raw(Model.MoTa)</p>
             <p><strong>Lịch trình:</strong></p>
             <p>@Html.Raw(Model.LichTrinh)</p>
-            <p><strong>Điểm khởi hành:</strong> @Model.DiemKhoiHanh_id</p>
-            <p><strong>Điểm đến:</strong> @Model.DiemDen_id</p>
-            <p><strong>Ngày khởi hành:</strong> @String.Format("{0: dd/MM/yyyy}", Model.NgayKhoiHanh)</p>
-            <p><strong>Ngày kết thúc:</strong> @String.Format("{0: dd/MM/yyyy}", Model.NgayKetThuc)</p>
-            <p><strong>Số lượng còn:</strong> @Model.SoLuongCon</p>
-            <p>Danh sách ảnh</p>
+            <br /><br /><br />
+            <strong class="" style="font-size:xx-large">Danh sách ảnh</strong>
             @Html.Action("dsAnh", "Tour")
             <p>
                 @Html.ActionLink("Trở về", "Index", null, new { @class = "btn btn-primary" })

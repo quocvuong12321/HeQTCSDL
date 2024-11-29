@@ -18,6 +18,17 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
             return View(dsTour);
         }
 
+        public JsonResult GetKhachSanByTinhThanh(int tinhThanhId)
+        {
+            var khachSanList = db.KhachSans
+                                 .Where(k => k.TinhThanh_id == tinhThanhId)
+                                 .Select(k => new { k.KhachSan_id, k.Name })
+                                 .ToList();
+
+            return Json(khachSanList, JsonRequestBehavior.AllowGet);
+        }
+
+
         public ActionResult ThemMoiTour()
         {
             int SoTour = db.Tours.Count() + 1;
