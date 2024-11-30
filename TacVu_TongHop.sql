@@ -3,21 +3,23 @@ go
 
 
 ----------------------------------------Vẹn------------------------------------
--- 1. Trigger: Cập nhật `TrangThai` của tour
--- Trigger này sẽ cập nhật trạng thái của `Tour` khi đến ngày bắt đầu (`NgayKhoiHanh`) và ngày kết thúc (`NgayKetThuc`).
-CREATE TRIGGER trg_Update_TrangThai_Tour
-ON [Tour]
-FOR UPDATE
+-- 1. Trigger: Kiểm tra vai trò nhân viên
+CREATE TRIGGER trg_CheckVaiTroOnInsert
+ON PhanCong_NhanVien
+FOR INSERT
 AS
-    -- Cập nhật trạng thái thành 'Dang_Dien_Ra' nếu đến ngày bắt đầu
-    UPDATE [Tour]
-    SET TrangThai = 'Dang_Dien_Ra'
-    WHERE NgayKhoiHanh = CAST(GETDATE() AS DATE) AND TrangThai = 'Mo_ban'
+BEGIN
+    DECLARE @NhanVien_id VARCHAR(36);
+	DECLARE @Tour_id VARCHAR(36);
 
-    -- Cập nhật trạng thái thành 'Da_Hoan_Thanh' nếu đến ngày kết thúc
-    UPDATE [Tour]
-    SET TrangThai = 'Da_Hoan_Thanh'
-    WHERE NgayKetThuc = CAST(GETDATE() AS DATE) AND TrangThai = 'Dang_Dien_Ra'
+    SELECT @NhanVien_id = NhanVien_id, @Tour_id = Tour_id FROM inserted;
+
+    IF EXISTS ( SELECT*FROM NhanVien WHERE NhanVien_id = @NhanVien_id AND VaiTro != N'Hướng dẫn viên' )
+	BEGIN 
+		PRINT N'Nhân viên được phân công không có vai trò "Hướng dẫn viên"'
+		ROLLBACK TRANSACTION; 
+	END
+END
 GO
 
 -- 2. Function: Tính tổng số tiền thanh toán của một tour
