@@ -24,7 +24,7 @@
                 <div class="card" style="width: 18rem;">
                     @Html.Action("AnhChoCard", "Tour", new { id = item.Tour_id });
                     <div class="card-body">
-                        <a href="~/Home/ChiTietTour/@item.Tour_id" class="nav-link" style="font-size:20px;">@Truncate(item.Name, 50)</a>
+                        <a href="~/Tour/ChiTietTour/@item.Tour_id" class="nav-link" style="font-size:20px;">@Truncate(item.Name, 50)</a>
                         <p class="text-body">Giá: <span class="text-danger">@String.Format("{0:0,00}", item.Gia) đ</span></p>
                     </div>
                 </div>
