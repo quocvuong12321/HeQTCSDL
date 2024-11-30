@@ -332,7 +332,7 @@ go
 --EXEC GetTourDetailsByDatTourId 4;
  --drop proc GetTourDetailsByDatTourId
 
- CREATE PROCEDURE showHuyTour
+CREATE PROCEDURE showHuyTour
 AS
 BEGIN
     SELECT 
@@ -344,7 +344,8 @@ BEGIN
         T.Name AS TenTour,
         PC.NhanVien_id,
         KH.KhachHang_id,
-        KH.Name AS TenKhach
+        KH.Name AS TenKhach,
+		HT.TrangThai
     FROM 
         HuyTour HT
     INNER JOIN 
