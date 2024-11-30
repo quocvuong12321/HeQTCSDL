@@ -353,7 +353,6 @@ C:\Users\vanan\Downloads\HeQTCSDL\QuanLy_TourDuLich\bin\System.Web.Webpages.Razo
 C:\Users\vanan\Downloads\HeQTCSDL\QuanLy_TourDuLich\bin\System.Web.Helpers.xml
 C:\Users\vanan\Downloads\HeQTCSDL\QuanLy_TourDuLich\bin\System.Web.Mvc.xml
 C:\Users\vanan\Downloads\HeQTCSDL\QuanLy_TourDuLich\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\vanan\Downloads\HeQTCSDL\QuanLy_TourDuLich\obj\Debug\QuanLy_TourDuLich.csproj.AssemblyReference.cache
 C:\Users\vanan\Downloads\HeQTCSDL\QuanLy_TourDuLich\obj\Debug\QuanLy_TourDuLich.csproj.CoreCompileInputs.cache
 C:\Users\vanan\Downloads\HeQTCSDL\QuanLy_TourDuLich\obj\Debug\QuanLy_TourDuLich.csproj.CopyComplete
 C:\Users\vanan\Downloads\HeQTCSDL\QuanLy_TourDuLich\obj\Debug\QuanLy_TourDuLich.dll

@@ -91,7 +91,7 @@ GO
 
 CREATE TABLE [DatTour] (
   [DatTour_id] int not null identity(1,1) PRIMARY KEY,
-  [GhiChu] nvarchar(128),
+  [GhiChu] nvarchar(36),
   [KhachHang_id] varchar(36),
   [NgayDat] datetime,
   [Tour_id] varchar(36),

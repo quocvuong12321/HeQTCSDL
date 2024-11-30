@@ -74,7 +74,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.VaiTro, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.VaiTro, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.VaiTro, new SelectList(new List<string> { "Quản lý", "Hướng dẫn viên", "Nhân viên" }), "Chọn vai trò", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.VaiTro, "", new { @class = "text-danger" })
             </div>
         </div>

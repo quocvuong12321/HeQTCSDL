@@ -10,7 +10,7 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
     public class NhanVienController : Controller
     {
         QuanLyTourDuLichDataContext db = new QuanLyTourDuLichDataContext();
-        // GET: Admin/NhanVien
+
         public ActionResult Index()
         {
             List<NhanVien> dsNhanVien = db.NhanViens.ToList();
@@ -41,7 +41,7 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
             return View(model);
         }
 
-        // GET: Admin/NhanVien/ChinhSuaNhanVien/5
+
         public ActionResult ChinhSuaNhanVien(string id)
         {
             NhanVien nhanVien = db.NhanViens.FirstOrDefault(nv => nv.NhanVien_id == id);
@@ -76,7 +76,7 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
             return View(model);
         }
 
-        // GET: Admin/NhanVien/XoaNhanVien/5
+
         public ActionResult XoaNhanVien(string id)
         {
             NhanVien nhanVien = db.NhanViens.FirstOrDefault(nv => nv.NhanVien_id == id);
@@ -99,7 +99,6 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        // GET: Admin/NhanVien/ChiTietNhanVien/5
         public ActionResult ChiTietNhanVien(string id)
         {
             NhanVien nhanVien = db.NhanViens.FirstOrDefault(nv => nv.NhanVien_id == id);

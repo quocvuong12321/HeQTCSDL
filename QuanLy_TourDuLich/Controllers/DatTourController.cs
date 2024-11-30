@@ -64,9 +64,12 @@ namespace QuanLy_TourDuLich.Controllers
                 Tour_id = tour.Tour_id,
                 KhachHang_id = kh.KhachHang_id,
                 SoNguoi = Convert.ToInt32(form["SoNguoi"]),
-                GhiChu = form["GhiChu"],
                 NgayDat = DateTime.Now
             };
+            if (datTour.GhiChu == null)
+            {
+                datTour.GhiChu = "Chưa xác nhận";
+            }
 
             // Thêm thông tin đặt tour vào cơ sở dữ liệu
             db.DatTours.InsertOnSubmit(datTour);
@@ -109,7 +112,6 @@ namespace QuanLy_TourDuLich.Controllers
             ViewBag.Email = datTour.KhachHang.Email;
             ViewBag.SoDienThoai = datTour.KhachHang.DienThoai;
             ViewBag.DiaChi = datTour.KhachHang.DiaChi;
-            ViewBag.GhiChu = datTour.GhiChu;
 
             // Lấy thông tin hành khách từ cơ sở dữ liệu
             var hanhKhachs = db.HanhKhaches.Where(hk => hk.DatTour_id == id).ToList();

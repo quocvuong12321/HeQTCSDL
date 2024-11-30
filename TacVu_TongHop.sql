@@ -87,9 +87,60 @@ CLOSE tour_cursor
 DEALLOCATE tour_cursor
 GO
 
+--5 Thủ tục thêm đặt tour
+CREATE TYPE HanhKhachType AS TABLE
+(
+    HoTen NVARCHAR(128),
+    NgaySinh DATE,
+    GioiTinh BIT
+);
+GO
+CREATE PROCEDURE AddTourBooking
+    @KhachHang_id VARCHAR(36),
+    @Name NVARCHAR(128),
+    @Email NVARCHAR(128),
+    @DienThoai VARCHAR(20),
+    @DiaChi NVARCHAR(128),
+    @Password NVARCHAR(128),
+    @Gioitinh BIT,
+    @Tour_id VARCHAR(36),
+    @SoNguoi INT,
+    @HanhKhach HanhKhachType READONLY
+AS
+BEGIN
+    SET NOCOUNT ON;
 
+    -- Kiểm tra nếu khách hàng đã tồn tại
+    IF NOT EXISTS (SELECT * FROM KhachHang WHERE KhachHang_id = @KhachHang_id)
+    BEGIN
+        -- Thêm khách hàng mới vào bảng KhachHang
+        INSERT INTO KhachHang (KhachHang_id, [Name], Email, DienThoai, DiaChi, [Password], Gioitinh)
+        VALUES (@KhachHang_id, @Name, @Email, @DienThoai, @DiaChi, @Password, @Gioitinh);
+    END
 
+    -- Thêm dữ liệu vào bảng DatTour
+    INSERT INTO DatTour (KhachHang_id, NgayDat, Tour_id, SoNguoi)
+    VALUES (@KhachHang_id, GETDATE(), @Tour_id, @SoNguoi);
 
+    -- Lấy ID của DatTour vừa thêm
+    DECLARE @DatTour_id INT;
+    SET @DatTour_id = SCOPE_IDENTITY();
+
+    -- Thêm dữ liệu vào bảng HanhKhach
+    INSERT INTO HanhKhach (HoTen, NgaySinh, GioiTinh, DatTour_id, Tour_id)
+    SELECT HoTen, NgaySinh, GioiTinh, @DatTour_id, @Tour_id
+    FROM @HanhKhach;
+END
+GO
+---- Khai báo bảng tạm kiểu HanhKhachType
+--DECLARE @HanhKhachList HanhKhachType;
+---- Thêm dữ liệu vào bảng tạm
+--INSERT INTO @HanhKhachList (HoTen, NgaySinh, GioiTinh)
+--VALUES ('Nguyen Van A', '1990-01-01', 1),
+--       ('Tran Thi B', '1992-02-02', 0);
+---- Gọi stored procedure AddTourBooking
+--EXEC AddTourBooking '12345',N'Nguyen Thị Tịnh','email@example.com','0123456789',N'123 ABC Street','password',0,'TOUR001',2,@HanhKhachList;
+--GO
 
 --------------------------Bảo----------------------------------------------------------
 -- trigger Xóa Bản Ghi Trong ThanhToan khi Hủy Tour

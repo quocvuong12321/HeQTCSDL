@@ -1161,10 +1161,8 @@
     <Content Include="Areas\Admin\Views\Tour\XoaHinhAnh.cshtml" />
     <Content Include="Areas\Admin\Views\Tour\ThemNhaHang.cshtml" />
     <Content Include="Areas\Admin\Views\PhanCongNhanVien\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\PhanCongNhanVien\ThemMoi.cshtml" />
-    <Content Include="Areas\Admin\Views\PhanCongNhanVien\ChinhSuaPhanCong.cshtml" />
+    <Content Include="Areas\Admin\Views\PhanCongNhanVien\ThemMoiPhanCong.cshtml" />
     <Content Include="Areas\Admin\Views\PhanCongNhanVien\XoaPhanCong.cshtml" />
-    <Content Include="Areas\Admin\Views\PhanCongNhanVien\ChiTietPhanCong.cshtml" />
     <Content Include="Areas\Admin\Views\QuanLyHanhKhachTour\Index.cshtml" />
     <Content Include="Areas\Admin\Views\QuanLyHanhKhachTour\details.cshtml" />
     <Content Include="Models\QuanLyTourDuLich.dbml">

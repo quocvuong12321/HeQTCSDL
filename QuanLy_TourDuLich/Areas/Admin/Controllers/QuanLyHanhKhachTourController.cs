@@ -10,15 +10,11 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
     public class QuanLyHanhKhachTourController : Controller
     {
         private QuanLyTourDuLichDataContext db = new QuanLyTourDuLichDataContext();
-
-        // GET: QuanLyHanhKhachTour
         public ActionResult Index()
         {
             var tours = db.Tours.ToList();
             return View(tours);
         }
-
-        // GET: QuanLyHanhKhachTour/Details/5
         public ActionResult Details(string id)
         {
             if (string.IsNullOrEmpty(id))
@@ -34,13 +30,13 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
             }
 
             var hanhKhachs = db.HanhKhaches.Where(h => h.Tour_id == id).ToList();
-            var phanCong = db.PhanCong_NhanViens.SingleOrDefault(p => p.Tour_id == id);
-            var huongDanVien = phanCong != null ? db.NhanViens.SingleOrDefault(n => n.NhanVien_id == phanCong.NhanVien_id) : null;
+            var phanCongList = db.PhanCong_NhanViens.Where(p => p.Tour_id == id).ToList();
+            var huongDanVienList = phanCongList.Select(p => db.NhanViens.SingleOrDefault(n => n.NhanVien_id == p.NhanVien_id)).ToList();
 
             var viewModel = new TourDetailsViewModel
             {
                 Tour = tour,
-                HuongDanVien = huongDanVien,
+                HuongDanVien = huongDanVienList,
                 HanhKhachs = hanhKhachs
             };
 
@@ -49,7 +45,7 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
         public class TourDetailsViewModel
         {
             public Tour Tour { get; set; }
-            public NhanVien HuongDanVien { get; set; }
+            public List<NhanVien> HuongDanVien { get; set; }
             public List<HanhKhach> HanhKhachs { get; set; }
         }
     }

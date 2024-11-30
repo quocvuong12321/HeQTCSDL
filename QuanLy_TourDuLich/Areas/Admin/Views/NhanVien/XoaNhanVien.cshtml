@@ -56,9 +56,7 @@
             @Html.DisplayNameFor(model => model.GioiTinh)
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.GioiTinh)
-        </dd>
+        <dd>@(Convert.ToBoolean(Model.GioiTinh) ? "Nữ" : "Nam")</dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.VaiTro)

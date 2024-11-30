@@ -9,18 +9,23 @@
 @if (Model.HuongDanVien != null)
 {
     <table class="table table-bordered">
-        <tr>
-            <th>Tên Hướng Dẫn Viên</th>
-            <td>@Html.DisplayFor(model => model.HuongDanVien.HoTen)</td>
-        </tr>
-        <tr>
-            <th>Điện Thoại</th>
-            <td>@Html.DisplayFor(model => model.HuongDanVien.DienThoai)</td>
-        </tr>
-        <tr>
-            <th>Email</th>
-            <td>@Html.DisplayFor(model => model.HuongDanVien.Email)</td>
-        </tr>
+        <thead>
+            <tr>
+                <th>Tên Hướng Dẫn Viên</th>
+                <th>Điện Thoại</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.HuongDanVien)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.HoTen)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DienThoai)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                </tr>
+            }
+        </tbody>
     </table>
 }
 else
@@ -40,11 +45,11 @@ else
     <tbody>
         @foreach (var item in Model.HanhKhachs)
         {
-        <tr>
-            <td>@Html.DisplayFor(modelItem => item.HoTen)</td>
-            <td>@Html.DisplayFor(modelItem => item.NgaySinh)</td>
-            <td>@(Convert.ToBoolean(item.GioiTinh) ? "Nam" : "Nữ")</td>
-        </tr>
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.HoTen)</td>
+                <td>@Html.DisplayFor(modelItem => item.NgaySinh)</td>
+                <td>@(Convert.ToBoolean(item.GioiTinh) ? "Nữ" : "Nam")</td>
+            </tr>
         }
     </tbody>
 </table>

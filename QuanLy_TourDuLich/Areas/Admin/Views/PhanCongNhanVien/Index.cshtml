@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<QuanLy_TourDuLich.Models.PhanCong_NhanVien>
 
 @{
-    ViewBag.Title = "Danh sách Phân Công Nhân Viên";
+    ViewBag.Title = "Danh Sách Phân Công Nhân Viên";
     Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
 }
 <b style="font-size:45px; color:black">Quản lý Phân Công Nhân Viên</b>
@@ -26,18 +26,16 @@
             <td>@Html.DisplayFor(modelItem => item.Tour.Name)</td>
             <td>@Html.DisplayFor(modelItem => item.NhanVien.HoTen)</td>
             <td>
-                <a href="~/Admin/PhanCongNhanVien/ChinhSuaPhanCong/@item.Tour_id">Sửa</a> |
-                <a href="~/Admin/PhanCongNhanVien/ChiTietPhanCong/@item.Tour_id">Chi tiết</a> |
-                <a onclick="xoa(@item.Tour_id&&@item.NhanVien_id)" href="#">Xóa</a>
+                <a href="/Admin/PhanCongNhanVien/XoaPhanCong/@item.Tour_id/@item.NhanVien_id" onclick="xoaPhanCong('@item.Tour_id', '@item.NhanVien_id')">Xóa</a>
             </td>
         </tr>
     }
 </table>
 
 <script>
-    var xoa = function (id) {
+    var xoa = function (Tour_id, NhanVien_id) {
         if (confirm("Bạn có chắc chắn muốn xóa không?")) {
-            location.href = "XoaPhanCong/" + id;
+            location.href = "XoaPhanCong/" + Tour_id + "/" + NhanVien_id;
         }
     }
 </script>

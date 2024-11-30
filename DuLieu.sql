@@ -1,4 +1,5 @@
-
+use QL_Tour
+go
 
 INSERT INTO TinhThanh Values
 (N'Hà Nội'),            
@@ -1866,58 +1867,61 @@ GO
 
 
 
---INSERT INTO [DatTour] ([GhiChu], [KhachHang_id], [NgayDat], [Tour_id], [SoNguoi])
---VALUES 
---(N'Đặt tour cho gia đình', 'KH001', '2024-11-01', 'Tour001', 4),
---(N'Đặt tour cho nhóm bạn', 'KH002', '2024-11-05', 'Tour001', 3),
---(N'Đặt tour cho gia đình', 'KH004', '2024-11-15', 'Tour002', 5),
---(N'Đặt tour cho nhóm bạn', 'KH005', '2024-11-18', 'Tour001', 6);
-
---go
-
---INSERT INTO [ThanhToan] ([DatTour_id], [NgayThanhToan], [HinhThuc_id], [TongTien])
---VALUES 
---(2, '2024-11-02', N'Chuyển khoản ngân hàng', 20000000.00),
---(3, '2024-11-06', N'Momo', 21000000.00),
---(4, '2024-11-12', N'Chuyển khoản ngân hàng', 65000000.00),
---(1, '2024-11-17', N'Chuyển khoản ngân hàng', 40000000.00);
-
---go
-
---INSERT INTO HanhKhach (HoTen, NgaySinh, GioiTinh, DatTour_id, Tour_id)
---VALUES 
---    (N'Nguyễn Văn An', '1985-06-15', 0, 2, 'Tour001'),
---    (N'Lê Thị Bích', '1990-08-20', 1, 2, 'Tour001'),
---    (N'Trần Văn Cường', '1975-11-05', 0, 2, 'Tour001'),
---    (N'Phạm Thị Dung', '1988-02-13', 1, 2, 'Tour001'),
-
---    (N'Đỗ Mạnh Hùng', '1992-03-22', 0, 3, 'Tour001'),
---    (N'Vũ Minh Khánh', '1987-12-01', 0, 3, 'Tour001'),
---    (N'Nguyễn Hương Lan', '1995-07-07', 1, 3, 'Tour001'),
-
---    (N'Bùi Văn Mạnh', '1983-09-10', 0, 4, 'Tour002'),
---    (N'Trương Ngọc Oanh', '1996-01-25', 1, 4, 'Tour002'),
---    (N'Phan Văn Quý', '1989-04-30', 0, 4, 'Tour002'),
---    (N'Hà Thị Mai', '1991-05-14', 1, 4, 'Tour002'),
---    (N'Lê Trung Kiên', '1982-07-21', 0, 4, 'Tour002'),
---    (N'Võ Văn Bình', '1993-03-18', 0, 4, 'Tour002'),
---    (N'Phạm Minh Tuyết', '1997-08-29', 1, 4, 'Tour002'),
---    (N'Đặng Thị Hồng', '1990-10-05', 1, 4, 'Tour002'),
---    (N'Lương Văn Hùng', '1986-04-12', 0, 4, 'Tour002'),
---    (N'Hoàng Ngọc Yến', '1994-09-30', 1, 4, 'Tour002');
---go
-
-
-INSERT INTO [NhanVien] ([NhanVien_id], [HoTen], [Email], [DiaChi], [DienThoai], [GioiTinh], [Password], [VaiTro])
+INSERT INTO [DatTour] ([KhachHang_id], [NgayDat], [Tour_id], [SoNguoi])
 VALUES 
-('NV001', N'Lê Nhựt Hùng', 'hung.le@example.com', N'123 Đường ABC, Hà Nội', '0123456789', 0, 'password1', N'Quản lý'),
-('NV002', N'Hoàng Văn Dũng', 'dung.hoang@example.com', N'321 Đường JKL, Hà Nội', '0934567890', 0, 'password4', N'Hướng dẫn viên'),
-('NV003', N'Lê Thị Mai', 'mai.le@example.com', N'654 Đường MNO, Đà Nẵng', '0976543210', 1, 'password5', N'Nhân viên'),
-('NV004', N'Lê Thị Trúc Mai', 'maitruc.le@example.com', N'654 Đường MNO, Đà Nẵng', '0971143210', 1, 'password2', N'Hướng dẫn viên');
+('KH001', '2024-11-01', 'TOUR001', 4),
+('KH002', '2024-11-05', 'TOUR001', 3),
+('KH004', '2024-11-15', 'TOUR002', 5),
+('KH005', '2024-11-18', 'TOUR001', 6);
+
 go
 
---INSERT INTO [PhanCong_NhanVien] ([Tour_id], [NhanVien_id])
---VALUES 
---('Tour001', 'NV002'),
---('Tour002', 'NV002')
---go
+INSERT INTO [ThanhToan] ([DatTour_id], [NgayThanhToan], [HinhThuc_id], [TongTien])
+VALUES 
+(2, '2024-11-02', N'Chuyển khoản ngân hàng', 20000000.00),
+(3, '2024-11-06', N'Momo', 21000000.00),
+(4, '2024-11-12', N'Chuyển khoản ngân hàng', 65000000.00),
+(1, '2024-11-17', N'Chuyển khoản ngân hàng', 40000000.00);
+
+go
+
+INSERT INTO HanhKhach (HoTen, NgaySinh, GioiTinh, DatTour_id, Tour_id)
+VALUES 
+    (N'Nguyễn Văn An', '1985-06-15', 0, 2, 'TOUR001'),
+    (N'Lê Thị Bích', '1990-08-20', 1, 2, 'TOUR001'),
+    (N'Trần Văn Cường', '1975-11-05', 0, 2, 'TOUR001'),
+    (N'Phạm Thị Dung', '1988-02-13', 1, 2, 'TOUR001'),
+
+    (N'Đỗ Mạnh Hùng', '1992-03-22', 0, 3, 'TOUR001'),
+    (N'Vũ Minh Khánh', '1987-12-01', 0, 3, 'TOUR001'),
+    (N'Nguyễn Hương Lan', '1995-07-07', 1, 3, 'TOUR001'),
+
+    (N'Bùi Văn Mạnh', '1983-09-10', 0, 4, 'TOUR002'),
+    (N'Trương Ngọc Oanh', '1996-01-25', 1, 4, 'TOUR002'),
+    (N'Phan Văn Quý', '1989-04-30', 0, 4, 'TOUR002'),
+    (N'Hà Thị Mai', '1991-05-14', 1, 4, 'TOUR002'),
+    (N'Lê Trung Kiên', '1982-07-21', 0, 4, 'TOUR002'),
+    (N'Võ Văn Bình', '1993-03-18', 0, 4, 'TOUR002'),
+    (N'Phạm Minh Tuyết', '1997-08-29', 1, 4, 'TOUR002'),
+    (N'Đặng Thị Hồng', '1990-10-05', 1, 4, 'TOUR002'),
+    (N'Lương Văn Hùng', '1986-04-12', 0, 4, 'TOUR002'),
+    (N'Hoàng Ngọc Yến', '1994-09-30', 1, 4, 'TOUR002');
+go
+
+INSERT INTO [NhanVien] ([NhanVien_id], [HoTen], [Email], [DiaChi], [DienThoai], [GioiTinh], [Password], [VaiTro]) VALUES 
+	('NV001', N'Lê Nhựt Hùng', 'hung.le@example.com', N'123 Đường ABC, Hà Nội', '0969456712', 0, 'password1', N'Quản lý'),
+	('NV002', N'Hoàng Văn Dũng', 'dung.hoang@example.com', N'321 Đường JKL, Hà Nội', '0934567890', 0, 'password2', N'Hướng dẫn viên'),
+	('NV003', N'Lê Thị Mai', 'mai.le@example.com', N'654 Đường MNO, Đà Nẵng', '0976543210', 1, 'password3', N'Nhân viên'),
+	('NV004', N'Nguyẽn Trí Dũng', 'dung.nguyen@example.com', N'24 Đường số 16, TP. HCM', '0989417295', 0, 'password4', N'Nhân viên'),
+	('NV005', N'Lê Thị Trúc Mai', 'maitruc.le@example.com', N'140 Lê Trọng Tấn, TP. HCM', '0989285714', 1, 'password5', N'Hướng dẫn viên'),
+	('NV006', N'Nguyễn Bích Trâm', 'tram.bich@example.com', N'56/12 Cầu Giấy, TP. HCM', '0969767512', 1, 'password6', N'Hướng dẫn viên');
+go
+
+INSERT INTO [PhanCong_NhanVien] ([Tour_id], [NhanVien_id])
+VALUES 
+('TOUR001', 'NV002'),
+('TOUR002', 'NV002')
+go
+--select*from KhachHang
+--select*from DatTour
+--select*from HanhKhach
