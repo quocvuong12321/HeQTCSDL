@@ -15,7 +15,7 @@
             <div class="col-md-3">
                 <label>Điểm đến</label>
                 <select class="form-select" name="noiden" style="margin: 10px 0 15px 0px; width: auto; min-width: 190px; padding-right: 10px;">
-                    <option selected>Chọn nơi muốn đến</option>
+                    <option selected disabled>Chọn nơi muốn đến</option>
                     @foreach (var item in lst)
                     {
                         <option value="@item.TinhThanh_id" name="noiden">@item.Name</option>
@@ -25,7 +25,7 @@
             <div class="col-md-3">
                 <label>Mức giá</label>
                 <select style="margin:10px 0 10px 0" name="mucgia" class="form-select">
-                    <option selected >Chọn giá tour</option>
+                    <option disabled selected>Chọn giá tour</option>
                     <option value="1">Dưới 2tr</option>
                     <option value="2">Từ 2tr - 4tr</option>
                     <option value="3">Từ 4tr - 6tr</option>

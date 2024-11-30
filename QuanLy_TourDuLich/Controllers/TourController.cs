@@ -26,7 +26,7 @@ namespace QuanLy_TourDuLich.Controllers
         public ActionResult ChiTietTour(string id)
         {
             var danhgia = db.DanhGias.Where(f => f.Tour_id == id).ToList();
-            ViewBag.DanhgiaCount = danhgia.Count;
+            ViewBag.DanhgiaCount = danhgia.Count();
             ViewBag.HienThiAnh = db.Image_Tours.Where(t => t.Tour_id == id).ToList();
 
             //function Hien thị số chỗ còn

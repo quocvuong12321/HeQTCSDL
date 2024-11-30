@@ -162,10 +162,6 @@
       <Association Name="KhachSan_Tour" Member="KhachSan" ThisKey="KhachSan_id" OtherKey="KhachSan_id" Type="KhachSan" IsForeignKey="true" />
     </Type>
   </Table>
-  <Function Name="dbo.SoLuongCon" Method="SoLuongCon" IsComposable="true">
-    <Parameter Name="tourid" Type="System.String" DbType="VarChar(36)" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.UpdateTour" Method="UpdateTour">
     <Parameter Name="Tour_id" Parameter="tour_id" Type="System.String" DbType="VarChar(36)" />
     <Parameter Name="Name" Parameter="name" Type="System.String" DbType="NVarChar(128)" />
@@ -198,11 +194,6 @@
     <Parameter Name="TrangThai" Parameter="trangThai" Type="System.String" DbType="NVarChar(255)" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.sp_ThemNhaHang" Method="sp_ThemNhaHang">
-    <Parameter Name="maTour" Type="System.String" DbType="VarChar(36)" />
-    <Parameter Name="maNhaHang" Type="System.String" DbType="VarChar(36)" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.sp_TimKiemTours" Method="sp_TimKiemTours">
     <Parameter Name="NgayKH" Parameter="ngayKH" Type="System.DateTime" DbType="Date" />
     <Parameter Name="MucGia" Parameter="mucGia" Type="System.String" DbType="NVarChar(10)" />
@@ -225,5 +216,38 @@
       <Column Name="TinhThanh_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Name1" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
     </ElementType>
+  </Function>
+  <Function Name="dbo.sp_ThemNhaHang" Method="sp_ThemNhaHang">
+    <Parameter Name="maTour" Type="System.String" DbType="VarChar(36)" />
+    <Parameter Name="maNhaHang" Type="System.String" DbType="VarChar(36)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetTourDetailsByDatTourId" Method="GetTourDetailsByDatTourId">
+    <Parameter Name="DatTour_id" Parameter="datTour_id" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetTourDetailsByDatTourIdResult">
+      <Column Name="Tour_id" Type="System.String" DbType="VarChar(36) NOT NULL" CanBeNull="false" />
+      <Column Name="TenTour" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="DiemKhoiHanh" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="DiemDen" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="NgayKhoiHanh" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="NgayKetThuc" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Phancong_nv" Method="Phancong_nv" IsComposable="true">
+    <Parameter Name="Tour_id" Parameter="tour_id" Type="System.String" DbType="VarChar(36)" />
+    <ElementType Name="Phancong_nvResult">
+      <Column Name="NhanVien_id" Type="System.String" DbType="VarChar(36) NOT NULL" CanBeNull="false" />
+      <Column Name="HoTen" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="DiaChi" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="DienThoai" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="GioiTinh" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(128)" CanBeNull="true" />
+      <Column Name="VaiTro" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SoLuongCon" Method="SoLuongCon" IsComposable="true">
+    <Parameter Name="tourid" Type="System.String" DbType="VarChar(36)" />
+    <Return Type="System.Int32" />
   </Function>
 </Database>

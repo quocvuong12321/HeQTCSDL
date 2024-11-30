@@ -216,12 +216,6 @@ namespace QuanLy_TourDuLich.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SoLuongCon", IsComposable=true)]
-		public System.Nullable<int> SoLuongCon([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(36)")] string tourid)
-		{
-			return ((System.Nullable<int>)(this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), tourid).ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.UpdateTour")]
 		public int UpdateTour([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Tour_id", DbType="VarChar(36)")] string tour_id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Name", DbType="NVarChar(128)")] string name, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Gia", DbType="Decimal(12,2)")] System.Nullable<decimal> gia, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="MoTa", DbType="NVarChar(MAX)")] string moTa, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="LichTrinh", DbType="NVarChar(MAX)")] string lichTrinh, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="DiemKhoiHanh_id", DbType="Int")] System.Nullable<int> diemKhoiHanh_id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="DiemDen_id", DbType="Int")] System.Nullable<int> diemDen_id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="KhachSan_id", DbType="VarChar(36)")] string khachSan_id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NgayKhoiHanh", DbType="Date")] System.Nullable<System.DateTime> ngayKhoiHanh, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NgayKetThuc", DbType="Date")] System.Nullable<System.DateTime> ngayKetThuc, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="SoLuongCon", DbType="Int")] System.Nullable<int> soLuongCon, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="LoaiTour", DbType="NVarChar(255)")] string loaiTour, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="TrangThai", DbType="NVarChar(255)")] string trangThai)
 		{
@@ -236,6 +230,13 @@ namespace QuanLy_TourDuLich.Models
 			return ((int)(result.ReturnValue));
 		}
 		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_TimKiemTours")]
+		public ISingleResult<sp_TimKiemToursResult> sp_TimKiemTours([global::System.Data.Linq.Mapping.ParameterAttribute(Name="NgayKH", DbType="Date")] System.Nullable<System.DateTime> ngayKH, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="MucGia", DbType="NVarChar(10)")] string mucGia, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NoiDen", DbType="NVarChar(255)")] string noiDen, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="LoaiTour", DbType="NVarChar(10)")] string loaiTour)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ngayKH, mucGia, noiDen, loaiTour);
+			return ((ISingleResult<sp_TimKiemToursResult>)(result.ReturnValue));
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ThemNhaHang")]
 		public int sp_ThemNhaHang([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(36)")] string maTour, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(36)")] string maNhaHang)
 		{
@@ -243,11 +244,23 @@ namespace QuanLy_TourDuLich.Models
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_TimKiemTours")]
-		public ISingleResult<sp_TimKiemToursResult> sp_TimKiemTours([global::System.Data.Linq.Mapping.ParameterAttribute(Name="NgayKH", DbType="Date")] System.Nullable<System.DateTime> ngayKH, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="MucGia", DbType="NVarChar(10)")] string mucGia, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NoiDen", DbType="NVarChar(255)")] string noiDen, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="LoaiTour", DbType="NVarChar(10)")] string loaiTour)
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetTourDetailsByDatTourId")]
+		public ISingleResult<GetTourDetailsByDatTourIdResult> GetTourDetailsByDatTourId([global::System.Data.Linq.Mapping.ParameterAttribute(Name="DatTour_id", DbType="Int")] System.Nullable<int> datTour_id)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ngayKH, mucGia, noiDen, loaiTour);
-			return ((ISingleResult<sp_TimKiemToursResult>)(result.ReturnValue));
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), datTour_id);
+			return ((ISingleResult<GetTourDetailsByDatTourIdResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Phancong_nv", IsComposable=true)]
+		public IQueryable<Phancong_nvResult> Phancong_nv([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Tour_id", DbType="VarChar(36)")] string tour_id)
+		{
+			return this.CreateMethodCallQuery<Phancong_nvResult>(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), tour_id);
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SoLuongCon", IsComposable=true)]
+		public System.Nullable<int> SoLuongCon([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(36)")] string tourid)
+		{
+			return ((System.Nullable<int>)(this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), tourid).ReturnValue));
 		}
 	}
 	
@@ -3978,6 +3991,274 @@ namespace QuanLy_TourDuLich.Models
 				if ((this._Name1 != value))
 				{
 					this._Name1 = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetTourDetailsByDatTourIdResult
+	{
+		
+		private string _Tour_id;
+		
+		private string _TenTour;
+		
+		private string _DiemKhoiHanh;
+		
+		private string _DiemDen;
+		
+		private System.Nullable<System.DateTime> _NgayKhoiHanh;
+		
+		private System.Nullable<System.DateTime> _NgayKetThuc;
+		
+		public GetTourDetailsByDatTourIdResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tour_id", DbType="VarChar(36) NOT NULL", CanBeNull=false)]
+		public string Tour_id
+		{
+			get
+			{
+				return this._Tour_id;
+			}
+			set
+			{
+				if ((this._Tour_id != value))
+				{
+					this._Tour_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TenTour", DbType="NVarChar(128)")]
+		public string TenTour
+		{
+			get
+			{
+				return this._TenTour;
+			}
+			set
+			{
+				if ((this._TenTour != value))
+				{
+					this._TenTour = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DiemKhoiHanh", DbType="NVarChar(128)")]
+		public string DiemKhoiHanh
+		{
+			get
+			{
+				return this._DiemKhoiHanh;
+			}
+			set
+			{
+				if ((this._DiemKhoiHanh != value))
+				{
+					this._DiemKhoiHanh = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DiemDen", DbType="NVarChar(128)")]
+		public string DiemDen
+		{
+			get
+			{
+				return this._DiemDen;
+			}
+			set
+			{
+				if ((this._DiemDen != value))
+				{
+					this._DiemDen = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayKhoiHanh", DbType="Date")]
+		public System.Nullable<System.DateTime> NgayKhoiHanh
+		{
+			get
+			{
+				return this._NgayKhoiHanh;
+			}
+			set
+			{
+				if ((this._NgayKhoiHanh != value))
+				{
+					this._NgayKhoiHanh = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayKetThuc", DbType="Date")]
+		public System.Nullable<System.DateTime> NgayKetThuc
+		{
+			get
+			{
+				return this._NgayKetThuc;
+			}
+			set
+			{
+				if ((this._NgayKetThuc != value))
+				{
+					this._NgayKetThuc = value;
+				}
+			}
+		}
+	}
+	
+	public partial class Phancong_nvResult
+	{
+		
+		private string _NhanVien_id;
+		
+		private string _HoTen;
+		
+		private string _Email;
+		
+		private string _DiaChi;
+		
+		private string _DienThoai;
+		
+		private System.Nullable<bool> _GioiTinh;
+		
+		private string _Password;
+		
+		private string _VaiTro;
+		
+		public Phancong_nvResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NhanVien_id", DbType="VarChar(36) NOT NULL", CanBeNull=false)]
+		public string NhanVien_id
+		{
+			get
+			{
+				return this._NhanVien_id;
+			}
+			set
+			{
+				if ((this._NhanVien_id != value))
+				{
+					this._NhanVien_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HoTen", DbType="NVarChar(128)")]
+		public string HoTen
+		{
+			get
+			{
+				return this._HoTen;
+			}
+			set
+			{
+				if ((this._HoTen != value))
+				{
+					this._HoTen = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="NVarChar(128)")]
+		public string Email
+		{
+			get
+			{
+				return this._Email;
+			}
+			set
+			{
+				if ((this._Email != value))
+				{
+					this._Email = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DiaChi", DbType="NVarChar(128)")]
+		public string DiaChi
+		{
+			get
+			{
+				return this._DiaChi;
+			}
+			set
+			{
+				if ((this._DiaChi != value))
+				{
+					this._DiaChi = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DienThoai", DbType="VarChar(20)")]
+		public string DienThoai
+		{
+			get
+			{
+				return this._DienThoai;
+			}
+			set
+			{
+				if ((this._DienThoai != value))
+				{
+					this._DienThoai = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GioiTinh", DbType="Bit")]
+		public System.Nullable<bool> GioiTinh
+		{
+			get
+			{
+				return this._GioiTinh;
+			}
+			set
+			{
+				if ((this._GioiTinh != value))
+				{
+					this._GioiTinh = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Password", DbType="VarChar(128)")]
+		public string Password
+		{
+			get
+			{
+				return this._Password;
+			}
+			set
+			{
+				if ((this._Password != value))
+				{
+					this._Password = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VaiTro", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
+		public string VaiTro
+		{
+			get
+			{
+				return this._VaiTro;
+			}
+			set
+			{
+				if ((this._VaiTro != value))
+				{
+					this._VaiTro = value;
 				}
 			}
 		}

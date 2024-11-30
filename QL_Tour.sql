@@ -103,7 +103,8 @@ CREATE TABLE [HuyTour] (
   [HuyTour_id] int  not null identity(1,1) PRIMARY KEY,
   [DatTour_id] int,
   [NgayHuy] date,
-  [LyDo] nvarchar(max)
+  [LyDo] nvarchar(max),
+  [TrangThai] nvarchar(36)
 )
 GO
 
@@ -192,12 +193,15 @@ ALTER TABLE [HanhKhach] ADD FOREIGN KEY ([DatTour_id]) REFERENCES [DatTour]([Dat
 ----------------------------Bảo--------------------------------------------------
 ALTER TABLE [DatTour] 
 ADD 
-	CONSTRAINT CK_DatTour_SoNguoi CHECK ([SoNguoi] > 0)
+	CONSTRAINT DF_DatTour_GhiChu DEFAULT N'Chưa xác nhận' for GhiChu,
+	CONSTRAINT CK_DatTour_SoNguoi CHECK ([SoNguoi] > 0),
+	CONSTRAINT CK_DatTour_GhiChu CHECK (GhiChu IN (N'Đã xác nhận',N'Chưa xác nhận'))
 
 
 ALTER TABLE [HuyTour] 
 ADD 
-	CONSTRAINT CK_HuyTour_NgayHuy CHECK ([NgayHuy] >= CAST(GETDATE() AS DATE));
+	CONSTRAINT CK_HuyTour_NgayHuy CHECK ([NgayHuy] >= CAST(GETDATE() AS DATE)),
+	CONSTRAINT CK_DatTour_TrangThai CHECK (TrangThai IN (N'Đã xác nhận',N'Chưa xác nhận'))
 
 ALTER TABLE [ThanhToan] 
 ADD 
