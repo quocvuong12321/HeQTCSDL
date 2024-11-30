@@ -18,25 +18,31 @@
             <th>Ghi Chú</th>
             <th>Mã Tour</th>
             <th>Tổng Tiền</th>
-            <th>
+            <th>Chi tiết</th>
+            <th>Xác nhận</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>@item.DatTour_id</td>
-                <td>@item.KhachHang_id</td> <!-- Hiển thị ID hành khách -->
-                <td>@item.TenKhach</td> <!-- Hiển thị tên khách hàng -->
-                <td>@item.NgayDat.ToString("dd/MM/yyyy")</td> <!-- Hiển thị ngày đặt -->
-                <td>@item.SoNguoi</td> <!-- Hiển thị số lượng người -->
-                <td>@item.GhiChu</td> <!-- Hiển thị ghi chú -->
-                <td>@item.Tour_id</td> <!-- Hiển thị ID của tour -->
-                <td>@item.TongTien.ToString("C")</td> <!-- Hiển thị tổng tiền dưới dạng tiền tệ -->
-                <td>
-                    @Html.ActionLink("Chi tiết", "HienThiChiTietDatTour", new { DatTour_id = item.DatTour_id })
-                </td>
-            </tr>
+        <tr>
+            <td>@item.DatTour_id</td>
+            <td>@item.KhachHang_id</td> <!-- Hiển thị ID hành khách -->
+            <td>@item.TenKhach</td> <!-- Hiển thị tên khách hàng -->
+            <td>@item.NgayDat.ToString("dd/MM/yyyy")</td> <!-- Hiển thị ngày đặt -->
+            <td>@item.SoNguoi</td> <!-- Hiển thị số lượng người -->
+            <td>@item.GhiChu</td> <!-- Hiển thị ghi chú -->
+            <td>@item.Tour_id</td> <!-- Hiển thị ID của tour -->
+            <td>@item.TongTien.ToString("C")</td> <!-- Hiển thị tổng tiền dưới dạng tiền tệ -->
+            <td>
+                @Html.ActionLink("Chi tiết", "HienThiChiTietDatTour", new { DatTour_id = item.DatTour_id })
+            </td>
+            <td>
+                <button class="btn btn-success" onclick="window.location.href='@Url.Action("XacNhanDatTour", "DatTour", new { DatTour_id = item.DatTour_id })'">
+                    Xác nhận
+                </button>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

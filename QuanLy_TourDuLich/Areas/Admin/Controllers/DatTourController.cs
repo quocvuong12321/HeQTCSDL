@@ -115,6 +115,24 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
             return View(listHanhKhachDatTour);
         }
 
+        public ActionResult XacNhanDatTour(int DatTour_id)
+        {
+            var datTour = db.DatTours.FirstOrDefault(d => d.DatTour_id == DatTour_id);
+
+            if (datTour == null)
+            {
+                return HttpNotFound();
+            }
+
+            if (datTour.GhiChu == "Chưa xác nhận")
+            {
+                datTour.GhiChu = "Đã xác nhận";
+
+                db.SubmitChanges();
+            }
+
+            return RedirectToAction("HienThiDatTour");
+        }
 
         public ActionResult HienThiHuyTour()
         {
@@ -141,7 +159,8 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
                                 TenTour = reader["TenTour"] != DBNull.Value ? reader["TenTour"].ToString() : string.Empty,
                                 NhanVien_id = reader["NhanVien_id"] != DBNull.Value ? reader["NhanVien_id"].ToString() : string.Empty,
                                 KhachHang_id = reader["KhachHang_id"] != DBNull.Value ? reader["KhachHang_id"].ToString() : string.Empty,
-                                TenKhach = reader["TenKhach"] != DBNull.Value ? reader["TenKhach"].ToString() : string.Empty
+                                TenKhach = reader["TenKhach"] != DBNull.Value ? reader["TenKhach"].ToString() : string.Empty,
+                                TrangThai = reader["TrangThai"] != DBNull.Value ? reader["TrangThai"].ToString() : string.Empty
                             };
 
                             listHuyTour.Add(item); // Thêm đối tượng vào danh sách
@@ -152,6 +171,27 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
 
             return View(listHuyTour); // Trả về danh sách cho view
         }
+
+
+        public ActionResult XacNhanHuyTour(int DatTour_id)
+        {
+            var huyTour = db.HuyTours.FirstOrDefault(d => d.DatTour_id == DatTour_id);
+
+            if (huyTour == null)
+            {
+                return HttpNotFound();
+            }
+
+            if (huyTour.TrangThai == "Chưa xác nhận")
+            {
+                huyTour.TrangThai = "Đã xác nhận";
+
+                db.SubmitChanges();
+            }
+
+            return RedirectToAction("HienThiDatTour");
+        }
+
 
 
     }

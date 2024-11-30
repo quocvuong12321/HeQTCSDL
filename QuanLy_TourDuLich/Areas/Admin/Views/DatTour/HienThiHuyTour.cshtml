@@ -17,22 +17,30 @@
             <th>Mã Nhân Viên</th>
             <th>Mã Hành Khách</th>
             <th>Tên Khách Hàng</th>
+            <th>Trạng thái</th>
+            <th>Xác nhận</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-<tr>
-    <td>@item.HuyTour_id</td>
-    <td>@item.DatTour_id</td> <!-- Hiển thị mã đặt tour -->
-    <td>@item.NgayHuy.ToString("dd/MM/yyyy")</td> <!-- Hiển thị ngày hủy -->
-    <td>@item.LyDo</td> <!-- Hiển thị lý do hủy -->
-    <td>@item.Tour_id</td> <!-- Hiển thị mã tour -->
-    <td>@item.TenTour</td> <!-- Hiển thị tên tour -->
-    <td>@item.NhanVien_id</td> <!-- Hiển thị mã nhân viên -->
-    <td>@item.KhachHang_id</td> <!-- Hiển thị mã hành khách -->
-    <td>@item.TenKhach</td> <!-- Hiển thị tên hành khách -->
-</tr>
+        <tr>
+            <td>@item.HuyTour_id</td>
+            <td>@item.DatTour_id</td> 
+            <td>@item.NgayHuy.ToString("dd/MM/yyyy")</td> 
+            <td>@item.LyDo</td> 
+            <td>@item.Tour_id</td> 
+            <td>@item.TenTour</td>
+            <td>@item.NhanVien_id</td> 
+            <td>@item.KhachHang_id</td> 
+            <td>@item.TenKhach</td>
+            <td>@item.TrangThai</td>
+            <td>
+                <button class="btn btn-success" onclick="window.location.href='@Url.Action("XacNhanHuyTour", "DatTour", new { DatTour_id = item.DatTour_id })'">
+                    Xác nhận
+                </button>
+            </td>
+        </tr>
 }
     </tbody>
 </table>

@@ -40,7 +40,7 @@
   <Table Name="dbo.DatTour" Member="DatTours">
     <Type Name="DatTour">
       <Column Name="DatTour_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="GhiChu" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="GhiChu" Type="System.String" DbType="NVarChar(36)" CanBeNull="true" />
       <Column Name="KhachHang_id" Type="System.String" DbType="VarChar(36)" CanBeNull="true" />
       <Column Name="NgayDat" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="Tour_id" Type="System.String" DbType="VarChar(36)" CanBeNull="true" />
@@ -70,6 +70,7 @@
       <Column Name="DatTour_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="NgayHuy" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="LyDo" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="TrangThai" Type="System.String" DbType="NVarChar(36)" CanBeNull="true" />
       <Association Name="DatTour_HuyTour" Member="DatTour" ThisKey="DatTour_id" OtherKey="DatTour_id" Type="DatTour" IsForeignKey="true" />
     </Type>
   </Table>
@@ -162,134 +163,6 @@
       <Association Name="TinhThanh_NhaHang" Member="NhaHangs" ThisKey="TinhThanh_id" OtherKey="TinhThanh_id" Type="NhaHang" />
     </Type>
   </Table>
-  <Function Name="dbo.DoanhThuCuaTungTour" Method="DoanhThuCuaTungTour" />
-  <Function Name="dbo.UpdateTour" Method="UpdateTour">
-    <Parameter Name="Tour_id" Parameter="tour_id" Type="System.String" DbType="VarChar(36)" />
-    <Parameter Name="Name" Parameter="name" Type="System.String" DbType="NVarChar(128)" />
-    <Parameter Name="Gia" Parameter="gia" Type="System.Decimal" DbType="Decimal(12,2)" />
-    <Parameter Name="MoTa" Parameter="moTa" Type="System.String" DbType="NVarChar(MAX)" />
-    <Parameter Name="LichTrinh" Parameter="lichTrinh" Type="System.String" DbType="NVarChar(MAX)" />
-    <Parameter Name="DiemKhoiHanh_id" Parameter="diemKhoiHanh_id" Type="System.Int32" DbType="Int" />
-    <Parameter Name="DiemDen_id" Parameter="diemDen_id" Type="System.Int32" DbType="Int" />
-    <Parameter Name="KhachSan_id" Parameter="khachSan_id" Type="System.String" DbType="VarChar(36)" />
-    <Parameter Name="NgayKhoiHanh" Parameter="ngayKhoiHanh" Type="System.DateTime" DbType="Date" />
-    <Parameter Name="NgayKetThuc" Parameter="ngayKetThuc" Type="System.DateTime" DbType="Date" />
-    <Parameter Name="SoLuongCon" Parameter="soLuongCon" Type="System.Int32" DbType="Int" />
-    <Parameter Name="LoaiTour" Parameter="loaiTour" Type="System.String" DbType="NVarChar(255)" />
-    <Parameter Name="TrangThai" Parameter="trangThai" Type="System.String" DbType="NVarChar(255)" />
-    <Return Type="System.Int32" />
-  </Function>
-  <Function Name="dbo.GetTourDetailsByDatTourId" Method="GetTourDetailsByDatTourId">
-    <Parameter Name="DatTour_id" Parameter="datTour_id" Type="System.Int32" DbType="Int" />
-    <ElementType Name="GetTourDetailsByDatTourIdResult">
-      <Column Name="Tour_id" Type="System.String" DbType="VarChar(36) NOT NULL" CanBeNull="false" />
-      <Column Name="TenTour" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="DiemKhoiHanh" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="DiemDen" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="NgayKhoiHanh" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="NgayKetThuc" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.kiemtra_khachsan" Method="kiemtra_khachsan">
-    <Parameter Name="Tour_id" Parameter="tour_id" Type="System.String" DbType="VarChar(36)" />
-    <ElementType Name="kiemtra_khachsanResult">
-      <Column Name="KhachSan_id" Type="System.String" DbType="VarChar(36) NOT NULL" CanBeNull="false" />
-      <Column Name="Ten_Khach_San" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Ten_Tinh_Thanh" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.low_danhgia" Method="low_danhgia" />
-  <Function Name="dbo.proc_ThemMoiTour" Method="proc_ThemMoiTour">
-    <Parameter Name="Tour_id" Parameter="tour_id" Type="System.String" DbType="VarChar(36)" />
-    <Parameter Name="Name" Parameter="name" Type="System.String" DbType="NVarChar(128)" />
-    <Parameter Name="Gia" Parameter="gia" Type="System.Decimal" DbType="Decimal(12,2)" />
-    <Parameter Name="MoTa" Parameter="moTa" Type="System.String" DbType="NVarChar(MAX)" />
-    <Parameter Name="LichTrinh" Parameter="lichTrinh" Type="System.String" DbType="NVarChar(MAX)" />
-    <Parameter Name="DiemKhoiHanh_id" Parameter="diemKhoiHanh_id" Type="System.Int32" DbType="Int" />
-    <Parameter Name="DiemDen_id" Parameter="diemDen_id" Type="System.Int32" DbType="Int" />
-    <Parameter Name="KhachSan_id" Parameter="khachSan_id" Type="System.String" DbType="VarChar(36)" />
-    <Parameter Name="NgayKhoiHanh" Parameter="ngayKhoiHanh" Type="System.DateTime" DbType="Date" />
-    <Parameter Name="NgayKetThuc" Parameter="ngayKetThuc" Type="System.DateTime" DbType="Date" />
-    <Parameter Name="SoLuongCon" Parameter="soLuongCon" Type="System.Int32" DbType="Int" />
-    <Parameter Name="LoaiTour" Parameter="loaiTour" Type="System.String" DbType="NVarChar(255)" />
-    <Parameter Name="TrangThai" Parameter="trangThai" Type="System.String" DbType="NVarChar(255)" />
-    <Return Type="System.Int32" />
-  </Function>
-  <Function Name="dbo.ShowDatTour" Method="ShowDatTour">
-    <ElementType Name="ShowDatTourResult">
-      <Column Name="DatTour_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="KhachHang_id" Type="System.String" DbType="VarChar(36) NOT NULL" CanBeNull="false" />
-      <Column Name="TenKhach" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="NgayDat" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="SoNguoi" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="GhiChu" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Tour_id" Type="System.String" DbType="VarChar(36)" CanBeNull="true" />
-      <Column Name="TongTien" Type="System.Decimal" DbType="Decimal(12,2)" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.ShowHanhKhachDatTour" Method="ShowHanhKhachDatTour">
-    <Parameter Name="DatTour_id" Parameter="datTour_id" Type="System.Int32" DbType="Int" />
-    <ElementType Name="ShowHanhKhachDatTourResult">
-      <Column Name="HanhKhach_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="HoTen" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="NgaySinh" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="GioiTinh" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.showHuyTour" Method="showHuyTour">
-    <ElementType Name="showHuyTourResult">
-      <Column Name="HuyTour_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="DatTour_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="NgayHuy" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="LyDo" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Tour_id" Type="System.String" DbType="VarChar(36) NOT NULL" CanBeNull="false" />
-      <Column Name="TenTour" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="NhanVien_id" Type="System.String" DbType="VarChar(36)" CanBeNull="true" />
-      <Column Name="KhachHang_id" Type="System.String" DbType="VarChar(36) NOT NULL" CanBeNull="false" />
-      <Column Name="TenKhach" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.SP_DatTour" Method="SP_DatTour">
-    <Parameter Name="DatTour_id" Parameter="datTour_id" Type="System.Int32" DbType="Int" />
-    <Parameter Name="KhachHang_id" Parameter="khachHang_id" Type="System.String" DbType="VarChar(36)" />
-    <Parameter Name="Tour_id" Parameter="tour_id" Type="System.String" DbType="VarChar(36)" />
-    <Parameter Name="SoNguoi" Parameter="soNguoi" Type="System.Int32" DbType="Int" />
-    <Parameter Name="GhiChu" Parameter="ghiChu" Type="System.String" DbType="NVarChar(128)" />
-    <Return Type="System.Int32" />
-  </Function>
-  <Function Name="dbo.SP_HuyTour" Method="SP_HuyTour">
-    <Parameter Name="DatTour_id" Parameter="datTour_id" Type="System.Int32" DbType="Int" />
-    <Parameter Name="LyDo" Parameter="lyDo" Type="System.String" DbType="NVarChar(MAX)" />
-    <Return Type="System.Int32" />
-  </Function>
-  <Function Name="dbo.sp_ThemNhaHang" Method="sp_ThemNhaHang">
-    <Parameter Name="maTour" Type="System.String" DbType="VarChar(36)" />
-    <Parameter Name="maNhaHang" Type="System.String" DbType="VarChar(36)" />
-    <Return Type="System.Int32" />
-  </Function>
-  <Function Name="dbo.sp_TimKiemTours" Method="sp_TimKiemTours">
-    <Parameter Name="NgayKH" Parameter="ngayKH" Type="System.DateTime" DbType="Date" />
-    <Parameter Name="MucGia" Parameter="mucGia" Type="System.String" DbType="NVarChar(10)" />
-    <Parameter Name="NoiDen" Parameter="noiDen" Type="System.String" DbType="NVarChar(255)" />
-    <Parameter Name="LoaiTour" Parameter="loaiTour" Type="System.String" DbType="NVarChar(10)" />
-    <ElementType Name="sp_TimKiemToursResult">
-      <Column Name="Tour_id" Type="System.String" DbType="VarChar(36) NOT NULL" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-      <Column Name="Gia" Type="System.Decimal" DbType="Decimal(12,2)" CanBeNull="true" />
-      <Column Name="MoTa" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="LichTrinh" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="DiemKhoiHanh_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="DiemDen_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="KhachSan_id" Type="System.String" DbType="VarChar(36)" CanBeNull="true" />
-      <Column Name="NgayKhoiHanh" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="NgayKetThuc" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="SoLuongCon" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="LoaiTour" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
-      <Column Name="TrangThai" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
-      <Column Name="TinhThanh_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Name1" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.FN_CheckTourStatus" Method="FN_CheckTourStatus" IsComposable="true">
     <Parameter Name="Tour_id" Parameter="tour_id" Type="System.String" DbType="VarChar(36)" />
     <Return Type="System.String" />
