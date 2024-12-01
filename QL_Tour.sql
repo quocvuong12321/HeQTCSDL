@@ -1,4 +1,21 @@
-﻿create database QL_Tour
+﻿
+create database QL_Tour
+ON PRIMARY
+(
+	name = QL_Tour_PRIMARY,
+	filename = 'D:\QL_Tour_PRIMARY.mdf',
+	size = 15mb,
+	filegrowth = 15%,
+	maxsize = 30mb
+)
+LOG ON 
+(
+	name = QL_Tour_LOG,
+	filename = 'D:\QL_Tour_LOG.ldf',
+	size = 10mb,
+	filegrowth = 15%,
+	maxsize = 20mb
+)
 go
 
 use QL_Tour
@@ -227,6 +244,7 @@ ALTER TABLE [NhanVien] ADD CONSTRAINT UQ_NhanVien_DienThoai UNIQUE ([DienThoai])
 ALTER TABLE [HanhKhach] ADD CHECK (NgaySinh <= GETDATE() -- Ngày sinh không được là ngày tương lai
 							   AND NgaySinh >= DATEADD(YEAR, -120, GETDATE()) -- Ngày sinh không cách hiện tại quá 120 năm
 )
+
 ----------------------------Phong--------------------------------------------------
 ALTER TABLE [TinhThanh] ADD CONSTRAINT CK_TinhThanh_Id CHECK ([TinhThanh_id] > 0 )
 Go

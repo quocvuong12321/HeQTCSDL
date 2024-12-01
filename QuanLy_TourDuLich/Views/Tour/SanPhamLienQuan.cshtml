@@ -9,7 +9,7 @@
     }
     else
     {
-        @text.Substring(0, lengh)<text></text>
+        @text.Substring(0, lengh)<text>...</text>
     }
 }
 
@@ -21,7 +21,7 @@
         <div style="margin-left:80px">
             @foreach (var item in Model)
             {
-                <div class="card" style="width: 18rem;">
+                <div class="card" style="width: 18rem; border-radius: 10px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.23);">
                     @Html.Action("AnhChoCard", "Tour", new { id = item.Tour_id });
                     <div class="card-body">
                         <a href="~/Tour/ChiTietTour/@item.Tour_id" class="nav-link" style="font-size:20px;">@Truncate(item.Name, 50)</a>
