@@ -1,0 +1,35 @@
+﻿@model IEnumerable<QuanLy_TourDuLich.Models.TinhThanh>
+
+
+    @{ Layout = null; }
+
+                <!DOCTYPE html>
+
+                            <html>
+                            <head>
+                                <meta name="viewport" content="width=device-width" />
+                                <title>Tinhthanh</title>
+                            </head>
+                            <body>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <p>Tên Tỉnh Thành</p>
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    @foreach (var item in Model)
+                                    {
+                        <tr>
+                            <td>
+                                <!-- Khi nhấp vào tên tỉnh thành, truyền TinhThanh_id vào phương thức HthiNhaHangTheoTinh -->
+                                <a href="@Url.Action("HthiNhahangTheoTinh", "Quanli", new { id = item.TinhThanh_id })">
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </a>
+                            </td>
+                        </tr>}
+                                </table>
+                            </body>
+                        </html>

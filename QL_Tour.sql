@@ -4,6 +4,7 @@ go
 use QL_Tour
 go
 
+
 CREATE TABLE [Tour] (
   [Tour_id] varchar(36) PRIMARY KEY,
   [Name] nvarchar(128),
@@ -33,8 +34,6 @@ CREATE TABLE [TinhThanh] (
   [Name] nvarchar(128)
 )
 GO
-
-
 
 CREATE TABLE [NhanVien] (
   [NhanVien_id] varchar(36) PRIMARY KEY,
@@ -201,10 +200,12 @@ ADD
 ALTER TABLE [HuyTour] 
 ADD 
 	CONSTRAINT CK_HuyTour_NgayHuy CHECK ([NgayHuy] >= CAST(GETDATE() AS DATE)),
-	CONSTRAINT CK_HuyTour_TrangThai CHECK (TrangThai IN (N'Đã xác nhận',N'Chưa xác nhận'))
+	CONSTRAINT CK_HuyTour_TrangThai CHECK (TrangThai IN (N'Đã xác nhận',N'Chưa xác nhận')),
+	CONSTRAINT UNI_HuyTour_DatTour_id UNIQUE ([DatTour_id])
 
 ALTER TABLE [ThanhToan] 
 ADD 
+	CONSTRAINT UNI_ThanhToan_DatTour_id UNIQUE ([DatTour_id]),
     CONSTRAINT CK_ThanhToan_HinhThuc  CHECK ([HinhThuc_id] IN (N'Thẻ ATM', N'Chuyển khoản ngân hàng', N'Momo')),
     CONSTRAINT CK_ThanhToan_TongTien CHECK ([TongTien] >= 0);
 

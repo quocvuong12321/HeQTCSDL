@@ -1,0 +1,48 @@
+﻿@model IEnumerable<QuanLy_TourDuLich.Models.DanhGia>
+
+@{
+    ViewBag.Title = "Danhgia";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
+}
+
+<h2>Danh sách đánh giá Tour</h2>
+
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            <p>Mã Tour</p>
+        </th>
+        <th>
+            <p>Mã Khách Hàng</p>
+        </th>
+        <th>
+            <p>Nội Dung</p>
+        </th>
+        <th>
+            <p>Vote</p>
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tour_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KhachHang_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Noidung)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vote)
+            </td>
+        </tr>
+    }
+
+</table>

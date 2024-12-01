@@ -189,7 +189,7 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
                 db.SubmitChanges();
             }
 
-            return RedirectToAction("HienThiDatTour");
+            return RedirectToAction("HienThiHuyTour");
         }
 
 

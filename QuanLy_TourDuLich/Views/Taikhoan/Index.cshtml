@@ -1,0 +1,271 @@
+﻿
+@{
+    Layout = null;
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+}
+@model QuanLy_TourDuLich.Models.Tour
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giới thiệu - Tour Du Lịch NyaF</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            background-color: #0078d7;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+            header h1 {
+                margin: 0;
+                font-size: 2.5rem;
+            }
+
+            header p {
+                margin: 5px 0 0;
+                font-size: 1.2rem;
+            }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #005bb5;
+            padding: 10px 0;
+        }
+
+            nav a {
+                color: white;
+                text-decoration: none;
+                margin: 0 15px;
+                font-size: 1.1rem;
+            }
+
+                nav a:hover {
+                    text-decoration: underline;
+                }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .intro {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+            .intro h2 {
+                font-size: 2rem;
+                color: #0078d7;
+            }
+
+            .intro p {
+                font-size: 1.1rem;
+                color: #555;
+                line-height: 1.6;
+            }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .feature {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+            .feature img {
+                width: 100%;
+                height: 150px;
+                object-fit: cover;
+                border-radius: 8px;
+            }
+
+            .feature h3 {
+                color: #0078d7;
+                margin: 15px 0 10px;
+            }
+
+            .feature p {
+                font-size: 1rem;
+                color: #555;
+            }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+
+            footer p {
+                margin: 0;
+                font-size: 0.9rem;
+            }
+
+        .btn-warning {
+            background-color: yellow;
+            width: 50px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Tour Du Lịch NyaF</h1>
+        <p>Khám phá thế giới cùng chúng tôi!</p>
+
+    </header>
+    <nav>
+
+        <a href="~/Tour/TimKiemNangCao">Dịch vụ</a>
+        <div style="float:left">
+            <a class="btn-warning" href="/Taikhoan/Dangnhap" role="button">Đăng Nhập</a>
+
+            <a class="btn-warning" href="/Taikhoan/Dangky" role="button">Đăng Ký</a>
+        </div>
+    </nav>
+    <div class="container">
+        <section id="about" class="intro">
+            <h2>Chào mừng bạn đến với NyaF!</h2>
+            <p>
+                Tour Du Lịch NyaF là một nền tảng hàng đầu cung cấp các chuyến du lịch đáng nhớ và độc đáo.
+                Chúng tôi cam kết mang lại trải nghiệm tốt nhất với các gói tour phong phú, phù hợp với mọi nhu cầu của bạn.
+            </p>
+
+            <h2>Khám phá Thế Giới Trong Tầm Tay Bạn</h2>
+            <p>
+                Chúng tôi cung cấp hàng trăm tour du lịch hấp dẫn từ các địa danh nổi tiếng trong nước đến các điểm đến quốc tế, được thiết kế để phù hợp với mọi nhu cầu và sở thích.
+                Dù bạn yêu thích biển xanh, núi cao, hay khám phá những nét văn hóa độc đáo, NyaF sẽ là người bạn đồng hành lý tưởng trên mọi hành trình.
+            </p>
+
+            <h2>Tại sao chọn NyaF?</h2>
+            <p>
+                ✅ Đa dạng lựa chọn: Hàng trăm tour du lịch phong phú từ các nhà cung cấp uy tín. <br />
+                ✅ Giá cả minh bạch: Không phí ẩn, luôn cập nhật khuyến mãi hấp dẫn. <br />
+                ✅ Đặt tour dễ dàng: Giao diện thân thiện, quy trình đặt tour nhanh chóng, tiện lợi. <br />
+                ✅ Dịch vụ khách hàng 24/7: Hỗ trợ bạn mọi lúc, mọi nơi.
+            </p>
+            <h2>Cam Kết của Chúng Tôi</h2>
+            <p>
+                Với sứ mệnh mang đến những chuyến đi trọn vẹn, an toàn và đáng nhớ, [Tên website] luôn nỗ lực hoàn thiện dịch vụ, kết nối bạn với những nhà cung cấp tour uy tín nhất.
+
+                Hãy để mỗi chuyến đi là một câu chuyện đáng nhớ cùng NyaF! 🚀🌟
+            </p>
+
+        </section>
+        <section id="features">
+            <div class="features">
+                <div class="feature">
+                    <img src="~/img/destination-3.jpg" alt="Tour quốc tế">
+                    <h3>Tour Quốc Tế</h3>
+                    <p>Khám phá vẻ đẹp của thế giới với các tour đến Châu Âu, Châu Á và hơn thế nữa.</p>
+                </div>
+                <div class="feature">
+                    <img src="~/img/destination-1.jpg" alt="Tour trong nước">
+                    <h3>Tour Trong Nước</h3>
+                    <p>Tham quan các điểm đến nổi tiếng tại Việt Nam với lịch trình hấp dẫn.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+    <footer>
+        <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+            <div class="container py-5">
+                <div class="row g-5">
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="text-white mb-3">Company</h4>
+                        <a class="btn btn-link" href="">About Us</a>
+                        <a class="btn btn-link" href="">Contact Us</a>
+                        <a class="btn btn-link" href="">Privacy Policy</a>
+                        <a class="btn btn-link" href="">Terms & Condition</a>
+                        <a class="btn btn-link" href="">FAQs & Help</a>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="text-white mb-3">Contact</h4>
+                        <p class="mb-2"><i class="fa fa-home"></i> 123 Street, New York, USA</p>
+                        <p class="mb-2"><i class="fa fa-volume-control-phone"></i> +012 345 67890</p>
+                        <p class="mb-2"><i class="fa fa-envelope-o"></i> info@example.com</p>
+                        <div class="d-flex pt-2">
+                            <a class="btn btn-outline-light btn-social" href=""><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <a class="btn btn-outline-light btn-social" href=""><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                            <a class="btn btn-outline-light btn-social" href=""><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                            <a class="btn btn-outline-light btn-social" href=""><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="text-white mb-3">Gallery</h4>
+                        <div class="row g-2 pt-2">
+                            <div class="col-4">
+                                <img class="img-fluid bg-light p-1" src="~/img/package-1.jpg" alt="">
+                            </div>
+                            <div class="col-4">
+                                <img class="img-fluid bg-light p-1" src="~/img/package-2.jpg" alt="">
+                            </div>
+                            <div class="col-4">
+                                <img class="img-fluid bg-light p-1" src="~/img/package-3.jpg" alt="">
+                            </div>
+                            <div class="col-4">
+                                <img class="img-fluid bg-light p-1" src="~/img/package-2.jpg" alt="">
+                            </div>
+                            <div class="col-4">
+                                <img class="img-fluid bg-light p-1" src="~/img/package-3.jpg" alt="">
+                            </div>
+                            <div class="col-4">
+                                <img class="img-fluid bg-light p-1" src="~/img/package-1.jpg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="text-white mb-3">Đăng ký</h4>
+                        <p>Đăng ký ngay. Chúng tôi sẽ gửi cho bạn Ưu đãi tốt nhất cho chuyến đi của bạn</p>
+                        <div class="position-relative mx-auto" style="max-width: 400px;">
+                            <input class="form-control border-primary w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
+                            <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="copyright">
+                    <div class="row">
+                        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            &copy; <a class="border-bottom" href="#">Your Site Name</a>, All Right Reserved.
+
+                            <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                            Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
+                        </div>
+                        <div class="col-md-6 text-center text-md-end">
+                            <div class="footer-menu">
+                                <a href="">Home</a>
+                                <a href="">Cookies</a>
+                                <a href="">Help</a>
+                                <a href="">FQAs</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1916,14 +1916,13 @@ VALUES
     (N'Hoàng Ngọc Yến', '1994-09-30', 1, 4, 'TOUR002');
 go
 
-INSERT INTO [NhanVien] ([NhanVien_id], [HoTen], [Email], [DiaChi], [DienThoai], [GioiTinh], [Password], [VaiTro]) VALUES 
-	('NV001', N'Lê Nhựt Hùng', 'hung.le@example.com', N'123 Đường ABC, Hà Nội', '0969456712', 0, 'password1', N'Quản lý'),
-	('NV002', N'Hoàng Văn Dũng', 'dung.hoang@example.com', N'321 Đường JKL, Hà Nội', '0934567890', 0, 'password2', N'Hướng dẫn viên'),
-	('NV003', N'Lê Thị Mai', 'mai.le@example.com', N'654 Đường MNO, Đà Nẵng', '0976543210', 1, 'password3', N'Nhân viên'),
-	('NV004', N'Nguyẽn Trí Dũng', 'dung.nguyen@example.com', N'24 Đường số 16, TP. HCM', '0989417295', 0, 'password4', N'Nhân viên'),
-	('NV005', N'Lê Thị Trúc Mai', 'maitruc.le@example.com', N'140 Lê Trọng Tấn, TP. HCM', '0989285714', 1, 'password5', N'Hướng dẫn viên'),
-	('NV006', N'Nguyễn Bích Trâm', 'tram.bich@example.com', N'56/12 Cầu Giấy, TP. HCM', '0969767512', 1, 'password6', N'Hướng dẫn viên');
-go
+EXEC ThemNhanVien @NhanVien_id = 'NV001', @HoTen = N'Lê Nhựt Hùng', @DiaChi = N'123 Đường ABC, Hà Nội', @Email = 'hung.le@example.com', @DienThoai = '0969456712', @GioiTinh = 0, @Password = '123', @VaiTro = N'Quản lý'; 
+EXEC ThemNhanVien @NhanVien_id = 'NV002', @HoTen = N'Hoàng Văn Dũng', @DiaChi = N'321 Đường JKL, Hà Nội', @Email = 'dung.hoang@example.com', @DienThoai = '0934567890', @GioiTinh = 0, @Password = '123', @VaiTro = N'Hướng dẫn viên'; 
+EXEC ThemNhanVien @NhanVien_id = 'NV003', @HoTen = N'Lê Thị Mai', @DiaChi = N'654 Đường MNO, Đà Nẵng', @Email = 'mai.le@example.com', @DienThoai = '0976543210', @GioiTinh = 1, @Password = '123', @VaiTro = N'Nhân viên'; 
+EXEC ThemNhanVien @NhanVien_id = 'NV004', @HoTen = N'Nguyẽn Trí Dũng', @DiaChi = N'24 Đường số 16, TP. HCM', @Email = 'dung.nguyen@example.com', @DienThoai = '0989417295', @GioiTinh = 0, @Password = '123', @VaiTro = N'Nhân viên'; 
+EXEC ThemNhanVien @NhanVien_id = 'NV005', @HoTen = N'Lê Thị Trúc Mai', @DiaChi = N'140 Lê Trọng Tấn, TP. HCM', @Email = 'maitruc.le@example.com', @DienThoai = '0989285714', @GioiTinh = 1, @Password = '123', @VaiTro = N'Hướng dẫn viên'; 
+EXEC ThemNhanVien @NhanVien_id = 'NV006', @HoTen = N'Nguyễn Bích Trâm', @DiaChi = N'56/12 Cầu Giấy, TP. HCM', @Email = 'tram.bich@example.com', @DienThoai = '0969767512', @GioiTinh = 1, @Password = '123', @VaiTro = N'Hướng dẫn viên'; 
+
 
 INSERT INTO [PhanCong_NhanVien] ([Tour_id], [NhanVien_id])
 VALUES 

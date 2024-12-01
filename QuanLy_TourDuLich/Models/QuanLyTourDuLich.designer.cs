@@ -33,9 +33,9 @@ namespace QuanLy_TourDuLich.Models
     partial void InsertDanhGia(DanhGia instance);
     partial void UpdateDanhGia(DanhGia instance);
     partial void DeleteDanhGia(DanhGia instance);
-    partial void InsertTour(Tour instance);
-    partial void UpdateTour(Tour instance);
-    partial void DeleteTour(Tour instance);
+    partial void InsertThanhToan(ThanhToan instance);
+    partial void UpdateThanhToan(ThanhToan instance);
+    partial void DeleteThanhToan(ThanhToan instance);
     partial void InsertDatTour(DatTour instance);
     partial void UpdateDatTour(DatTour instance);
     partial void DeleteDatTour(DatTour instance);
@@ -66,16 +66,16 @@ namespace QuanLy_TourDuLich.Models
     partial void InsertPhanCong_NhanVien(PhanCong_NhanVien instance);
     partial void UpdatePhanCong_NhanVien(PhanCong_NhanVien instance);
     partial void DeletePhanCong_NhanVien(PhanCong_NhanVien instance);
-    partial void InsertThanhToan(ThanhToan instance);
-    partial void UpdateThanhToan(ThanhToan instance);
-    partial void DeleteThanhToan(ThanhToan instance);
     partial void InsertTinhThanh(TinhThanh instance);
     partial void UpdateTinhThanh(TinhThanh instance);
     partial void DeleteTinhThanh(TinhThanh instance);
+    partial void InsertTour(Tour instance);
+    partial void UpdateTour(Tour instance);
+    partial void DeleteTour(Tour instance);
     #endregion
 		
 		public QuanLyTourDuLichDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QL_TourConnectionString"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QL_TourConnectionString1"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -112,11 +112,11 @@ namespace QuanLy_TourDuLich.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<Tour> Tours
+		public System.Data.Linq.Table<ThanhToan> ThanhToans
 		{
 			get
 			{
-				return this.GetTable<Tour>();
+				return this.GetTable<ThanhToan>();
 			}
 		}
 		
@@ -200,14 +200,6 @@ namespace QuanLy_TourDuLich.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<ThanhToan> ThanhToans
-		{
-			get
-			{
-				return this.GetTable<ThanhToan>();
-			}
-		}
-		
 		public System.Data.Linq.Table<TinhThanh> TinhThanhs
 		{
 			get
@@ -216,10 +208,54 @@ namespace QuanLy_TourDuLich.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.FN_CheckTourStatus", IsComposable=true)]
-		public string FN_CheckTourStatus([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Tour_id", DbType="VarChar(36)")] string tour_id)
+		public System.Data.Linq.Table<Tour> Tours
 		{
-			return ((string)(this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), tour_id).ReturnValue));
+			get
+			{
+				return this.GetTable<Tour>();
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.UpdateTour")]
+		public int UpdateTour([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Tour_id", DbType="VarChar(36)")] string tour_id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Name", DbType="NVarChar(128)")] string name, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Gia", DbType="Decimal(12,2)")] System.Nullable<decimal> gia, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="MoTa", DbType="NVarChar(MAX)")] string moTa, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="LichTrinh", DbType="NVarChar(MAX)")] string lichTrinh, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="DiemKhoiHanh_id", DbType="Int")] System.Nullable<int> diemKhoiHanh_id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="DiemDen_id", DbType="Int")] System.Nullable<int> diemDen_id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="KhachSan_id", DbType="VarChar(36)")] string khachSan_id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NgayKhoiHanh", DbType="Date")] System.Nullable<System.DateTime> ngayKhoiHanh, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NgayKetThuc", DbType="Date")] System.Nullable<System.DateTime> ngayKetThuc, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="SoLuongCon", DbType="Int")] System.Nullable<int> soLuongCon, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="LoaiTour", DbType="NVarChar(255)")] string loaiTour, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="TrangThai", DbType="NVarChar(255)")] string trangThai)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), tour_id, name, gia, moTa, lichTrinh, diemKhoiHanh_id, diemDen_id, khachSan_id, ngayKhoiHanh, ngayKetThuc, soLuongCon, loaiTour, trangThai);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.ThemNhanVien")]
+		public int ThemNhanVien([global::System.Data.Linq.Mapping.ParameterAttribute(Name="NhanVien_id", DbType="VarChar(36)")] string nhanVien_id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="HoTen", DbType="NVarChar(128)")] string hoTen, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="DiaChi", DbType="NVarChar(128)")] string diaChi, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Email", DbType="VarChar(128)")] string email, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="DienThoai", DbType="VarChar(36)")] string dienThoai, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="GIOITINH", DbType="Bit")] System.Nullable<bool> gIOITINH, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(128)")] string password, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="VaiTro", DbType="NVarChar(128)")] string vaiTro)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), nhanVien_id, hoTen, diaChi, email, dienThoai, gIOITINH, password, vaiTro);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ThemNhaHang")]
+		public int sp_ThemNhaHang([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(36)")] string maTour, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(36)")] string maNhaHang)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), maTour, maNhaHang);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.proc_ThemMoiTour")]
+		public int proc_ThemMoiTour([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Tour_id", DbType="VarChar(36)")] string tour_id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Name", DbType="NVarChar(128)")] string name, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Gia", DbType="Decimal(12,2)")] System.Nullable<decimal> gia, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="MoTa", DbType="NVarChar(MAX)")] string moTa, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="LichTrinh", DbType="NVarChar(MAX)")] string lichTrinh, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="DiemKhoiHanh_id", DbType="Int")] System.Nullable<int> diemKhoiHanh_id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="DiemDen_id", DbType="Int")] System.Nullable<int> diemDen_id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="KhachSan_id", DbType="VarChar(36)")] string khachSan_id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NgayKhoiHanh", DbType="Date")] System.Nullable<System.DateTime> ngayKhoiHanh, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NgayKetThuc", DbType="Date")] System.Nullable<System.DateTime> ngayKetThuc, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="SoLuongCon", DbType="Int")] System.Nullable<int> soLuongCon, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="LoaiTour", DbType="NVarChar(255)")] string loaiTour, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="TrangThai", DbType="NVarChar(255)")] string trangThai)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), tour_id, name, gia, moTa, lichTrinh, diemKhoiHanh_id, diemDen_id, khachSan_id, ngayKhoiHanh, ngayKetThuc, soLuongCon, loaiTour, trangThai);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.ShowDatTour")]
+		public ISingleResult<ShowDatTourResult> ShowDatTour()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<ShowDatTourResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_TimKiemTours")]
+		public ISingleResult<sp_TimKiemToursResult> sp_TimKiemTours([global::System.Data.Linq.Mapping.ParameterAttribute(Name="NgayKH", DbType="Date")] System.Nullable<System.DateTime> ngayKH, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="MucGia", DbType="NVarChar(10)")] string mucGia, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NoiDen", DbType="NVarChar(255)")] string noiDen, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="LoaiTour", DbType="NVarChar(10)")] string loaiTour)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ngayKH, mucGia, noiDen, loaiTour);
+			return ((ISingleResult<sp_TimKiemToursResult>)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SoLuongCon", IsComposable=true)]
@@ -228,22 +264,53 @@ namespace QuanLy_TourDuLich.Models
 			return ((System.Nullable<int>)(this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), tourid).ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.fn_TongTienThanhToan", IsComposable=true)]
-		public System.Nullable<decimal> fn_TongTienThanhToan([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Tour_id", DbType="VarChar(36)")] string tour_id)
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ThemDanhGia")]
+		public int sp_ThemDanhGia([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Tour_id", DbType="VarChar(36)")] string tour_id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="KhachHang_id", DbType="VarChar(36)")] string khachHang_id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NoiDung", DbType="NVarChar(MAX)")] string noiDung, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Vote", DbType="Int")] System.Nullable<int> vote)
 		{
-			return ((System.Nullable<decimal>)(this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), tour_id).ReturnValue));
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), tour_id, khachHang_id, noiDung, vote);
+			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetTourInfo", IsComposable=true)]
-		public IQueryable<GetTourInfoResult> GetTourInfo()
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_HthiNhaHangTheoTinh")]
+		public ISingleResult<sp_HthiNhaHangTheoTinhResult> sp_HthiNhaHangTheoTinh([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> matinhthanh)
 		{
-			return this.CreateMethodCallQuery<GetTourInfoResult>(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), matinhthanh);
+			return ((ISingleResult<sp_HthiNhaHangTheoTinhResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Phancong_nv", IsComposable=true)]
-		public IQueryable<Phancong_nvResult> Phancong_nv([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Tour_id", DbType="VarChar(36)")] string tour_id)
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_KiemTraDangNhap")]
+		public ISingleResult<sp_KiemTraDangNhapResult> sp_KiemTraDangNhap([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Email", DbType="NVarChar(100)")] string email, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Password", DbType="NVarChar(100)")] string password)
 		{
-			return this.CreateMethodCallQuery<Phancong_nvResult>(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), tour_id);
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), email, password);
+			return ((ISingleResult<sp_KiemTraDangNhapResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ThemDanhGia")]
+		public int sp_ThemDanhGia1([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Tour_id", DbType="VarChar(36)")] string tour_id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="KhachHang_id", DbType="VarChar(36)")] string khachHang_id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NoiDung", DbType="NVarChar(MAX)")] string noiDung, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Vote", DbType="Int")] System.Nullable<int> vote)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), tour_id, khachHang_id, noiDung, vote);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_ThongKeDoanhThu")]
+		public ISingleResult<sp_ThongKeDoanhThuResult> sp_ThongKeDoanhThu([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Year", DbType="Int")] System.Nullable<int> year)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), year);
+			return ((ISingleResult<sp_ThongKeDoanhThuResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_HthiKhachSanTheoTinh")]
+		public ISingleResult<sp_HthiKhachSanTheoTinhResult> sp_HthiKhachSanTheoTinh([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> matinhthanh)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), matinhthanh);
+			return ((ISingleResult<sp_HthiKhachSanTheoTinhResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_KiemTraDangNhapNV")]
+		public ISingleResult<sp_KiemTraDangNhapNVResult> sp_KiemTraDangNhapNV([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Email", DbType="NVarChar(100)")] string email, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Password", DbType="NVarChar(100)")] string password)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), email, password);
+			return ((ISingleResult<sp_KiemTraDangNhapNVResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -263,9 +330,13 @@ namespace QuanLy_TourDuLich.Models
 		
 		private System.Nullable<int> _Vote;
 		
+		private EntityRef<KhachHang> _KhachHang;
+		
+		private EntityRef<KhachHang> _KhachHang1;
+		
 		private EntityRef<Tour> _Tour;
 		
-		private EntityRef<KhachHang> _KhachHang;
+		private EntityRef<Tour> _Tour1;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -285,8 +356,10 @@ namespace QuanLy_TourDuLich.Models
 		
 		public DanhGia()
 		{
-			this._Tour = default(EntityRef<Tour>);
 			this._KhachHang = default(EntityRef<KhachHang>);
+			this._KhachHang1 = default(EntityRef<KhachHang>);
+			this._Tour = default(EntityRef<Tour>);
+			this._Tour1 = default(EntityRef<Tour>);
 			OnCreated();
 		}
 		
@@ -321,7 +394,7 @@ namespace QuanLy_TourDuLich.Models
 			{
 				if ((this._Tour_id != value))
 				{
-					if (this._Tour.HasLoadedOrAssignedValue)
+					if ((this._Tour.HasLoadedOrAssignedValue || this._Tour1.HasLoadedOrAssignedValue))
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -345,7 +418,7 @@ namespace QuanLy_TourDuLich.Models
 			{
 				if ((this._KhachHang_id != value))
 				{
-					if (this._KhachHang.HasLoadedOrAssignedValue)
+					if ((this._KhachHang.HasLoadedOrAssignedValue || this._KhachHang1.HasLoadedOrAssignedValue))
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -398,40 +471,6 @@ namespace QuanLy_TourDuLich.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tour_DanhGia", Storage="_Tour", ThisKey="Tour_id", OtherKey="Tour_id", IsForeignKey=true)]
-		public Tour Tour
-		{
-			get
-			{
-				return this._Tour.Entity;
-			}
-			set
-			{
-				Tour previousValue = this._Tour.Entity;
-				if (((previousValue != value) 
-							|| (this._Tour.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Tour.Entity = null;
-						previousValue.DanhGias.Remove(this);
-					}
-					this._Tour.Entity = value;
-					if ((value != null))
-					{
-						value.DanhGias.Add(this);
-						this._Tour_id = value.Tour_id;
-					}
-					else
-					{
-						this._Tour_id = default(string);
-					}
-					this.SendPropertyChanged("Tour");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="KhachHang_DanhGia", Storage="_KhachHang", ThisKey="KhachHang_id", OtherKey="KhachHang_id", IsForeignKey=true)]
 		public KhachHang KhachHang
 		{
@@ -466,6 +505,108 @@ namespace QuanLy_TourDuLich.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="KhachHang_DanhGia1", Storage="_KhachHang1", ThisKey="KhachHang_id", OtherKey="KhachHang_id", IsForeignKey=true)]
+		public KhachHang KhachHang1
+		{
+			get
+			{
+				return this._KhachHang1.Entity;
+			}
+			set
+			{
+				KhachHang previousValue = this._KhachHang1.Entity;
+				if (((previousValue != value) 
+							|| (this._KhachHang1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._KhachHang1.Entity = null;
+						previousValue.DanhGias1.Remove(this);
+					}
+					this._KhachHang1.Entity = value;
+					if ((value != null))
+					{
+						value.DanhGias1.Add(this);
+						this._KhachHang_id = value.KhachHang_id;
+					}
+					else
+					{
+						this._KhachHang_id = default(string);
+					}
+					this.SendPropertyChanged("KhachHang1");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tour_DanhGia", Storage="_Tour", ThisKey="Tour_id", OtherKey="Tour_id", IsForeignKey=true)]
+		public Tour Tour
+		{
+			get
+			{
+				return this._Tour.Entity;
+			}
+			set
+			{
+				Tour previousValue = this._Tour.Entity;
+				if (((previousValue != value) 
+							|| (this._Tour.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Tour.Entity = null;
+						previousValue.DanhGias.Remove(this);
+					}
+					this._Tour.Entity = value;
+					if ((value != null))
+					{
+						value.DanhGias.Add(this);
+						this._Tour_id = value.Tour_id;
+					}
+					else
+					{
+						this._Tour_id = default(string);
+					}
+					this.SendPropertyChanged("Tour");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tour_DanhGia1", Storage="_Tour1", ThisKey="Tour_id", OtherKey="Tour_id", IsForeignKey=true)]
+		public Tour Tour1
+		{
+			get
+			{
+				return this._Tour1.Entity;
+			}
+			set
+			{
+				Tour previousValue = this._Tour1.Entity;
+				if (((previousValue != value) 
+							|| (this._Tour1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Tour1.Entity = null;
+						previousValue.DanhGias1.Remove(this);
+					}
+					this._Tour1.Entity = value;
+					if ((value != null))
+					{
+						value.DanhGias1.Add(this);
+						this._Tour_id = value.Tour_id;
+					}
+					else
+					{
+						this._Tour_id = default(string);
+					}
+					this.SendPropertyChanged("Tour1");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -487,550 +628,217 @@ namespace QuanLy_TourDuLich.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Tour")]
-	public partial class Tour : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ThanhToan")]
+	public partial class ThanhToan : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private string _Tour_id;
+		private int _ThanhToan_id;
 		
-		private string _Name;
+		private System.Nullable<int> _DatTour_id;
 		
-		private System.Nullable<decimal> _Gia;
+		private System.Nullable<System.DateTime> _NgayThanhToan;
 		
-		private string _MoTa;
+		private string _HinhThuc_id;
 		
-		private string _LichTrinh;
+		private System.Nullable<decimal> _TongTien;
 		
-		private System.Nullable<int> _DiemKhoiHanh_id;
+		private EntityRef<DatTour> _DatTour;
 		
-		private System.Nullable<int> _DiemDen_id;
-		
-		private string _KhachSan_id;
-		
-		private System.Nullable<System.DateTime> _NgayKhoiHanh;
-		
-		private System.Nullable<System.DateTime> _NgayKetThuc;
-		
-		private System.Nullable<int> _SoLuongCon;
-		
-		private string _LoaiTour;
-		
-		private string _TrangThai;
-		
-		private EntitySet<DanhGia> _DanhGias;
-		
-		private EntitySet<DatTour> _DatTours;
-		
-		private EntitySet<HanhKhach> _HanhKhaches;
-		
-		private EntitySet<Image_Tour> _Image_Tours;
-		
-		private EntitySet<NhaHang_Tour> _NhaHang_Tours;
-		
-		private EntitySet<PhanCong_NhanVien> _PhanCong_NhanViens;
-		
-		private EntityRef<KhachSan> _KhachSan;
-		
-		private EntityRef<TinhThanh> _TinhThanh;
-		
-		private EntityRef<TinhThanh> _TinhThanh1;
+		private EntityRef<DatTour> _DatTour1;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnTour_idChanging(string value);
-    partial void OnTour_idChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnGiaChanging(System.Nullable<decimal> value);
-    partial void OnGiaChanged();
-    partial void OnMoTaChanging(string value);
-    partial void OnMoTaChanged();
-    partial void OnLichTrinhChanging(string value);
-    partial void OnLichTrinhChanged();
-    partial void OnDiemKhoiHanh_idChanging(System.Nullable<int> value);
-    partial void OnDiemKhoiHanh_idChanged();
-    partial void OnDiemDen_idChanging(System.Nullable<int> value);
-    partial void OnDiemDen_idChanged();
-    partial void OnKhachSan_idChanging(string value);
-    partial void OnKhachSan_idChanged();
-    partial void OnNgayKhoiHanhChanging(System.Nullable<System.DateTime> value);
-    partial void OnNgayKhoiHanhChanged();
-    partial void OnNgayKetThucChanging(System.Nullable<System.DateTime> value);
-    partial void OnNgayKetThucChanged();
-    partial void OnSoLuongConChanging(System.Nullable<int> value);
-    partial void OnSoLuongConChanged();
-    partial void OnLoaiTourChanging(string value);
-    partial void OnLoaiTourChanged();
-    partial void OnTrangThaiChanging(string value);
-    partial void OnTrangThaiChanged();
+    partial void OnThanhToan_idChanging(int value);
+    partial void OnThanhToan_idChanged();
+    partial void OnDatTour_idChanging(System.Nullable<int> value);
+    partial void OnDatTour_idChanged();
+    partial void OnNgayThanhToanChanging(System.Nullable<System.DateTime> value);
+    partial void OnNgayThanhToanChanged();
+    partial void OnHinhThuc_idChanging(string value);
+    partial void OnHinhThuc_idChanged();
+    partial void OnTongTienChanging(System.Nullable<decimal> value);
+    partial void OnTongTienChanged();
     #endregion
 		
-		public Tour()
+		public ThanhToan()
 		{
-			this._DanhGias = new EntitySet<DanhGia>(new Action<DanhGia>(this.attach_DanhGias), new Action<DanhGia>(this.detach_DanhGias));
-			this._DatTours = new EntitySet<DatTour>(new Action<DatTour>(this.attach_DatTours), new Action<DatTour>(this.detach_DatTours));
-			this._HanhKhaches = new EntitySet<HanhKhach>(new Action<HanhKhach>(this.attach_HanhKhaches), new Action<HanhKhach>(this.detach_HanhKhaches));
-			this._Image_Tours = new EntitySet<Image_Tour>(new Action<Image_Tour>(this.attach_Image_Tours), new Action<Image_Tour>(this.detach_Image_Tours));
-			this._NhaHang_Tours = new EntitySet<NhaHang_Tour>(new Action<NhaHang_Tour>(this.attach_NhaHang_Tours), new Action<NhaHang_Tour>(this.detach_NhaHang_Tours));
-			this._PhanCong_NhanViens = new EntitySet<PhanCong_NhanVien>(new Action<PhanCong_NhanVien>(this.attach_PhanCong_NhanViens), new Action<PhanCong_NhanVien>(this.detach_PhanCong_NhanViens));
-			this._KhachSan = default(EntityRef<KhachSan>);
-			this._TinhThanh = default(EntityRef<TinhThanh>);
-			this._TinhThanh1 = default(EntityRef<TinhThanh>);
+			this._DatTour = default(EntityRef<DatTour>);
+			this._DatTour1 = default(EntityRef<DatTour>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tour_id", DbType="VarChar(36) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string Tour_id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ThanhToan_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ThanhToan_id
 		{
 			get
 			{
-				return this._Tour_id;
+				return this._ThanhToan_id;
 			}
 			set
 			{
-				if ((this._Tour_id != value))
+				if ((this._ThanhToan_id != value))
 				{
-					this.OnTour_idChanging(value);
+					this.OnThanhToan_idChanging(value);
 					this.SendPropertyChanging();
-					this._Tour_id = value;
-					this.SendPropertyChanged("Tour_id");
-					this.OnTour_idChanged();
+					this._ThanhToan_id = value;
+					this.SendPropertyChanged("ThanhToan_id");
+					this.OnThanhToan_idChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(128)")]
-		public string Name
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DatTour_id", DbType="Int")]
+		public System.Nullable<int> DatTour_id
 		{
 			get
 			{
-				return this._Name;
+				return this._DatTour_id;
 			}
 			set
 			{
-				if ((this._Name != value))
+				if ((this._DatTour_id != value))
 				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Gia", DbType="Decimal(12,2)")]
-		public System.Nullable<decimal> Gia
-		{
-			get
-			{
-				return this._Gia;
-			}
-			set
-			{
-				if ((this._Gia != value))
-				{
-					this.OnGiaChanging(value);
-					this.SendPropertyChanging();
-					this._Gia = value;
-					this.SendPropertyChanged("Gia");
-					this.OnGiaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MoTa", DbType="NVarChar(MAX)")]
-		public string MoTa
-		{
-			get
-			{
-				return this._MoTa;
-			}
-			set
-			{
-				if ((this._MoTa != value))
-				{
-					this.OnMoTaChanging(value);
-					this.SendPropertyChanging();
-					this._MoTa = value;
-					this.SendPropertyChanged("MoTa");
-					this.OnMoTaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LichTrinh", DbType="NVarChar(MAX)")]
-		public string LichTrinh
-		{
-			get
-			{
-				return this._LichTrinh;
-			}
-			set
-			{
-				if ((this._LichTrinh != value))
-				{
-					this.OnLichTrinhChanging(value);
-					this.SendPropertyChanging();
-					this._LichTrinh = value;
-					this.SendPropertyChanged("LichTrinh");
-					this.OnLichTrinhChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DiemKhoiHanh_id", DbType="Int")]
-		public System.Nullable<int> DiemKhoiHanh_id
-		{
-			get
-			{
-				return this._DiemKhoiHanh_id;
-			}
-			set
-			{
-				if ((this._DiemKhoiHanh_id != value))
-				{
-					if (this._TinhThanh1.HasLoadedOrAssignedValue)
+					if ((this._DatTour.HasLoadedOrAssignedValue || this._DatTour1.HasLoadedOrAssignedValue))
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.OnDiemKhoiHanh_idChanging(value);
+					this.OnDatTour_idChanging(value);
 					this.SendPropertyChanging();
-					this._DiemKhoiHanh_id = value;
-					this.SendPropertyChanged("DiemKhoiHanh_id");
-					this.OnDiemKhoiHanh_idChanged();
+					this._DatTour_id = value;
+					this.SendPropertyChanged("DatTour_id");
+					this.OnDatTour_idChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DiemDen_id", DbType="Int")]
-		public System.Nullable<int> DiemDen_id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayThanhToan", DbType="DateTime")]
+		public System.Nullable<System.DateTime> NgayThanhToan
 		{
 			get
 			{
-				return this._DiemDen_id;
+				return this._NgayThanhToan;
 			}
 			set
 			{
-				if ((this._DiemDen_id != value))
+				if ((this._NgayThanhToan != value))
 				{
-					if (this._TinhThanh.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnDiemDen_idChanging(value);
+					this.OnNgayThanhToanChanging(value);
 					this.SendPropertyChanging();
-					this._DiemDen_id = value;
-					this.SendPropertyChanged("DiemDen_id");
-					this.OnDiemDen_idChanged();
+					this._NgayThanhToan = value;
+					this.SendPropertyChanged("NgayThanhToan");
+					this.OnNgayThanhToanChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KhachSan_id", DbType="VarChar(36)")]
-		public string KhachSan_id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HinhThuc_id", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
+		public string HinhThuc_id
 		{
 			get
 			{
-				return this._KhachSan_id;
+				return this._HinhThuc_id;
 			}
 			set
 			{
-				if ((this._KhachSan_id != value))
+				if ((this._HinhThuc_id != value))
 				{
-					if (this._KhachSan.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnKhachSan_idChanging(value);
+					this.OnHinhThuc_idChanging(value);
 					this.SendPropertyChanging();
-					this._KhachSan_id = value;
-					this.SendPropertyChanged("KhachSan_id");
-					this.OnKhachSan_idChanged();
+					this._HinhThuc_id = value;
+					this.SendPropertyChanged("HinhThuc_id");
+					this.OnHinhThuc_idChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayKhoiHanh", DbType="Date")]
-		public System.Nullable<System.DateTime> NgayKhoiHanh
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TongTien", DbType="Decimal(12,2)")]
+		public System.Nullable<decimal> TongTien
 		{
 			get
 			{
-				return this._NgayKhoiHanh;
+				return this._TongTien;
 			}
 			set
 			{
-				if ((this._NgayKhoiHanh != value))
+				if ((this._TongTien != value))
 				{
-					this.OnNgayKhoiHanhChanging(value);
+					this.OnTongTienChanging(value);
 					this.SendPropertyChanging();
-					this._NgayKhoiHanh = value;
-					this.SendPropertyChanged("NgayKhoiHanh");
-					this.OnNgayKhoiHanhChanged();
+					this._TongTien = value;
+					this.SendPropertyChanged("TongTien");
+					this.OnTongTienChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayKetThuc", DbType="Date")]
-		public System.Nullable<System.DateTime> NgayKetThuc
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DatTour_ThanhToan", Storage="_DatTour", ThisKey="DatTour_id", OtherKey="DatTour_id", IsForeignKey=true)]
+		public DatTour DatTour
 		{
 			get
 			{
-				return this._NgayKetThuc;
+				return this._DatTour.Entity;
 			}
 			set
 			{
-				if ((this._NgayKetThuc != value))
-				{
-					this.OnNgayKetThucChanging(value);
-					this.SendPropertyChanging();
-					this._NgayKetThuc = value;
-					this.SendPropertyChanged("NgayKetThuc");
-					this.OnNgayKetThucChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoLuongCon", DbType="Int")]
-		public System.Nullable<int> SoLuongCon
-		{
-			get
-			{
-				return this._SoLuongCon;
-			}
-			set
-			{
-				if ((this._SoLuongCon != value))
-				{
-					this.OnSoLuongConChanging(value);
-					this.SendPropertyChanging();
-					this._SoLuongCon = value;
-					this.SendPropertyChanged("SoLuongCon");
-					this.OnSoLuongConChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LoaiTour", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
-		public string LoaiTour
-		{
-			get
-			{
-				return this._LoaiTour;
-			}
-			set
-			{
-				if ((this._LoaiTour != value))
-				{
-					this.OnLoaiTourChanging(value);
-					this.SendPropertyChanging();
-					this._LoaiTour = value;
-					this.SendPropertyChanged("LoaiTour");
-					this.OnLoaiTourChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrangThai", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
-		public string TrangThai
-		{
-			get
-			{
-				return this._TrangThai;
-			}
-			set
-			{
-				if ((this._TrangThai != value))
-				{
-					this.OnTrangThaiChanging(value);
-					this.SendPropertyChanging();
-					this._TrangThai = value;
-					this.SendPropertyChanged("TrangThai");
-					this.OnTrangThaiChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tour_DanhGia", Storage="_DanhGias", ThisKey="Tour_id", OtherKey="Tour_id")]
-		public EntitySet<DanhGia> DanhGias
-		{
-			get
-			{
-				return this._DanhGias;
-			}
-			set
-			{
-				this._DanhGias.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tour_DatTour", Storage="_DatTours", ThisKey="Tour_id", OtherKey="Tour_id")]
-		public EntitySet<DatTour> DatTours
-		{
-			get
-			{
-				return this._DatTours;
-			}
-			set
-			{
-				this._DatTours.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tour_HanhKhach", Storage="_HanhKhaches", ThisKey="Tour_id", OtherKey="Tour_id")]
-		public EntitySet<HanhKhach> HanhKhaches
-		{
-			get
-			{
-				return this._HanhKhaches;
-			}
-			set
-			{
-				this._HanhKhaches.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tour_Image_Tour", Storage="_Image_Tours", ThisKey="Tour_id", OtherKey="Tour_id")]
-		public EntitySet<Image_Tour> Image_Tours
-		{
-			get
-			{
-				return this._Image_Tours;
-			}
-			set
-			{
-				this._Image_Tours.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tour_NhaHang_Tour", Storage="_NhaHang_Tours", ThisKey="Tour_id", OtherKey="Tour_id")]
-		public EntitySet<NhaHang_Tour> NhaHang_Tours
-		{
-			get
-			{
-				return this._NhaHang_Tours;
-			}
-			set
-			{
-				this._NhaHang_Tours.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tour_PhanCong_NhanVien", Storage="_PhanCong_NhanViens", ThisKey="Tour_id", OtherKey="Tour_id")]
-		public EntitySet<PhanCong_NhanVien> PhanCong_NhanViens
-		{
-			get
-			{
-				return this._PhanCong_NhanViens;
-			}
-			set
-			{
-				this._PhanCong_NhanViens.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="KhachSan_Tour", Storage="_KhachSan", ThisKey="KhachSan_id", OtherKey="KhachSan_id", IsForeignKey=true)]
-		public KhachSan KhachSan
-		{
-			get
-			{
-				return this._KhachSan.Entity;
-			}
-			set
-			{
-				KhachSan previousValue = this._KhachSan.Entity;
+				DatTour previousValue = this._DatTour.Entity;
 				if (((previousValue != value) 
-							|| (this._KhachSan.HasLoadedOrAssignedValue == false)))
+							|| (this._DatTour.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._KhachSan.Entity = null;
-						previousValue.Tours.Remove(this);
+						this._DatTour.Entity = null;
+						previousValue.ThanhToans.Remove(this);
 					}
-					this._KhachSan.Entity = value;
+					this._DatTour.Entity = value;
 					if ((value != null))
 					{
-						value.Tours.Add(this);
-						this._KhachSan_id = value.KhachSan_id;
+						value.ThanhToans.Add(this);
+						this._DatTour_id = value.DatTour_id;
 					}
 					else
 					{
-						this._KhachSan_id = default(string);
+						this._DatTour_id = default(Nullable<int>);
 					}
-					this.SendPropertyChanged("KhachSan");
+					this.SendPropertyChanged("DatTour");
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TinhThanh_Tour", Storage="_TinhThanh", ThisKey="DiemDen_id", OtherKey="TinhThanh_id", IsForeignKey=true)]
-		public TinhThanh TinhThanh
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DatTour_ThanhToan1", Storage="_DatTour1", ThisKey="DatTour_id", OtherKey="DatTour_id", IsForeignKey=true)]
+		public DatTour DatTour1
 		{
 			get
 			{
-				return this._TinhThanh.Entity;
+				return this._DatTour1.Entity;
 			}
 			set
 			{
-				TinhThanh previousValue = this._TinhThanh.Entity;
+				DatTour previousValue = this._DatTour1.Entity;
 				if (((previousValue != value) 
-							|| (this._TinhThanh.HasLoadedOrAssignedValue == false)))
+							|| (this._DatTour1.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._TinhThanh.Entity = null;
-						previousValue.Tours.Remove(this);
+						this._DatTour1.Entity = null;
+						previousValue.ThanhToans1.Remove(this);
 					}
-					this._TinhThanh.Entity = value;
+					this._DatTour1.Entity = value;
 					if ((value != null))
 					{
-						value.Tours.Add(this);
-						this._DiemDen_id = value.TinhThanh_id;
+						value.ThanhToans1.Add(this);
+						this._DatTour_id = value.DatTour_id;
 					}
 					else
 					{
-						this._DiemDen_id = default(Nullable<int>);
+						this._DatTour_id = default(Nullable<int>);
 					}
-					this.SendPropertyChanged("TinhThanh");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TinhThanh_Tour1", Storage="_TinhThanh1", ThisKey="DiemKhoiHanh_id", OtherKey="TinhThanh_id", IsForeignKey=true)]
-		public TinhThanh TinhThanh1
-		{
-			get
-			{
-				return this._TinhThanh1.Entity;
-			}
-			set
-			{
-				TinhThanh previousValue = this._TinhThanh1.Entity;
-				if (((previousValue != value) 
-							|| (this._TinhThanh1.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._TinhThanh1.Entity = null;
-						previousValue.Tours1.Remove(this);
-					}
-					this._TinhThanh1.Entity = value;
-					if ((value != null))
-					{
-						value.Tours1.Add(this);
-						this._DiemKhoiHanh_id = value.TinhThanh_id;
-					}
-					else
-					{
-						this._DiemKhoiHanh_id = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("TinhThanh1");
+					this.SendPropertyChanged("DatTour1");
 				}
 			}
 		}
@@ -1053,78 +861,6 @@ namespace QuanLy_TourDuLich.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_DanhGias(DanhGia entity)
-		{
-			this.SendPropertyChanging();
-			entity.Tour = this;
-		}
-		
-		private void detach_DanhGias(DanhGia entity)
-		{
-			this.SendPropertyChanging();
-			entity.Tour = null;
-		}
-		
-		private void attach_DatTours(DatTour entity)
-		{
-			this.SendPropertyChanging();
-			entity.Tour = this;
-		}
-		
-		private void detach_DatTours(DatTour entity)
-		{
-			this.SendPropertyChanging();
-			entity.Tour = null;
-		}
-		
-		private void attach_HanhKhaches(HanhKhach entity)
-		{
-			this.SendPropertyChanging();
-			entity.Tour = this;
-		}
-		
-		private void detach_HanhKhaches(HanhKhach entity)
-		{
-			this.SendPropertyChanging();
-			entity.Tour = null;
-		}
-		
-		private void attach_Image_Tours(Image_Tour entity)
-		{
-			this.SendPropertyChanging();
-			entity.Tour = this;
-		}
-		
-		private void detach_Image_Tours(Image_Tour entity)
-		{
-			this.SendPropertyChanging();
-			entity.Tour = null;
-		}
-		
-		private void attach_NhaHang_Tours(NhaHang_Tour entity)
-		{
-			this.SendPropertyChanging();
-			entity.Tour = this;
-		}
-		
-		private void detach_NhaHang_Tours(NhaHang_Tour entity)
-		{
-			this.SendPropertyChanging();
-			entity.Tour = null;
-		}
-		
-		private void attach_PhanCong_NhanViens(PhanCong_NhanVien entity)
-		{
-			this.SendPropertyChanging();
-			entity.Tour = this;
-		}
-		
-		private void detach_PhanCong_NhanViens(PhanCong_NhanVien entity)
-		{
-			this.SendPropertyChanging();
-			entity.Tour = null;
 		}
 	}
 	
@@ -1146,15 +882,23 @@ namespace QuanLy_TourDuLich.Models
 		
 		private System.Nullable<int> _SoNguoi;
 		
+		private EntitySet<ThanhToan> _ThanhToans;
+		
+		private EntitySet<ThanhToan> _ThanhToans1;
+		
 		private EntitySet<HanhKhach> _HanhKhaches;
 		
 		private EntitySet<HuyTour> _HuyTours;
 		
-		private EntitySet<ThanhToan> _ThanhToans;
+		private EntitySet<HuyTour> _HuyTours1;
+		
+		private EntityRef<KhachHang> _KhachHang;
+		
+		private EntityRef<KhachHang> _KhachHang1;
 		
 		private EntityRef<Tour> _Tour;
 		
-		private EntityRef<KhachHang> _KhachHang;
+		private EntityRef<Tour> _Tour1;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1176,11 +920,15 @@ namespace QuanLy_TourDuLich.Models
 		
 		public DatTour()
 		{
+			this._ThanhToans = new EntitySet<ThanhToan>(new Action<ThanhToan>(this.attach_ThanhToans), new Action<ThanhToan>(this.detach_ThanhToans));
+			this._ThanhToans1 = new EntitySet<ThanhToan>(new Action<ThanhToan>(this.attach_ThanhToans1), new Action<ThanhToan>(this.detach_ThanhToans1));
 			this._HanhKhaches = new EntitySet<HanhKhach>(new Action<HanhKhach>(this.attach_HanhKhaches), new Action<HanhKhach>(this.detach_HanhKhaches));
 			this._HuyTours = new EntitySet<HuyTour>(new Action<HuyTour>(this.attach_HuyTours), new Action<HuyTour>(this.detach_HuyTours));
-			this._ThanhToans = new EntitySet<ThanhToan>(new Action<ThanhToan>(this.attach_ThanhToans), new Action<ThanhToan>(this.detach_ThanhToans));
-			this._Tour = default(EntityRef<Tour>);
+			this._HuyTours1 = new EntitySet<HuyTour>(new Action<HuyTour>(this.attach_HuyTours1), new Action<HuyTour>(this.detach_HuyTours1));
 			this._KhachHang = default(EntityRef<KhachHang>);
+			this._KhachHang1 = default(EntityRef<KhachHang>);
+			this._Tour = default(EntityRef<Tour>);
+			this._Tour1 = default(EntityRef<Tour>);
 			OnCreated();
 		}
 		
@@ -1204,7 +952,7 @@ namespace QuanLy_TourDuLich.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GhiChu", DbType="NVarChar(36)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GhiChu", DbType="NVarChar(128)")]
 		public string GhiChu
 		{
 			get
@@ -1235,7 +983,7 @@ namespace QuanLy_TourDuLich.Models
 			{
 				if ((this._KhachHang_id != value))
 				{
-					if (this._KhachHang.HasLoadedOrAssignedValue)
+					if ((this._KhachHang.HasLoadedOrAssignedValue || this._KhachHang1.HasLoadedOrAssignedValue))
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -1279,7 +1027,7 @@ namespace QuanLy_TourDuLich.Models
 			{
 				if ((this._Tour_id != value))
 				{
-					if (this._Tour.HasLoadedOrAssignedValue)
+					if ((this._Tour.HasLoadedOrAssignedValue || this._Tour1.HasLoadedOrAssignedValue))
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -1312,6 +1060,32 @@ namespace QuanLy_TourDuLich.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DatTour_ThanhToan", Storage="_ThanhToans", ThisKey="DatTour_id", OtherKey="DatTour_id")]
+		public EntitySet<ThanhToan> ThanhToans
+		{
+			get
+			{
+				return this._ThanhToans;
+			}
+			set
+			{
+				this._ThanhToans.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DatTour_ThanhToan1", Storage="_ThanhToans1", ThisKey="DatTour_id", OtherKey="DatTour_id")]
+		public EntitySet<ThanhToan> ThanhToans1
+		{
+			get
+			{
+				return this._ThanhToans1;
+			}
+			set
+			{
+				this._ThanhToans1.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DatTour_HanhKhach", Storage="_HanhKhaches", ThisKey="DatTour_id", OtherKey="DatTour_id")]
 		public EntitySet<HanhKhach> HanhKhaches
 		{
@@ -1338,50 +1112,16 @@ namespace QuanLy_TourDuLich.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DatTour_ThanhToan", Storage="_ThanhToans", ThisKey="DatTour_id", OtherKey="DatTour_id")]
-		public EntitySet<ThanhToan> ThanhToans
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DatTour_HuyTour1", Storage="_HuyTours1", ThisKey="DatTour_id", OtherKey="DatTour_id")]
+		public EntitySet<HuyTour> HuyTours1
 		{
 			get
 			{
-				return this._ThanhToans;
+				return this._HuyTours1;
 			}
 			set
 			{
-				this._ThanhToans.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tour_DatTour", Storage="_Tour", ThisKey="Tour_id", OtherKey="Tour_id", IsForeignKey=true)]
-		public Tour Tour
-		{
-			get
-			{
-				return this._Tour.Entity;
-			}
-			set
-			{
-				Tour previousValue = this._Tour.Entity;
-				if (((previousValue != value) 
-							|| (this._Tour.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Tour.Entity = null;
-						previousValue.DatTours.Remove(this);
-					}
-					this._Tour.Entity = value;
-					if ((value != null))
-					{
-						value.DatTours.Add(this);
-						this._Tour_id = value.Tour_id;
-					}
-					else
-					{
-						this._Tour_id = default(string);
-					}
-					this.SendPropertyChanged("Tour");
-				}
+				this._HuyTours1.Assign(value);
 			}
 		}
 		
@@ -1419,6 +1159,108 @@ namespace QuanLy_TourDuLich.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="KhachHang_DatTour1", Storage="_KhachHang1", ThisKey="KhachHang_id", OtherKey="KhachHang_id", IsForeignKey=true)]
+		public KhachHang KhachHang1
+		{
+			get
+			{
+				return this._KhachHang1.Entity;
+			}
+			set
+			{
+				KhachHang previousValue = this._KhachHang1.Entity;
+				if (((previousValue != value) 
+							|| (this._KhachHang1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._KhachHang1.Entity = null;
+						previousValue.DatTours1.Remove(this);
+					}
+					this._KhachHang1.Entity = value;
+					if ((value != null))
+					{
+						value.DatTours1.Add(this);
+						this._KhachHang_id = value.KhachHang_id;
+					}
+					else
+					{
+						this._KhachHang_id = default(string);
+					}
+					this.SendPropertyChanged("KhachHang1");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tour_DatTour", Storage="_Tour", ThisKey="Tour_id", OtherKey="Tour_id", IsForeignKey=true)]
+		public Tour Tour
+		{
+			get
+			{
+				return this._Tour.Entity;
+			}
+			set
+			{
+				Tour previousValue = this._Tour.Entity;
+				if (((previousValue != value) 
+							|| (this._Tour.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Tour.Entity = null;
+						previousValue.DatTours.Remove(this);
+					}
+					this._Tour.Entity = value;
+					if ((value != null))
+					{
+						value.DatTours.Add(this);
+						this._Tour_id = value.Tour_id;
+					}
+					else
+					{
+						this._Tour_id = default(string);
+					}
+					this.SendPropertyChanged("Tour");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tour_DatTour1", Storage="_Tour1", ThisKey="Tour_id", OtherKey="Tour_id", IsForeignKey=true)]
+		public Tour Tour1
+		{
+			get
+			{
+				return this._Tour1.Entity;
+			}
+			set
+			{
+				Tour previousValue = this._Tour1.Entity;
+				if (((previousValue != value) 
+							|| (this._Tour1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Tour1.Entity = null;
+						previousValue.DatTours1.Remove(this);
+					}
+					this._Tour1.Entity = value;
+					if ((value != null))
+					{
+						value.DatTours1.Add(this);
+						this._Tour_id = value.Tour_id;
+					}
+					else
+					{
+						this._Tour_id = default(string);
+					}
+					this.SendPropertyChanged("Tour1");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1437,6 +1279,30 @@ namespace QuanLy_TourDuLich.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_ThanhToans(ThanhToan entity)
+		{
+			this.SendPropertyChanging();
+			entity.DatTour = this;
+		}
+		
+		private void detach_ThanhToans(ThanhToan entity)
+		{
+			this.SendPropertyChanging();
+			entity.DatTour = null;
+		}
+		
+		private void attach_ThanhToans1(ThanhToan entity)
+		{
+			this.SendPropertyChanging();
+			entity.DatTour1 = this;
+		}
+		
+		private void detach_ThanhToans1(ThanhToan entity)
+		{
+			this.SendPropertyChanging();
+			entity.DatTour1 = null;
 		}
 		
 		private void attach_HanhKhaches(HanhKhach entity)
@@ -1463,16 +1329,16 @@ namespace QuanLy_TourDuLich.Models
 			entity.DatTour = null;
 		}
 		
-		private void attach_ThanhToans(ThanhToan entity)
+		private void attach_HuyTours1(HuyTour entity)
 		{
 			this.SendPropertyChanging();
-			entity.DatTour = this;
+			entity.DatTour1 = this;
 		}
 		
-		private void detach_ThanhToans(ThanhToan entity)
+		private void detach_HuyTours1(HuyTour entity)
 		{
 			this.SendPropertyChanging();
-			entity.DatTour = null;
+			entity.DatTour1 = null;
 		}
 	}
 	
@@ -1498,6 +1364,8 @@ namespace QuanLy_TourDuLich.Models
 		
 		private EntityRef<Tour> _Tour;
 		
+		private EntityRef<Tour> _Tour1;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1520,6 +1388,7 @@ namespace QuanLy_TourDuLich.Models
 		{
 			this._DatTour = default(EntityRef<DatTour>);
 			this._Tour = default(EntityRef<Tour>);
+			this._Tour1 = default(EntityRef<Tour>);
 			OnCreated();
 		}
 		
@@ -1638,7 +1507,7 @@ namespace QuanLy_TourDuLich.Models
 			{
 				if ((this._Tour_id != value))
 				{
-					if (this._Tour.HasLoadedOrAssignedValue)
+					if ((this._Tour.HasLoadedOrAssignedValue || this._Tour1.HasLoadedOrAssignedValue))
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -1719,6 +1588,40 @@ namespace QuanLy_TourDuLich.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tour_HanhKhach1", Storage="_Tour1", ThisKey="Tour_id", OtherKey="Tour_id", IsForeignKey=true)]
+		public Tour Tour1
+		{
+			get
+			{
+				return this._Tour1.Entity;
+			}
+			set
+			{
+				Tour previousValue = this._Tour1.Entity;
+				if (((previousValue != value) 
+							|| (this._Tour1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Tour1.Entity = null;
+						previousValue.HanhKhaches1.Remove(this);
+					}
+					this._Tour1.Entity = value;
+					if ((value != null))
+					{
+						value.HanhKhaches1.Add(this);
+						this._Tour_id = value.Tour_id;
+					}
+					else
+					{
+						this._Tour_id = default(string);
+					}
+					this.SendPropertyChanged("Tour1");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1758,6 +1661,8 @@ namespace QuanLy_TourDuLich.Models
 		
 		private EntityRef<DatTour> _DatTour;
 		
+		private EntityRef<DatTour> _DatTour1;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1777,6 +1682,7 @@ namespace QuanLy_TourDuLich.Models
 		public HuyTour()
 		{
 			this._DatTour = default(EntityRef<DatTour>);
+			this._DatTour1 = default(EntityRef<DatTour>);
 			OnCreated();
 		}
 		
@@ -1811,7 +1717,7 @@ namespace QuanLy_TourDuLich.Models
 			{
 				if ((this._DatTour_id != value))
 				{
-					if (this._DatTour.HasLoadedOrAssignedValue)
+					if ((this._DatTour.HasLoadedOrAssignedValue || this._DatTour1.HasLoadedOrAssignedValue))
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -1918,6 +1824,40 @@ namespace QuanLy_TourDuLich.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DatTour_HuyTour1", Storage="_DatTour1", ThisKey="DatTour_id", OtherKey="DatTour_id", IsForeignKey=true)]
+		public DatTour DatTour1
+		{
+			get
+			{
+				return this._DatTour1.Entity;
+			}
+			set
+			{
+				DatTour previousValue = this._DatTour1.Entity;
+				if (((previousValue != value) 
+							|| (this._DatTour1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._DatTour1.Entity = null;
+						previousValue.HuyTours1.Remove(this);
+					}
+					this._DatTour1.Entity = value;
+					if ((value != null))
+					{
+						value.HuyTours1.Add(this);
+						this._DatTour_id = value.DatTour_id;
+					}
+					else
+					{
+						this._DatTour_id = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("DatTour1");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1953,6 +1893,8 @@ namespace QuanLy_TourDuLich.Models
 		
 		private EntityRef<Tour> _Tour;
 		
+		private EntityRef<Tour> _Tour1;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1968,6 +1910,7 @@ namespace QuanLy_TourDuLich.Models
 		public Image_Tour()
 		{
 			this._Tour = default(EntityRef<Tour>);
+			this._Tour1 = default(EntityRef<Tour>);
 			OnCreated();
 		}
 		
@@ -2022,7 +1965,7 @@ namespace QuanLy_TourDuLich.Models
 			{
 				if ((this._Tour_id != value))
 				{
-					if (this._Tour.HasLoadedOrAssignedValue)
+					if ((this._Tour.HasLoadedOrAssignedValue || this._Tour1.HasLoadedOrAssignedValue))
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -2065,6 +2008,40 @@ namespace QuanLy_TourDuLich.Models
 						this._Tour_id = default(string);
 					}
 					this.SendPropertyChanged("Tour");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tour_Image_Tour1", Storage="_Tour1", ThisKey="Tour_id", OtherKey="Tour_id", IsForeignKey=true)]
+		public Tour Tour1
+		{
+			get
+			{
+				return this._Tour1.Entity;
+			}
+			set
+			{
+				Tour previousValue = this._Tour1.Entity;
+				if (((previousValue != value) 
+							|| (this._Tour1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Tour1.Entity = null;
+						previousValue.Image_Tours1.Remove(this);
+					}
+					this._Tour1.Entity = value;
+					if ((value != null))
+					{
+						value.Image_Tours1.Add(this);
+						this._Tour_id = value.Tour_id;
+					}
+					else
+					{
+						this._Tour_id = default(string);
+					}
+					this.SendPropertyChanged("Tour1");
 				}
 			}
 		}
@@ -2112,7 +2089,11 @@ namespace QuanLy_TourDuLich.Models
 		
 		private EntitySet<DanhGia> _DanhGias;
 		
+		private EntitySet<DanhGia> _DanhGias1;
+		
 		private EntitySet<DatTour> _DatTours;
+		
+		private EntitySet<DatTour> _DatTours1;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -2137,7 +2118,9 @@ namespace QuanLy_TourDuLich.Models
 		public KhachHang()
 		{
 			this._DanhGias = new EntitySet<DanhGia>(new Action<DanhGia>(this.attach_DanhGias), new Action<DanhGia>(this.detach_DanhGias));
+			this._DanhGias1 = new EntitySet<DanhGia>(new Action<DanhGia>(this.attach_DanhGias1), new Action<DanhGia>(this.detach_DanhGias1));
 			this._DatTours = new EntitySet<DatTour>(new Action<DatTour>(this.attach_DatTours), new Action<DatTour>(this.detach_DatTours));
+			this._DatTours1 = new EntitySet<DatTour>(new Action<DatTour>(this.attach_DatTours1), new Action<DatTour>(this.detach_DatTours1));
 			OnCreated();
 		}
 		
@@ -2294,6 +2277,19 @@ namespace QuanLy_TourDuLich.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="KhachHang_DanhGia1", Storage="_DanhGias1", ThisKey="KhachHang_id", OtherKey="KhachHang_id")]
+		public EntitySet<DanhGia> DanhGias1
+		{
+			get
+			{
+				return this._DanhGias1;
+			}
+			set
+			{
+				this._DanhGias1.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="KhachHang_DatTour", Storage="_DatTours", ThisKey="KhachHang_id", OtherKey="KhachHang_id")]
 		public EntitySet<DatTour> DatTours
 		{
@@ -2304,6 +2300,19 @@ namespace QuanLy_TourDuLich.Models
 			set
 			{
 				this._DatTours.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="KhachHang_DatTour1", Storage="_DatTours1", ThisKey="KhachHang_id", OtherKey="KhachHang_id")]
+		public EntitySet<DatTour> DatTours1
+		{
+			get
+			{
+				return this._DatTours1;
+			}
+			set
+			{
+				this._DatTours1.Assign(value);
 			}
 		}
 		
@@ -2339,6 +2348,18 @@ namespace QuanLy_TourDuLich.Models
 			entity.KhachHang = null;
 		}
 		
+		private void attach_DanhGias1(DanhGia entity)
+		{
+			this.SendPropertyChanging();
+			entity.KhachHang1 = this;
+		}
+		
+		private void detach_DanhGias1(DanhGia entity)
+		{
+			this.SendPropertyChanging();
+			entity.KhachHang1 = null;
+		}
+		
 		private void attach_DatTours(DatTour entity)
 		{
 			this.SendPropertyChanging();
@@ -2349,6 +2370,18 @@ namespace QuanLy_TourDuLich.Models
 		{
 			this.SendPropertyChanging();
 			entity.KhachHang = null;
+		}
+		
+		private void attach_DatTours1(DatTour entity)
+		{
+			this.SendPropertyChanging();
+			entity.KhachHang1 = this;
+		}
+		
+		private void detach_DatTours1(DatTour entity)
+		{
+			this.SendPropertyChanging();
+			entity.KhachHang1 = null;
 		}
 	}
 	
@@ -2368,7 +2401,11 @@ namespace QuanLy_TourDuLich.Models
 		
 		private EntitySet<Tour> _Tours;
 		
+		private EntitySet<Tour> _Tours1;
+		
 		private EntityRef<TinhThanh> _TinhThanh;
+		
+		private EntityRef<TinhThanh> _TinhThanh1;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -2387,7 +2424,9 @@ namespace QuanLy_TourDuLich.Models
 		public KhachSan()
 		{
 			this._Tours = new EntitySet<Tour>(new Action<Tour>(this.attach_Tours), new Action<Tour>(this.detach_Tours));
+			this._Tours1 = new EntitySet<Tour>(new Action<Tour>(this.attach_Tours1), new Action<Tour>(this.detach_Tours1));
 			this._TinhThanh = default(EntityRef<TinhThanh>);
+			this._TinhThanh1 = default(EntityRef<TinhThanh>);
 			OnCreated();
 		}
 		
@@ -2442,7 +2481,7 @@ namespace QuanLy_TourDuLich.Models
 			{
 				if ((this._TinhThanh_id != value))
 				{
-					if (this._TinhThanh.HasLoadedOrAssignedValue)
+					if ((this._TinhThanh.HasLoadedOrAssignedValue || this._TinhThanh1.HasLoadedOrAssignedValue))
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -2488,6 +2527,19 @@ namespace QuanLy_TourDuLich.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="KhachSan_Tour1", Storage="_Tours1", ThisKey="KhachSan_id", OtherKey="KhachSan_id")]
+		public EntitySet<Tour> Tours1
+		{
+			get
+			{
+				return this._Tours1;
+			}
+			set
+			{
+				this._Tours1.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TinhThanh_KhachSan", Storage="_TinhThanh", ThisKey="TinhThanh_id", OtherKey="TinhThanh_id", IsForeignKey=true)]
 		public TinhThanh TinhThanh
 		{
@@ -2518,6 +2570,40 @@ namespace QuanLy_TourDuLich.Models
 						this._TinhThanh_id = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("TinhThanh");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TinhThanh_KhachSan1", Storage="_TinhThanh1", ThisKey="TinhThanh_id", OtherKey="TinhThanh_id", IsForeignKey=true)]
+		public TinhThanh TinhThanh1
+		{
+			get
+			{
+				return this._TinhThanh1.Entity;
+			}
+			set
+			{
+				TinhThanh previousValue = this._TinhThanh1.Entity;
+				if (((previousValue != value) 
+							|| (this._TinhThanh1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._TinhThanh1.Entity = null;
+						previousValue.KhachSans1.Remove(this);
+					}
+					this._TinhThanh1.Entity = value;
+					if ((value != null))
+					{
+						value.KhachSans1.Add(this);
+						this._TinhThanh_id = value.TinhThanh_id;
+					}
+					else
+					{
+						this._TinhThanh_id = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("TinhThanh1");
 				}
 			}
 		}
@@ -2553,6 +2639,18 @@ namespace QuanLy_TourDuLich.Models
 			this.SendPropertyChanging();
 			entity.KhachSan = null;
 		}
+		
+		private void attach_Tours1(Tour entity)
+		{
+			this.SendPropertyChanging();
+			entity.KhachSan1 = this;
+		}
+		
+		private void detach_Tours1(Tour entity)
+		{
+			this.SendPropertyChanging();
+			entity.KhachSan1 = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.NhaHang")]
@@ -2569,7 +2667,11 @@ namespace QuanLy_TourDuLich.Models
 		
 		private EntitySet<NhaHang_Tour> _NhaHang_Tours;
 		
+		private EntitySet<NhaHang_Tour> _NhaHang_Tours1;
+		
 		private EntityRef<TinhThanh> _TinhThanh;
+		
+		private EntityRef<TinhThanh> _TinhThanh1;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -2586,7 +2688,9 @@ namespace QuanLy_TourDuLich.Models
 		public NhaHang()
 		{
 			this._NhaHang_Tours = new EntitySet<NhaHang_Tour>(new Action<NhaHang_Tour>(this.attach_NhaHang_Tours), new Action<NhaHang_Tour>(this.detach_NhaHang_Tours));
+			this._NhaHang_Tours1 = new EntitySet<NhaHang_Tour>(new Action<NhaHang_Tour>(this.attach_NhaHang_Tours1), new Action<NhaHang_Tour>(this.detach_NhaHang_Tours1));
 			this._TinhThanh = default(EntityRef<TinhThanh>);
+			this._TinhThanh1 = default(EntityRef<TinhThanh>);
 			OnCreated();
 		}
 		
@@ -2641,7 +2745,7 @@ namespace QuanLy_TourDuLich.Models
 			{
 				if ((this._TinhThanh_id != value))
 				{
-					if (this._TinhThanh.HasLoadedOrAssignedValue)
+					if ((this._TinhThanh.HasLoadedOrAssignedValue || this._TinhThanh1.HasLoadedOrAssignedValue))
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -2664,6 +2768,19 @@ namespace QuanLy_TourDuLich.Models
 			set
 			{
 				this._NhaHang_Tours.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="NhaHang_NhaHang_Tour1", Storage="_NhaHang_Tours1", ThisKey="NhaHang_id", OtherKey="NhaHang_id")]
+		public EntitySet<NhaHang_Tour> NhaHang_Tours1
+		{
+			get
+			{
+				return this._NhaHang_Tours1;
+			}
+			set
+			{
+				this._NhaHang_Tours1.Assign(value);
 			}
 		}
 		
@@ -2701,6 +2818,40 @@ namespace QuanLy_TourDuLich.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TinhThanh_NhaHang1", Storage="_TinhThanh1", ThisKey="TinhThanh_id", OtherKey="TinhThanh_id", IsForeignKey=true)]
+		public TinhThanh TinhThanh1
+		{
+			get
+			{
+				return this._TinhThanh1.Entity;
+			}
+			set
+			{
+				TinhThanh previousValue = this._TinhThanh1.Entity;
+				if (((previousValue != value) 
+							|| (this._TinhThanh1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._TinhThanh1.Entity = null;
+						previousValue.NhaHangs1.Remove(this);
+					}
+					this._TinhThanh1.Entity = value;
+					if ((value != null))
+					{
+						value.NhaHangs1.Add(this);
+						this._TinhThanh_id = value.TinhThanh_id;
+					}
+					else
+					{
+						this._TinhThanh_id = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("TinhThanh1");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -2732,6 +2883,18 @@ namespace QuanLy_TourDuLich.Models
 			this.SendPropertyChanging();
 			entity.NhaHang = null;
 		}
+		
+		private void attach_NhaHang_Tours1(NhaHang_Tour entity)
+		{
+			this.SendPropertyChanging();
+			entity.NhaHang1 = this;
+		}
+		
+		private void detach_NhaHang_Tours1(NhaHang_Tour entity)
+		{
+			this.SendPropertyChanging();
+			entity.NhaHang1 = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.NhaHang_Tour")]
@@ -2746,7 +2909,11 @@ namespace QuanLy_TourDuLich.Models
 		
 		private EntityRef<NhaHang> _NhaHang;
 		
+		private EntityRef<NhaHang> _NhaHang1;
+		
 		private EntityRef<Tour> _Tour;
+		
+		private EntityRef<Tour> _Tour1;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -2761,7 +2928,9 @@ namespace QuanLy_TourDuLich.Models
 		public NhaHang_Tour()
 		{
 			this._NhaHang = default(EntityRef<NhaHang>);
+			this._NhaHang1 = default(EntityRef<NhaHang>);
 			this._Tour = default(EntityRef<Tour>);
+			this._Tour1 = default(EntityRef<Tour>);
 			OnCreated();
 		}
 		
@@ -2776,7 +2945,7 @@ namespace QuanLy_TourDuLich.Models
 			{
 				if ((this._NhaHang_id != value))
 				{
-					if (this._NhaHang.HasLoadedOrAssignedValue)
+					if ((this._NhaHang.HasLoadedOrAssignedValue || this._NhaHang1.HasLoadedOrAssignedValue))
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -2800,7 +2969,7 @@ namespace QuanLy_TourDuLich.Models
 			{
 				if ((this._Tour_id != value))
 				{
-					if (this._Tour.HasLoadedOrAssignedValue)
+					if ((this._Tour.HasLoadedOrAssignedValue || this._Tour1.HasLoadedOrAssignedValue))
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -2847,6 +3016,40 @@ namespace QuanLy_TourDuLich.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="NhaHang_NhaHang_Tour1", Storage="_NhaHang1", ThisKey="NhaHang_id", OtherKey="NhaHang_id", IsForeignKey=true)]
+		public NhaHang NhaHang1
+		{
+			get
+			{
+				return this._NhaHang1.Entity;
+			}
+			set
+			{
+				NhaHang previousValue = this._NhaHang1.Entity;
+				if (((previousValue != value) 
+							|| (this._NhaHang1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._NhaHang1.Entity = null;
+						previousValue.NhaHang_Tours1.Remove(this);
+					}
+					this._NhaHang1.Entity = value;
+					if ((value != null))
+					{
+						value.NhaHang_Tours1.Add(this);
+						this._NhaHang_id = value.NhaHang_id;
+					}
+					else
+					{
+						this._NhaHang_id = default(string);
+					}
+					this.SendPropertyChanged("NhaHang1");
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tour_NhaHang_Tour", Storage="_Tour", ThisKey="Tour_id", OtherKey="Tour_id", IsForeignKey=true)]
 		public Tour Tour
 		{
@@ -2877,6 +3080,40 @@ namespace QuanLy_TourDuLich.Models
 						this._Tour_id = default(string);
 					}
 					this.SendPropertyChanged("Tour");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tour_NhaHang_Tour1", Storage="_Tour1", ThisKey="Tour_id", OtherKey="Tour_id", IsForeignKey=true)]
+		public Tour Tour1
+		{
+			get
+			{
+				return this._Tour1.Entity;
+			}
+			set
+			{
+				Tour previousValue = this._Tour1.Entity;
+				if (((previousValue != value) 
+							|| (this._Tour1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Tour1.Entity = null;
+						previousValue.NhaHang_Tours1.Remove(this);
+					}
+					this._Tour1.Entity = value;
+					if ((value != null))
+					{
+						value.NhaHang_Tours1.Add(this);
+						this._Tour_id = value.Tour_id;
+					}
+					else
+					{
+						this._Tour_id = default(string);
+					}
+					this.SendPropertyChanged("Tour1");
 				}
 			}
 		}
@@ -2926,6 +3163,8 @@ namespace QuanLy_TourDuLich.Models
 		
 		private EntitySet<PhanCong_NhanVien> _PhanCong_NhanViens;
 		
+		private EntitySet<PhanCong_NhanVien> _PhanCong_NhanViens1;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -2951,6 +3190,7 @@ namespace QuanLy_TourDuLich.Models
 		public NhanVien()
 		{
 			this._PhanCong_NhanViens = new EntitySet<PhanCong_NhanVien>(new Action<PhanCong_NhanVien>(this.attach_PhanCong_NhanViens), new Action<PhanCong_NhanVien>(this.detach_PhanCong_NhanViens));
+			this._PhanCong_NhanViens1 = new EntitySet<PhanCong_NhanVien>(new Action<PhanCong_NhanVien>(this.attach_PhanCong_NhanViens1), new Action<PhanCong_NhanVien>(this.detach_PhanCong_NhanViens1));
 			OnCreated();
 		}
 		
@@ -3127,6 +3367,19 @@ namespace QuanLy_TourDuLich.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="NhanVien_PhanCong_NhanVien1", Storage="_PhanCong_NhanViens1", ThisKey="NhanVien_id", OtherKey="NhanVien_id")]
+		public EntitySet<PhanCong_NhanVien> PhanCong_NhanViens1
+		{
+			get
+			{
+				return this._PhanCong_NhanViens1;
+			}
+			set
+			{
+				this._PhanCong_NhanViens1.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -3158,6 +3411,18 @@ namespace QuanLy_TourDuLich.Models
 			this.SendPropertyChanging();
 			entity.NhanVien = null;
 		}
+		
+		private void attach_PhanCong_NhanViens1(PhanCong_NhanVien entity)
+		{
+			this.SendPropertyChanging();
+			entity.NhanVien1 = this;
+		}
+		
+		private void detach_PhanCong_NhanViens1(PhanCong_NhanVien entity)
+		{
+			this.SendPropertyChanging();
+			entity.NhanVien1 = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PhanCong_NhanVien")]
@@ -3172,7 +3437,11 @@ namespace QuanLy_TourDuLich.Models
 		
 		private EntityRef<NhanVien> _NhanVien;
 		
+		private EntityRef<NhanVien> _NhanVien1;
+		
 		private EntityRef<Tour> _Tour;
+		
+		private EntityRef<Tour> _Tour1;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -3187,7 +3456,9 @@ namespace QuanLy_TourDuLich.Models
 		public PhanCong_NhanVien()
 		{
 			this._NhanVien = default(EntityRef<NhanVien>);
+			this._NhanVien1 = default(EntityRef<NhanVien>);
 			this._Tour = default(EntityRef<Tour>);
+			this._Tour1 = default(EntityRef<Tour>);
 			OnCreated();
 		}
 		
@@ -3202,7 +3473,7 @@ namespace QuanLy_TourDuLich.Models
 			{
 				if ((this._Tour_id != value))
 				{
-					if (this._Tour.HasLoadedOrAssignedValue)
+					if ((this._Tour.HasLoadedOrAssignedValue || this._Tour1.HasLoadedOrAssignedValue))
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -3226,7 +3497,7 @@ namespace QuanLy_TourDuLich.Models
 			{
 				if ((this._NhanVien_id != value))
 				{
-					if (this._NhanVien.HasLoadedOrAssignedValue)
+					if ((this._NhanVien.HasLoadedOrAssignedValue || this._NhanVien1.HasLoadedOrAssignedValue))
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -3273,6 +3544,40 @@ namespace QuanLy_TourDuLich.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="NhanVien_PhanCong_NhanVien1", Storage="_NhanVien1", ThisKey="NhanVien_id", OtherKey="NhanVien_id", IsForeignKey=true)]
+		public NhanVien NhanVien1
+		{
+			get
+			{
+				return this._NhanVien1.Entity;
+			}
+			set
+			{
+				NhanVien previousValue = this._NhanVien1.Entity;
+				if (((previousValue != value) 
+							|| (this._NhanVien1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._NhanVien1.Entity = null;
+						previousValue.PhanCong_NhanViens1.Remove(this);
+					}
+					this._NhanVien1.Entity = value;
+					if ((value != null))
+					{
+						value.PhanCong_NhanViens1.Add(this);
+						this._NhanVien_id = value.NhanVien_id;
+					}
+					else
+					{
+						this._NhanVien_id = default(string);
+					}
+					this.SendPropertyChanged("NhanVien1");
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tour_PhanCong_NhanVien", Storage="_Tour", ThisKey="Tour_id", OtherKey="Tour_id", IsForeignKey=true)]
 		public Tour Tour
 		{
@@ -3307,201 +3612,36 @@ namespace QuanLy_TourDuLich.Models
 			}
 		}
 		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ThanhToan")]
-	public partial class ThanhToan : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ThanhToan_id;
-		
-		private System.Nullable<int> _DatTour_id;
-		
-		private System.Nullable<System.DateTime> _NgayThanhToan;
-		
-		private string _HinhThuc_id;
-		
-		private System.Nullable<decimal> _TongTien;
-		
-		private EntityRef<DatTour> _DatTour;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnThanhToan_idChanging(int value);
-    partial void OnThanhToan_idChanged();
-    partial void OnDatTour_idChanging(System.Nullable<int> value);
-    partial void OnDatTour_idChanged();
-    partial void OnNgayThanhToanChanging(System.Nullable<System.DateTime> value);
-    partial void OnNgayThanhToanChanged();
-    partial void OnHinhThuc_idChanging(string value);
-    partial void OnHinhThuc_idChanged();
-    partial void OnTongTienChanging(System.Nullable<decimal> value);
-    partial void OnTongTienChanged();
-    #endregion
-		
-		public ThanhToan()
-		{
-			this._DatTour = default(EntityRef<DatTour>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ThanhToan_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ThanhToan_id
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tour_PhanCong_NhanVien1", Storage="_Tour1", ThisKey="Tour_id", OtherKey="Tour_id", IsForeignKey=true)]
+		public Tour Tour1
 		{
 			get
 			{
-				return this._ThanhToan_id;
+				return this._Tour1.Entity;
 			}
 			set
 			{
-				if ((this._ThanhToan_id != value))
-				{
-					this.OnThanhToan_idChanging(value);
-					this.SendPropertyChanging();
-					this._ThanhToan_id = value;
-					this.SendPropertyChanged("ThanhToan_id");
-					this.OnThanhToan_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DatTour_id", DbType="Int")]
-		public System.Nullable<int> DatTour_id
-		{
-			get
-			{
-				return this._DatTour_id;
-			}
-			set
-			{
-				if ((this._DatTour_id != value))
-				{
-					if (this._DatTour.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnDatTour_idChanging(value);
-					this.SendPropertyChanging();
-					this._DatTour_id = value;
-					this.SendPropertyChanged("DatTour_id");
-					this.OnDatTour_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayThanhToan", DbType="DateTime")]
-		public System.Nullable<System.DateTime> NgayThanhToan
-		{
-			get
-			{
-				return this._NgayThanhToan;
-			}
-			set
-			{
-				if ((this._NgayThanhToan != value))
-				{
-					this.OnNgayThanhToanChanging(value);
-					this.SendPropertyChanging();
-					this._NgayThanhToan = value;
-					this.SendPropertyChanged("NgayThanhToan");
-					this.OnNgayThanhToanChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HinhThuc_id", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
-		public string HinhThuc_id
-		{
-			get
-			{
-				return this._HinhThuc_id;
-			}
-			set
-			{
-				if ((this._HinhThuc_id != value))
-				{
-					this.OnHinhThuc_idChanging(value);
-					this.SendPropertyChanging();
-					this._HinhThuc_id = value;
-					this.SendPropertyChanged("HinhThuc_id");
-					this.OnHinhThuc_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TongTien", DbType="Decimal(12,2)")]
-		public System.Nullable<decimal> TongTien
-		{
-			get
-			{
-				return this._TongTien;
-			}
-			set
-			{
-				if ((this._TongTien != value))
-				{
-					this.OnTongTienChanging(value);
-					this.SendPropertyChanging();
-					this._TongTien = value;
-					this.SendPropertyChanged("TongTien");
-					this.OnTongTienChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DatTour_ThanhToan", Storage="_DatTour", ThisKey="DatTour_id", OtherKey="DatTour_id", IsForeignKey=true)]
-		public DatTour DatTour
-		{
-			get
-			{
-				return this._DatTour.Entity;
-			}
-			set
-			{
-				DatTour previousValue = this._DatTour.Entity;
+				Tour previousValue = this._Tour1.Entity;
 				if (((previousValue != value) 
-							|| (this._DatTour.HasLoadedOrAssignedValue == false)))
+							|| (this._Tour1.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._DatTour.Entity = null;
-						previousValue.ThanhToans.Remove(this);
+						this._Tour1.Entity = null;
+						previousValue.PhanCong_NhanViens1.Remove(this);
 					}
-					this._DatTour.Entity = value;
+					this._Tour1.Entity = value;
 					if ((value != null))
 					{
-						value.ThanhToans.Add(this);
-						this._DatTour_id = value.DatTour_id;
+						value.PhanCong_NhanViens1.Add(this);
+						this._Tour_id = value.Tour_id;
 					}
 					else
 					{
-						this._DatTour_id = default(Nullable<int>);
+						this._Tour_id = default(string);
 					}
-					this.SendPropertyChanged("DatTour");
+					this.SendPropertyChanged("Tour1");
 				}
 			}
 		}
@@ -3537,13 +3677,21 @@ namespace QuanLy_TourDuLich.Models
 		
 		private string _Name;
 		
+		private EntitySet<KhachSan> _KhachSans;
+		
+		private EntitySet<KhachSan> _KhachSans1;
+		
+		private EntitySet<NhaHang> _NhaHangs;
+		
+		private EntitySet<NhaHang> _NhaHangs1;
+		
 		private EntitySet<Tour> _Tours;
 		
 		private EntitySet<Tour> _Tours1;
 		
-		private EntitySet<KhachSan> _KhachSans;
+		private EntitySet<Tour> _Tours2;
 		
-		private EntitySet<NhaHang> _NhaHangs;
+		private EntitySet<Tour> _Tours3;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -3557,10 +3705,14 @@ namespace QuanLy_TourDuLich.Models
 		
 		public TinhThanh()
 		{
+			this._KhachSans = new EntitySet<KhachSan>(new Action<KhachSan>(this.attach_KhachSans), new Action<KhachSan>(this.detach_KhachSans));
+			this._KhachSans1 = new EntitySet<KhachSan>(new Action<KhachSan>(this.attach_KhachSans1), new Action<KhachSan>(this.detach_KhachSans1));
+			this._NhaHangs = new EntitySet<NhaHang>(new Action<NhaHang>(this.attach_NhaHangs), new Action<NhaHang>(this.detach_NhaHangs));
+			this._NhaHangs1 = new EntitySet<NhaHang>(new Action<NhaHang>(this.attach_NhaHangs1), new Action<NhaHang>(this.detach_NhaHangs1));
 			this._Tours = new EntitySet<Tour>(new Action<Tour>(this.attach_Tours), new Action<Tour>(this.detach_Tours));
 			this._Tours1 = new EntitySet<Tour>(new Action<Tour>(this.attach_Tours1), new Action<Tour>(this.detach_Tours1));
-			this._KhachSans = new EntitySet<KhachSan>(new Action<KhachSan>(this.attach_KhachSans), new Action<KhachSan>(this.detach_KhachSans));
-			this._NhaHangs = new EntitySet<NhaHang>(new Action<NhaHang>(this.attach_NhaHangs), new Action<NhaHang>(this.detach_NhaHangs));
+			this._Tours2 = new EntitySet<Tour>(new Action<Tour>(this.attach_Tours2), new Action<Tour>(this.detach_Tours2));
+			this._Tours3 = new EntitySet<Tour>(new Action<Tour>(this.attach_Tours3), new Action<Tour>(this.detach_Tours3));
 			OnCreated();
 		}
 		
@@ -3604,32 +3756,6 @@ namespace QuanLy_TourDuLich.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TinhThanh_Tour", Storage="_Tours", ThisKey="TinhThanh_id", OtherKey="DiemDen_id")]
-		public EntitySet<Tour> Tours
-		{
-			get
-			{
-				return this._Tours;
-			}
-			set
-			{
-				this._Tours.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TinhThanh_Tour1", Storage="_Tours1", ThisKey="TinhThanh_id", OtherKey="DiemKhoiHanh_id")]
-		public EntitySet<Tour> Tours1
-		{
-			get
-			{
-				return this._Tours1;
-			}
-			set
-			{
-				this._Tours1.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TinhThanh_KhachSan", Storage="_KhachSans", ThisKey="TinhThanh_id", OtherKey="TinhThanh_id")]
 		public EntitySet<KhachSan> KhachSans
 		{
@@ -3643,6 +3769,19 @@ namespace QuanLy_TourDuLich.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TinhThanh_KhachSan1", Storage="_KhachSans1", ThisKey="TinhThanh_id", OtherKey="TinhThanh_id")]
+		public EntitySet<KhachSan> KhachSans1
+		{
+			get
+			{
+				return this._KhachSans1;
+			}
+			set
+			{
+				this._KhachSans1.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TinhThanh_NhaHang", Storage="_NhaHangs", ThisKey="TinhThanh_id", OtherKey="TinhThanh_id")]
 		public EntitySet<NhaHang> NhaHangs
 		{
@@ -3653,6 +3792,71 @@ namespace QuanLy_TourDuLich.Models
 			set
 			{
 				this._NhaHangs.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TinhThanh_NhaHang1", Storage="_NhaHangs1", ThisKey="TinhThanh_id", OtherKey="TinhThanh_id")]
+		public EntitySet<NhaHang> NhaHangs1
+		{
+			get
+			{
+				return this._NhaHangs1;
+			}
+			set
+			{
+				this._NhaHangs1.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TinhThanh_Tour", Storage="_Tours", ThisKey="TinhThanh_id", OtherKey="DiemDen_id")]
+		public EntitySet<Tour> Tours
+		{
+			get
+			{
+				return this._Tours;
+			}
+			set
+			{
+				this._Tours.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TinhThanh_Tour1", Storage="_Tours1", ThisKey="TinhThanh_id", OtherKey="DiemDen_id")]
+		public EntitySet<Tour> Tours1
+		{
+			get
+			{
+				return this._Tours1;
+			}
+			set
+			{
+				this._Tours1.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TinhThanh_Tour2", Storage="_Tours2", ThisKey="TinhThanh_id", OtherKey="DiemKhoiHanh_id")]
+		public EntitySet<Tour> Tours2
+		{
+			get
+			{
+				return this._Tours2;
+			}
+			set
+			{
+				this._Tours2.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TinhThanh_Tour3", Storage="_Tours3", ThisKey="TinhThanh_id", OtherKey="DiemKhoiHanh_id")]
+		public EntitySet<Tour> Tours3
+		{
+			get
+			{
+				return this._Tours3;
+			}
+			set
+			{
+				this._Tours3.Assign(value);
 			}
 		}
 		
@@ -3674,6 +3878,54 @@ namespace QuanLy_TourDuLich.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_KhachSans(KhachSan entity)
+		{
+			this.SendPropertyChanging();
+			entity.TinhThanh = this;
+		}
+		
+		private void detach_KhachSans(KhachSan entity)
+		{
+			this.SendPropertyChanging();
+			entity.TinhThanh = null;
+		}
+		
+		private void attach_KhachSans1(KhachSan entity)
+		{
+			this.SendPropertyChanging();
+			entity.TinhThanh1 = this;
+		}
+		
+		private void detach_KhachSans1(KhachSan entity)
+		{
+			this.SendPropertyChanging();
+			entity.TinhThanh1 = null;
+		}
+		
+		private void attach_NhaHangs(NhaHang entity)
+		{
+			this.SendPropertyChanging();
+			entity.TinhThanh = this;
+		}
+		
+		private void detach_NhaHangs(NhaHang entity)
+		{
+			this.SendPropertyChanging();
+			entity.TinhThanh = null;
+		}
+		
+		private void attach_NhaHangs1(NhaHang entity)
+		{
+			this.SendPropertyChanging();
+			entity.TinhThanh1 = this;
+		}
+		
+		private void detach_NhaHangs1(NhaHang entity)
+		{
+			this.SendPropertyChanging();
+			entity.TinhThanh1 = null;
 		}
 		
 		private void attach_Tours(Tour entity)
@@ -3700,49 +3952,991 @@ namespace QuanLy_TourDuLich.Models
 			entity.TinhThanh1 = null;
 		}
 		
-		private void attach_KhachSans(KhachSan entity)
+		private void attach_Tours2(Tour entity)
 		{
 			this.SendPropertyChanging();
-			entity.TinhThanh = this;
+			entity.TinhThanh2 = this;
 		}
 		
-		private void detach_KhachSans(KhachSan entity)
+		private void detach_Tours2(Tour entity)
 		{
 			this.SendPropertyChanging();
-			entity.TinhThanh = null;
+			entity.TinhThanh2 = null;
 		}
 		
-		private void attach_NhaHangs(NhaHang entity)
+		private void attach_Tours3(Tour entity)
 		{
 			this.SendPropertyChanging();
-			entity.TinhThanh = this;
+			entity.TinhThanh3 = this;
 		}
 		
-		private void detach_NhaHangs(NhaHang entity)
+		private void detach_Tours3(Tour entity)
 		{
 			this.SendPropertyChanging();
-			entity.TinhThanh = null;
+			entity.TinhThanh3 = null;
 		}
 	}
 	
-	public partial class GetTourInfoResult
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Tour")]
+	public partial class Tour : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
-		private string _KhachHang_id;
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private string _Tour_id;
 		
-		private System.Nullable<int> _SoNguoi;
+		private string _Name;
+		
+		private System.Nullable<decimal> _Gia;
+		
+		private string _MoTa;
+		
+		private string _LichTrinh;
+		
+		private System.Nullable<int> _DiemKhoiHanh_id;
+		
+		private System.Nullable<int> _DiemDen_id;
+		
+		private string _KhachSan_id;
+		
+		private System.Nullable<System.DateTime> _NgayKhoiHanh;
+		
+		private System.Nullable<System.DateTime> _NgayKetThuc;
+		
+		private System.Nullable<int> _SoLuongCon;
+		
+		private string _LoaiTour;
+		
+		private string _TrangThai;
+		
+		private EntitySet<DanhGia> _DanhGias;
+		
+		private EntitySet<DanhGia> _DanhGias1;
+		
+		private EntitySet<DatTour> _DatTours;
+		
+		private EntitySet<DatTour> _DatTours1;
+		
+		private EntitySet<HanhKhach> _HanhKhaches;
+		
+		private EntitySet<HanhKhach> _HanhKhaches1;
+		
+		private EntitySet<Image_Tour> _Image_Tours;
+		
+		private EntitySet<Image_Tour> _Image_Tours1;
+		
+		private EntitySet<NhaHang_Tour> _NhaHang_Tours;
+		
+		private EntitySet<NhaHang_Tour> _NhaHang_Tours1;
+		
+		private EntitySet<PhanCong_NhanVien> _PhanCong_NhanViens;
+		
+		private EntitySet<PhanCong_NhanVien> _PhanCong_NhanViens1;
+		
+		private EntityRef<TinhThanh> _TinhThanh;
+		
+		private EntityRef<TinhThanh> _TinhThanh1;
+		
+		private EntityRef<TinhThanh> _TinhThanh2;
+		
+		private EntityRef<TinhThanh> _TinhThanh3;
+		
+		private EntityRef<KhachSan> _KhachSan;
+		
+		private EntityRef<KhachSan> _KhachSan1;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnTour_idChanging(string value);
+    partial void OnTour_idChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnGiaChanging(System.Nullable<decimal> value);
+    partial void OnGiaChanged();
+    partial void OnMoTaChanging(string value);
+    partial void OnMoTaChanged();
+    partial void OnLichTrinhChanging(string value);
+    partial void OnLichTrinhChanged();
+    partial void OnDiemKhoiHanh_idChanging(System.Nullable<int> value);
+    partial void OnDiemKhoiHanh_idChanged();
+    partial void OnDiemDen_idChanging(System.Nullable<int> value);
+    partial void OnDiemDen_idChanged();
+    partial void OnKhachSan_idChanging(string value);
+    partial void OnKhachSan_idChanged();
+    partial void OnNgayKhoiHanhChanging(System.Nullable<System.DateTime> value);
+    partial void OnNgayKhoiHanhChanged();
+    partial void OnNgayKetThucChanging(System.Nullable<System.DateTime> value);
+    partial void OnNgayKetThucChanged();
+    partial void OnSoLuongConChanging(System.Nullable<int> value);
+    partial void OnSoLuongConChanged();
+    partial void OnLoaiTourChanging(string value);
+    partial void OnLoaiTourChanged();
+    partial void OnTrangThaiChanging(string value);
+    partial void OnTrangThaiChanged();
+    #endregion
+		
+		public Tour()
+		{
+			this._DanhGias = new EntitySet<DanhGia>(new Action<DanhGia>(this.attach_DanhGias), new Action<DanhGia>(this.detach_DanhGias));
+			this._DanhGias1 = new EntitySet<DanhGia>(new Action<DanhGia>(this.attach_DanhGias1), new Action<DanhGia>(this.detach_DanhGias1));
+			this._DatTours = new EntitySet<DatTour>(new Action<DatTour>(this.attach_DatTours), new Action<DatTour>(this.detach_DatTours));
+			this._DatTours1 = new EntitySet<DatTour>(new Action<DatTour>(this.attach_DatTours1), new Action<DatTour>(this.detach_DatTours1));
+			this._HanhKhaches = new EntitySet<HanhKhach>(new Action<HanhKhach>(this.attach_HanhKhaches), new Action<HanhKhach>(this.detach_HanhKhaches));
+			this._HanhKhaches1 = new EntitySet<HanhKhach>(new Action<HanhKhach>(this.attach_HanhKhaches1), new Action<HanhKhach>(this.detach_HanhKhaches1));
+			this._Image_Tours = new EntitySet<Image_Tour>(new Action<Image_Tour>(this.attach_Image_Tours), new Action<Image_Tour>(this.detach_Image_Tours));
+			this._Image_Tours1 = new EntitySet<Image_Tour>(new Action<Image_Tour>(this.attach_Image_Tours1), new Action<Image_Tour>(this.detach_Image_Tours1));
+			this._NhaHang_Tours = new EntitySet<NhaHang_Tour>(new Action<NhaHang_Tour>(this.attach_NhaHang_Tours), new Action<NhaHang_Tour>(this.detach_NhaHang_Tours));
+			this._NhaHang_Tours1 = new EntitySet<NhaHang_Tour>(new Action<NhaHang_Tour>(this.attach_NhaHang_Tours1), new Action<NhaHang_Tour>(this.detach_NhaHang_Tours1));
+			this._PhanCong_NhanViens = new EntitySet<PhanCong_NhanVien>(new Action<PhanCong_NhanVien>(this.attach_PhanCong_NhanViens), new Action<PhanCong_NhanVien>(this.detach_PhanCong_NhanViens));
+			this._PhanCong_NhanViens1 = new EntitySet<PhanCong_NhanVien>(new Action<PhanCong_NhanVien>(this.attach_PhanCong_NhanViens1), new Action<PhanCong_NhanVien>(this.detach_PhanCong_NhanViens1));
+			this._TinhThanh = default(EntityRef<TinhThanh>);
+			this._TinhThanh1 = default(EntityRef<TinhThanh>);
+			this._TinhThanh2 = default(EntityRef<TinhThanh>);
+			this._TinhThanh3 = default(EntityRef<TinhThanh>);
+			this._KhachSan = default(EntityRef<KhachSan>);
+			this._KhachSan1 = default(EntityRef<KhachSan>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tour_id", DbType="VarChar(36) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string Tour_id
+		{
+			get
+			{
+				return this._Tour_id;
+			}
+			set
+			{
+				if ((this._Tour_id != value))
+				{
+					this.OnTour_idChanging(value);
+					this.SendPropertyChanging();
+					this._Tour_id = value;
+					this.SendPropertyChanged("Tour_id");
+					this.OnTour_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(128)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Gia", DbType="Decimal(12,2)")]
+		public System.Nullable<decimal> Gia
+		{
+			get
+			{
+				return this._Gia;
+			}
+			set
+			{
+				if ((this._Gia != value))
+				{
+					this.OnGiaChanging(value);
+					this.SendPropertyChanging();
+					this._Gia = value;
+					this.SendPropertyChanged("Gia");
+					this.OnGiaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MoTa", DbType="NVarChar(MAX)")]
+		public string MoTa
+		{
+			get
+			{
+				return this._MoTa;
+			}
+			set
+			{
+				if ((this._MoTa != value))
+				{
+					this.OnMoTaChanging(value);
+					this.SendPropertyChanging();
+					this._MoTa = value;
+					this.SendPropertyChanged("MoTa");
+					this.OnMoTaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LichTrinh", DbType="NVarChar(MAX)")]
+		public string LichTrinh
+		{
+			get
+			{
+				return this._LichTrinh;
+			}
+			set
+			{
+				if ((this._LichTrinh != value))
+				{
+					this.OnLichTrinhChanging(value);
+					this.SendPropertyChanging();
+					this._LichTrinh = value;
+					this.SendPropertyChanged("LichTrinh");
+					this.OnLichTrinhChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DiemKhoiHanh_id", DbType="Int")]
+		public System.Nullable<int> DiemKhoiHanh_id
+		{
+			get
+			{
+				return this._DiemKhoiHanh_id;
+			}
+			set
+			{
+				if ((this._DiemKhoiHanh_id != value))
+				{
+					if ((this._TinhThanh2.HasLoadedOrAssignedValue || this._TinhThanh3.HasLoadedOrAssignedValue))
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnDiemKhoiHanh_idChanging(value);
+					this.SendPropertyChanging();
+					this._DiemKhoiHanh_id = value;
+					this.SendPropertyChanged("DiemKhoiHanh_id");
+					this.OnDiemKhoiHanh_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DiemDen_id", DbType="Int")]
+		public System.Nullable<int> DiemDen_id
+		{
+			get
+			{
+				return this._DiemDen_id;
+			}
+			set
+			{
+				if ((this._DiemDen_id != value))
+				{
+					if ((this._TinhThanh.HasLoadedOrAssignedValue || this._TinhThanh1.HasLoadedOrAssignedValue))
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnDiemDen_idChanging(value);
+					this.SendPropertyChanging();
+					this._DiemDen_id = value;
+					this.SendPropertyChanged("DiemDen_id");
+					this.OnDiemDen_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KhachSan_id", DbType="VarChar(36)")]
+		public string KhachSan_id
+		{
+			get
+			{
+				return this._KhachSan_id;
+			}
+			set
+			{
+				if ((this._KhachSan_id != value))
+				{
+					if ((this._KhachSan.HasLoadedOrAssignedValue || this._KhachSan1.HasLoadedOrAssignedValue))
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnKhachSan_idChanging(value);
+					this.SendPropertyChanging();
+					this._KhachSan_id = value;
+					this.SendPropertyChanged("KhachSan_id");
+					this.OnKhachSan_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayKhoiHanh", DbType="Date")]
+		public System.Nullable<System.DateTime> NgayKhoiHanh
+		{
+			get
+			{
+				return this._NgayKhoiHanh;
+			}
+			set
+			{
+				if ((this._NgayKhoiHanh != value))
+				{
+					this.OnNgayKhoiHanhChanging(value);
+					this.SendPropertyChanging();
+					this._NgayKhoiHanh = value;
+					this.SendPropertyChanged("NgayKhoiHanh");
+					this.OnNgayKhoiHanhChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayKetThuc", DbType="Date")]
+		public System.Nullable<System.DateTime> NgayKetThuc
+		{
+			get
+			{
+				return this._NgayKetThuc;
+			}
+			set
+			{
+				if ((this._NgayKetThuc != value))
+				{
+					this.OnNgayKetThucChanging(value);
+					this.SendPropertyChanging();
+					this._NgayKetThuc = value;
+					this.SendPropertyChanged("NgayKetThuc");
+					this.OnNgayKetThucChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoLuongCon", DbType="Int")]
+		public System.Nullable<int> SoLuongCon
+		{
+			get
+			{
+				return this._SoLuongCon;
+			}
+			set
+			{
+				if ((this._SoLuongCon != value))
+				{
+					this.OnSoLuongConChanging(value);
+					this.SendPropertyChanging();
+					this._SoLuongCon = value;
+					this.SendPropertyChanged("SoLuongCon");
+					this.OnSoLuongConChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LoaiTour", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
+		public string LoaiTour
+		{
+			get
+			{
+				return this._LoaiTour;
+			}
+			set
+			{
+				if ((this._LoaiTour != value))
+				{
+					this.OnLoaiTourChanging(value);
+					this.SendPropertyChanging();
+					this._LoaiTour = value;
+					this.SendPropertyChanged("LoaiTour");
+					this.OnLoaiTourChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrangThai", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
+		public string TrangThai
+		{
+			get
+			{
+				return this._TrangThai;
+			}
+			set
+			{
+				if ((this._TrangThai != value))
+				{
+					this.OnTrangThaiChanging(value);
+					this.SendPropertyChanging();
+					this._TrangThai = value;
+					this.SendPropertyChanged("TrangThai");
+					this.OnTrangThaiChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tour_DanhGia", Storage="_DanhGias", ThisKey="Tour_id", OtherKey="Tour_id")]
+		public EntitySet<DanhGia> DanhGias
+		{
+			get
+			{
+				return this._DanhGias;
+			}
+			set
+			{
+				this._DanhGias.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tour_DanhGia1", Storage="_DanhGias1", ThisKey="Tour_id", OtherKey="Tour_id")]
+		public EntitySet<DanhGia> DanhGias1
+		{
+			get
+			{
+				return this._DanhGias1;
+			}
+			set
+			{
+				this._DanhGias1.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tour_DatTour", Storage="_DatTours", ThisKey="Tour_id", OtherKey="Tour_id")]
+		public EntitySet<DatTour> DatTours
+		{
+			get
+			{
+				return this._DatTours;
+			}
+			set
+			{
+				this._DatTours.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tour_DatTour1", Storage="_DatTours1", ThisKey="Tour_id", OtherKey="Tour_id")]
+		public EntitySet<DatTour> DatTours1
+		{
+			get
+			{
+				return this._DatTours1;
+			}
+			set
+			{
+				this._DatTours1.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tour_HanhKhach", Storage="_HanhKhaches", ThisKey="Tour_id", OtherKey="Tour_id")]
+		public EntitySet<HanhKhach> HanhKhaches
+		{
+			get
+			{
+				return this._HanhKhaches;
+			}
+			set
+			{
+				this._HanhKhaches.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tour_HanhKhach1", Storage="_HanhKhaches1", ThisKey="Tour_id", OtherKey="Tour_id")]
+		public EntitySet<HanhKhach> HanhKhaches1
+		{
+			get
+			{
+				return this._HanhKhaches1;
+			}
+			set
+			{
+				this._HanhKhaches1.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tour_Image_Tour", Storage="_Image_Tours", ThisKey="Tour_id", OtherKey="Tour_id")]
+		public EntitySet<Image_Tour> Image_Tours
+		{
+			get
+			{
+				return this._Image_Tours;
+			}
+			set
+			{
+				this._Image_Tours.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tour_Image_Tour1", Storage="_Image_Tours1", ThisKey="Tour_id", OtherKey="Tour_id")]
+		public EntitySet<Image_Tour> Image_Tours1
+		{
+			get
+			{
+				return this._Image_Tours1;
+			}
+			set
+			{
+				this._Image_Tours1.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tour_NhaHang_Tour", Storage="_NhaHang_Tours", ThisKey="Tour_id", OtherKey="Tour_id")]
+		public EntitySet<NhaHang_Tour> NhaHang_Tours
+		{
+			get
+			{
+				return this._NhaHang_Tours;
+			}
+			set
+			{
+				this._NhaHang_Tours.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tour_NhaHang_Tour1", Storage="_NhaHang_Tours1", ThisKey="Tour_id", OtherKey="Tour_id")]
+		public EntitySet<NhaHang_Tour> NhaHang_Tours1
+		{
+			get
+			{
+				return this._NhaHang_Tours1;
+			}
+			set
+			{
+				this._NhaHang_Tours1.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tour_PhanCong_NhanVien", Storage="_PhanCong_NhanViens", ThisKey="Tour_id", OtherKey="Tour_id")]
+		public EntitySet<PhanCong_NhanVien> PhanCong_NhanViens
+		{
+			get
+			{
+				return this._PhanCong_NhanViens;
+			}
+			set
+			{
+				this._PhanCong_NhanViens.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tour_PhanCong_NhanVien1", Storage="_PhanCong_NhanViens1", ThisKey="Tour_id", OtherKey="Tour_id")]
+		public EntitySet<PhanCong_NhanVien> PhanCong_NhanViens1
+		{
+			get
+			{
+				return this._PhanCong_NhanViens1;
+			}
+			set
+			{
+				this._PhanCong_NhanViens1.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TinhThanh_Tour", Storage="_TinhThanh", ThisKey="DiemDen_id", OtherKey="TinhThanh_id", IsForeignKey=true)]
+		public TinhThanh TinhThanh
+		{
+			get
+			{
+				return this._TinhThanh.Entity;
+			}
+			set
+			{
+				TinhThanh previousValue = this._TinhThanh.Entity;
+				if (((previousValue != value) 
+							|| (this._TinhThanh.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._TinhThanh.Entity = null;
+						previousValue.Tours.Remove(this);
+					}
+					this._TinhThanh.Entity = value;
+					if ((value != null))
+					{
+						value.Tours.Add(this);
+						this._DiemDen_id = value.TinhThanh_id;
+					}
+					else
+					{
+						this._DiemDen_id = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("TinhThanh");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TinhThanh_Tour1", Storage="_TinhThanh1", ThisKey="DiemDen_id", OtherKey="TinhThanh_id", IsForeignKey=true)]
+		public TinhThanh TinhThanh1
+		{
+			get
+			{
+				return this._TinhThanh1.Entity;
+			}
+			set
+			{
+				TinhThanh previousValue = this._TinhThanh1.Entity;
+				if (((previousValue != value) 
+							|| (this._TinhThanh1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._TinhThanh1.Entity = null;
+						previousValue.Tours1.Remove(this);
+					}
+					this._TinhThanh1.Entity = value;
+					if ((value != null))
+					{
+						value.Tours1.Add(this);
+						this._DiemDen_id = value.TinhThanh_id;
+					}
+					else
+					{
+						this._DiemDen_id = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("TinhThanh1");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TinhThanh_Tour2", Storage="_TinhThanh2", ThisKey="DiemKhoiHanh_id", OtherKey="TinhThanh_id", IsForeignKey=true)]
+		public TinhThanh TinhThanh2
+		{
+			get
+			{
+				return this._TinhThanh2.Entity;
+			}
+			set
+			{
+				TinhThanh previousValue = this._TinhThanh2.Entity;
+				if (((previousValue != value) 
+							|| (this._TinhThanh2.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._TinhThanh2.Entity = null;
+						previousValue.Tours2.Remove(this);
+					}
+					this._TinhThanh2.Entity = value;
+					if ((value != null))
+					{
+						value.Tours2.Add(this);
+						this._DiemKhoiHanh_id = value.TinhThanh_id;
+					}
+					else
+					{
+						this._DiemKhoiHanh_id = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("TinhThanh2");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TinhThanh_Tour3", Storage="_TinhThanh3", ThisKey="DiemKhoiHanh_id", OtherKey="TinhThanh_id", IsForeignKey=true)]
+		public TinhThanh TinhThanh3
+		{
+			get
+			{
+				return this._TinhThanh3.Entity;
+			}
+			set
+			{
+				TinhThanh previousValue = this._TinhThanh3.Entity;
+				if (((previousValue != value) 
+							|| (this._TinhThanh3.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._TinhThanh3.Entity = null;
+						previousValue.Tours3.Remove(this);
+					}
+					this._TinhThanh3.Entity = value;
+					if ((value != null))
+					{
+						value.Tours3.Add(this);
+						this._DiemKhoiHanh_id = value.TinhThanh_id;
+					}
+					else
+					{
+						this._DiemKhoiHanh_id = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("TinhThanh3");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="KhachSan_Tour", Storage="_KhachSan", ThisKey="KhachSan_id", OtherKey="KhachSan_id", IsForeignKey=true)]
+		public KhachSan KhachSan
+		{
+			get
+			{
+				return this._KhachSan.Entity;
+			}
+			set
+			{
+				KhachSan previousValue = this._KhachSan.Entity;
+				if (((previousValue != value) 
+							|| (this._KhachSan.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._KhachSan.Entity = null;
+						previousValue.Tours.Remove(this);
+					}
+					this._KhachSan.Entity = value;
+					if ((value != null))
+					{
+						value.Tours.Add(this);
+						this._KhachSan_id = value.KhachSan_id;
+					}
+					else
+					{
+						this._KhachSan_id = default(string);
+					}
+					this.SendPropertyChanged("KhachSan");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="KhachSan_Tour1", Storage="_KhachSan1", ThisKey="KhachSan_id", OtherKey="KhachSan_id", IsForeignKey=true)]
+		public KhachSan KhachSan1
+		{
+			get
+			{
+				return this._KhachSan1.Entity;
+			}
+			set
+			{
+				KhachSan previousValue = this._KhachSan1.Entity;
+				if (((previousValue != value) 
+							|| (this._KhachSan1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._KhachSan1.Entity = null;
+						previousValue.Tours1.Remove(this);
+					}
+					this._KhachSan1.Entity = value;
+					if ((value != null))
+					{
+						value.Tours1.Add(this);
+						this._KhachSan_id = value.KhachSan_id;
+					}
+					else
+					{
+						this._KhachSan_id = default(string);
+					}
+					this.SendPropertyChanged("KhachSan1");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_DanhGias(DanhGia entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tour = this;
+		}
+		
+		private void detach_DanhGias(DanhGia entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tour = null;
+		}
+		
+		private void attach_DanhGias1(DanhGia entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tour1 = this;
+		}
+		
+		private void detach_DanhGias1(DanhGia entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tour1 = null;
+		}
+		
+		private void attach_DatTours(DatTour entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tour = this;
+		}
+		
+		private void detach_DatTours(DatTour entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tour = null;
+		}
+		
+		private void attach_DatTours1(DatTour entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tour1 = this;
+		}
+		
+		private void detach_DatTours1(DatTour entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tour1 = null;
+		}
+		
+		private void attach_HanhKhaches(HanhKhach entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tour = this;
+		}
+		
+		private void detach_HanhKhaches(HanhKhach entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tour = null;
+		}
+		
+		private void attach_HanhKhaches1(HanhKhach entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tour1 = this;
+		}
+		
+		private void detach_HanhKhaches1(HanhKhach entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tour1 = null;
+		}
+		
+		private void attach_Image_Tours(Image_Tour entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tour = this;
+		}
+		
+		private void detach_Image_Tours(Image_Tour entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tour = null;
+		}
+		
+		private void attach_Image_Tours1(Image_Tour entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tour1 = this;
+		}
+		
+		private void detach_Image_Tours1(Image_Tour entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tour1 = null;
+		}
+		
+		private void attach_NhaHang_Tours(NhaHang_Tour entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tour = this;
+		}
+		
+		private void detach_NhaHang_Tours(NhaHang_Tour entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tour = null;
+		}
+		
+		private void attach_NhaHang_Tours1(NhaHang_Tour entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tour1 = this;
+		}
+		
+		private void detach_NhaHang_Tours1(NhaHang_Tour entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tour1 = null;
+		}
+		
+		private void attach_PhanCong_NhanViens(PhanCong_NhanVien entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tour = this;
+		}
+		
+		private void detach_PhanCong_NhanViens(PhanCong_NhanVien entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tour = null;
+		}
+		
+		private void attach_PhanCong_NhanViens1(PhanCong_NhanVien entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tour1 = this;
+		}
+		
+		private void detach_PhanCong_NhanViens1(PhanCong_NhanVien entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tour1 = null;
+		}
+	}
+	
+	public partial class ShowDatTourResult
+	{
+		
+		private int _DatTour_id;
+		
+		private string _KhachHang_id;
+		
+		private string _TenKhach;
 		
 		private System.Nullable<System.DateTime> _NgayDat;
 		
+		private System.Nullable<int> _SoNguoi;
+		
+		private string _GhiChu;
+		
+		private string _Tour_id;
+		
 		private System.Nullable<decimal> _TongTien;
 		
-		public GetTourInfoResult()
+		public ShowDatTourResult()
 		{
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KhachHang_id", DbType="VarChar(36)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DatTour_id", DbType="Int NOT NULL")]
+		public int DatTour_id
+		{
+			get
+			{
+				return this._DatTour_id;
+			}
+			set
+			{
+				if ((this._DatTour_id != value))
+				{
+					this._DatTour_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KhachHang_id", DbType="VarChar(36) NOT NULL", CanBeNull=false)]
 		public string KhachHang_id
 		{
 			get
@@ -3758,18 +4952,34 @@ namespace QuanLy_TourDuLich.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tour_id", DbType="VarChar(36)")]
-		public string Tour_id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TenKhach", DbType="NVarChar(128)")]
+		public string TenKhach
 		{
 			get
 			{
-				return this._Tour_id;
+				return this._TenKhach;
 			}
 			set
 			{
-				if ((this._Tour_id != value))
+				if ((this._TenKhach != value))
 				{
-					this._Tour_id = value;
+					this._TenKhach = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayDat", DbType="DateTime")]
+		public System.Nullable<System.DateTime> NgayDat
+		{
+			get
+			{
+				return this._NgayDat;
+			}
+			set
+			{
+				if ((this._NgayDat != value))
+				{
+					this._NgayDat = value;
 				}
 			}
 		}
@@ -3790,18 +5000,34 @@ namespace QuanLy_TourDuLich.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayDat", DbType="DateTime")]
-		public System.Nullable<System.DateTime> NgayDat
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GhiChu", DbType="NVarChar(128)")]
+		public string GhiChu
 		{
 			get
 			{
-				return this._NgayDat;
+				return this._GhiChu;
 			}
 			set
 			{
-				if ((this._NgayDat != value))
+				if ((this._GhiChu != value))
 				{
-					this._NgayDat = value;
+					this._GhiChu = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tour_id", DbType="VarChar(36)")]
+		public string Tour_id
+		{
+			get
+			{
+				return this._Tour_id;
+			}
+			set
+			{
+				if ((this._Tour_id != value))
+				{
+					this._Tour_id = value;
 				}
 			}
 		}
@@ -3823,7 +5049,623 @@ namespace QuanLy_TourDuLich.Models
 		}
 	}
 	
-	public partial class Phancong_nvResult
+	public partial class sp_TimKiemToursResult
+	{
+		
+		private string _Tour_id;
+		
+		private string _Name;
+		
+		private System.Nullable<decimal> _Gia;
+		
+		private string _MoTa;
+		
+		private string _LichTrinh;
+		
+		private System.Nullable<int> _DiemKhoiHanh_id;
+		
+		private System.Nullable<int> _DiemDen_id;
+		
+		private string _KhachSan_id;
+		
+		private System.Nullable<System.DateTime> _NgayKhoiHanh;
+		
+		private System.Nullable<System.DateTime> _NgayKetThuc;
+		
+		private System.Nullable<int> _SoLuongCon;
+		
+		private string _LoaiTour;
+		
+		private string _TrangThai;
+		
+		private int _TinhThanh_id;
+		
+		private string _Name1;
+		
+		public sp_TimKiemToursResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tour_id", DbType="VarChar(36) NOT NULL", CanBeNull=false)]
+		public string Tour_id
+		{
+			get
+			{
+				return this._Tour_id;
+			}
+			set
+			{
+				if ((this._Tour_id != value))
+				{
+					this._Tour_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(128)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this._Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Gia", DbType="Decimal(12,2)")]
+		public System.Nullable<decimal> Gia
+		{
+			get
+			{
+				return this._Gia;
+			}
+			set
+			{
+				if ((this._Gia != value))
+				{
+					this._Gia = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MoTa", DbType="NVarChar(MAX)")]
+		public string MoTa
+		{
+			get
+			{
+				return this._MoTa;
+			}
+			set
+			{
+				if ((this._MoTa != value))
+				{
+					this._MoTa = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LichTrinh", DbType="NVarChar(MAX)")]
+		public string LichTrinh
+		{
+			get
+			{
+				return this._LichTrinh;
+			}
+			set
+			{
+				if ((this._LichTrinh != value))
+				{
+					this._LichTrinh = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DiemKhoiHanh_id", DbType="Int")]
+		public System.Nullable<int> DiemKhoiHanh_id
+		{
+			get
+			{
+				return this._DiemKhoiHanh_id;
+			}
+			set
+			{
+				if ((this._DiemKhoiHanh_id != value))
+				{
+					this._DiemKhoiHanh_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DiemDen_id", DbType="Int")]
+		public System.Nullable<int> DiemDen_id
+		{
+			get
+			{
+				return this._DiemDen_id;
+			}
+			set
+			{
+				if ((this._DiemDen_id != value))
+				{
+					this._DiemDen_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KhachSan_id", DbType="VarChar(36)")]
+		public string KhachSan_id
+		{
+			get
+			{
+				return this._KhachSan_id;
+			}
+			set
+			{
+				if ((this._KhachSan_id != value))
+				{
+					this._KhachSan_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayKhoiHanh", DbType="Date")]
+		public System.Nullable<System.DateTime> NgayKhoiHanh
+		{
+			get
+			{
+				return this._NgayKhoiHanh;
+			}
+			set
+			{
+				if ((this._NgayKhoiHanh != value))
+				{
+					this._NgayKhoiHanh = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayKetThuc", DbType="Date")]
+		public System.Nullable<System.DateTime> NgayKetThuc
+		{
+			get
+			{
+				return this._NgayKetThuc;
+			}
+			set
+			{
+				if ((this._NgayKetThuc != value))
+				{
+					this._NgayKetThuc = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoLuongCon", DbType="Int")]
+		public System.Nullable<int> SoLuongCon
+		{
+			get
+			{
+				return this._SoLuongCon;
+			}
+			set
+			{
+				if ((this._SoLuongCon != value))
+				{
+					this._SoLuongCon = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LoaiTour", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
+		public string LoaiTour
+		{
+			get
+			{
+				return this._LoaiTour;
+			}
+			set
+			{
+				if ((this._LoaiTour != value))
+				{
+					this._LoaiTour = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrangThai", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
+		public string TrangThai
+		{
+			get
+			{
+				return this._TrangThai;
+			}
+			set
+			{
+				if ((this._TrangThai != value))
+				{
+					this._TrangThai = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TinhThanh_id", DbType="Int NOT NULL")]
+		public int TinhThanh_id
+		{
+			get
+			{
+				return this._TinhThanh_id;
+			}
+			set
+			{
+				if ((this._TinhThanh_id != value))
+				{
+					this._TinhThanh_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name1", DbType="NVarChar(128)")]
+		public string Name1
+		{
+			get
+			{
+				return this._Name1;
+			}
+			set
+			{
+				if ((this._Name1 != value))
+				{
+					this._Name1 = value;
+				}
+			}
+		}
+	}
+	
+	public partial class sp_HthiNhaHangTheoTinhResult
+	{
+		
+		private string _Name;
+		
+		private string _NhaHang_id;
+		
+		public sp_HthiNhaHangTheoTinhResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(100)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this._Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NhaHang_id", DbType="VarChar(36) NOT NULL", CanBeNull=false)]
+		public string NhaHang_id
+		{
+			get
+			{
+				return this._NhaHang_id;
+			}
+			set
+			{
+				if ((this._NhaHang_id != value))
+				{
+					this._NhaHang_id = value;
+				}
+			}
+		}
+	}
+	
+	public partial class sp_KiemTraDangNhapResult
+	{
+		
+		private string _KhachHang_id;
+		
+		private string _Name;
+		
+		private string _Email;
+		
+		private string _DienThoai;
+		
+		private string _DiaChi;
+		
+		private string _Password;
+		
+		private System.Nullable<bool> _Gioitinh;
+		
+		public sp_KiemTraDangNhapResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KhachHang_id", DbType="VarChar(36) NOT NULL", CanBeNull=false)]
+		public string KhachHang_id
+		{
+			get
+			{
+				return this._KhachHang_id;
+			}
+			set
+			{
+				if ((this._KhachHang_id != value))
+				{
+					this._KhachHang_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(128)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this._Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="NVarChar(128)")]
+		public string Email
+		{
+			get
+			{
+				return this._Email;
+			}
+			set
+			{
+				if ((this._Email != value))
+				{
+					this._Email = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DienThoai", DbType="VarChar(20)")]
+		public string DienThoai
+		{
+			get
+			{
+				return this._DienThoai;
+			}
+			set
+			{
+				if ((this._DienThoai != value))
+				{
+					this._DienThoai = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DiaChi", DbType="NVarChar(128)")]
+		public string DiaChi
+		{
+			get
+			{
+				return this._DiaChi;
+			}
+			set
+			{
+				if ((this._DiaChi != value))
+				{
+					this._DiaChi = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Password", DbType="NVarChar(128)")]
+		public string Password
+		{
+			get
+			{
+				return this._Password;
+			}
+			set
+			{
+				if ((this._Password != value))
+				{
+					this._Password = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Gioitinh", DbType="Bit")]
+		public System.Nullable<bool> Gioitinh
+		{
+			get
+			{
+				return this._Gioitinh;
+			}
+			set
+			{
+				if ((this._Gioitinh != value))
+				{
+					this._Gioitinh = value;
+				}
+			}
+		}
+	}
+	
+	public partial class sp_ThongKeDoanhThuResult
+	{
+		
+		private System.Nullable<int> _Nam;
+		
+		private System.Nullable<int> _Thang;
+		
+		private string _Tour_id;
+		
+		private string _TenTour;
+		
+		private System.Nullable<decimal> _DoanhThu;
+		
+		public sp_ThongKeDoanhThuResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nam", DbType="Int")]
+		public System.Nullable<int> Nam
+		{
+			get
+			{
+				return this._Nam;
+			}
+			set
+			{
+				if ((this._Nam != value))
+				{
+					this._Nam = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Thang", DbType="Int")]
+		public System.Nullable<int> Thang
+		{
+			get
+			{
+				return this._Thang;
+			}
+			set
+			{
+				if ((this._Thang != value))
+				{
+					this._Thang = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tour_id", DbType="VarChar(36) NOT NULL", CanBeNull=false)]
+		public string Tour_id
+		{
+			get
+			{
+				return this._Tour_id;
+			}
+			set
+			{
+				if ((this._Tour_id != value))
+				{
+					this._Tour_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TenTour", DbType="NVarChar(128)")]
+		public string TenTour
+		{
+			get
+			{
+				return this._TenTour;
+			}
+			set
+			{
+				if ((this._TenTour != value))
+				{
+					this._TenTour = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DoanhThu", DbType="Decimal(38,2)")]
+		public System.Nullable<decimal> DoanhThu
+		{
+			get
+			{
+				return this._DoanhThu;
+			}
+			set
+			{
+				if ((this._DoanhThu != value))
+				{
+					this._DoanhThu = value;
+				}
+			}
+		}
+	}
+	
+	public partial class sp_HthiKhachSanTheoTinhResult
+	{
+		
+		private string _Name;
+		
+		private string _KhachSan_id;
+		
+		private string _Tinhtrang;
+		
+		public sp_HthiKhachSanTheoTinhResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(128)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this._Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KhachSan_id", DbType="VarChar(36) NOT NULL", CanBeNull=false)]
+		public string KhachSan_id
+		{
+			get
+			{
+				return this._KhachSan_id;
+			}
+			set
+			{
+				if ((this._KhachSan_id != value))
+				{
+					this._KhachSan_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tinhtrang", DbType="NVarChar(128)")]
+		public string Tinhtrang
+		{
+			get
+			{
+				return this._Tinhtrang;
+			}
+			set
+			{
+				if ((this._Tinhtrang != value))
+				{
+					this._Tinhtrang = value;
+				}
+			}
+		}
+	}
+	
+	public partial class sp_KiemTraDangNhapNVResult
 	{
 		
 		private string _NhanVien_id;
@@ -3842,7 +5684,7 @@ namespace QuanLy_TourDuLich.Models
 		
 		private string _VaiTro;
 		
-		public Phancong_nvResult()
+		public sp_KiemTraDangNhapNVResult()
 		{
 		}
 		
