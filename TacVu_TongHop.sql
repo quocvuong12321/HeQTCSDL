@@ -110,14 +110,6 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    -- Kiểm tra nếu khách hàng đã tồn tại
-    IF NOT EXISTS (SELECT * FROM KhachHang WHERE KhachHang_id = @KhachHang_id)
-    BEGIN
-        -- Thêm khách hàng mới vào bảng KhachHang
-        INSERT INTO KhachHang (KhachHang_id, [Name], Email, DienThoai, DiaChi, [Password], Gioitinh)
-        VALUES (@KhachHang_id, @Name, @Email, @DienThoai, @DiaChi, @Password, @Gioitinh);
-    END
-
     -- Thêm dữ liệu vào bảng DatTour
     INSERT INTO DatTour (KhachHang_id, NgayDat, Tour_id, SoNguoi)
     VALUES (@KhachHang_id, GETDATE(), @Tour_id, @SoNguoi);
@@ -132,15 +124,57 @@ BEGIN
     FROM @HanhKhach;
 END
 GO
----- Khai báo bảng tạm kiểu HanhKhachType
---DECLARE @HanhKhachList HanhKhachType;
----- Thêm dữ liệu vào bảng tạm
---INSERT INTO @HanhKhachList (HoTen, NgaySinh, GioiTinh)
---VALUES ('Nguyen Van A', '1990-01-01', 1),
---       ('Tran Thi B', '1992-02-02', 0);
----- Gọi stored procedure AddTourBooking
---EXEC AddTourBooking '12345',N'Nguyen Thị Tịnh','email@example.com','0123456789',N'123 ABC Street','password',0,'TOUR001',2,@HanhKhachList;
---GO
+
+--6 Trigger update role nhan vien
+CREATE TRIGGER trgUpdateNhanVienRole
+ON NhanVien
+FOR UPDATE
+AS
+IF update(VaiTro)
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @NhanVien_id VARCHAR(36);
+    DECLARE @newVaiTro NVARCHAR(128);
+    DECLARE @oldVaiTro NVARCHAR(128);
+
+    -- Lấy ID nhân viên và vai trò mới từ inserted table
+    SELECT @NhanVien_id = inserted.NhanVien_id, 
+           @newVaiTro = inserted.VaiTro,
+           @oldVaiTro = deleted.VaiTro
+    FROM inserted
+    JOIN deleted ON inserted.NhanVien_id = deleted.NhanVien_id;
+
+    -- Nếu vai trò không thay đổi thì không làm gì cả
+    IF @newVaiTro = @oldVaiTro
+        RETURN;
+
+    -- Xóa role cũ
+    DECLARE @oldRole NVARCHAR(128);
+    IF @oldVaiTro = N'Quản lý'
+        SET @oldRole = 'Quanly';
+    ELSE IF @oldVaiTro = N'Nhân viên'
+        SET @oldRole = 'NhanVien';
+    ELSE 
+        SET @oldRole = 'HuongDanVien';
+
+    DECLARE @SQL NVARCHAR(MAX);
+    SET @SQL = N'EXEC sp_droprolemember ''' + @oldRole + ''', [' + @NhanVien_id + N'];';
+    EXEC sp_executesql @SQL;
+
+    -- Thêm role mới
+    DECLARE @newRole NVARCHAR(128);
+    IF @newVaiTro = N'Quản lý'
+        SET @newRole = 'Quanly';
+    ELSE IF @newVaiTro = N'Nhân viên'
+        SET @newRole = 'NhanVien';
+    ELSE 
+        SET @newRole = 'HuongDanVien';
+
+    SET @SQL = N'EXEC sp_addrolemember ''' + @newRole + ''', [' + @NhanVien_id + N'];';
+    EXEC sp_executesql @SQL;
+END;
+GO
 
 --------------------------Bảo----------------------------------------------------------
 -- trigger Xóa Bản Ghi Trong ThanhToan khi Hủy Tour

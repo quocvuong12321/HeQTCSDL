@@ -75,7 +75,7 @@ namespace QuanLy_TourDuLich.Models
     #endregion
 		
 		public QuanLyTourDuLichDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QL_TourConnectionString1"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QL_TourConnectionString2"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}

@@ -14,51 +14,6 @@
                 </div>
                 <div class="card-body">
                     <form method="post">
-
-                        <!-- Tên Khách Hàng -->
-                        <div class="form-group mb-3">
-                            <label for="KhachHang_id" class="form-label">Tên Khách Hàng</label>
-                            <div class="border rounded p-2 bg-light">
-                                @ViewBag.KhachHang.KhachHang_id
-                            </div>
-                        </div>
-
-                        <!-- Số điện thoại khách hàng -->
-                        <div class="form-group mb-3">
-                            <label for="SdtKhachHang" class="form-label">Số Điện Thoại</label>
-                            <div class="border rounded p-2 bg-light">
-                                @ViewBag.KhachHang.DienThoai
-                            </div>
-                        </div>
-
-                        <!-- Email khách hàng -->
-                        <div class="form-group mb-3">
-                            <label for="EmailKhachHang" class="form-label">Email</label>
-                            <div class="border rounded p-2 bg-light">
-                                @ViewBag.KhachHang.Email
-                            </div>
-                        </div>
-
-                        <!-- Địa chỉ khách hàng -->
-                        <div class="form-group mb-3">
-                            <label for="DiaChiKhachHang" class="form-label">Địa chỉ</label>
-                            <div class="border rounded p-2 bg-light">
-                                @ViewBag.KhachHang.DiaChi
-                            </div>
-                        </div>
-
-                        <!-- Giới tính khách hàng -->
-                        <div class="form-group mb-3">
-                            <label for="GioitinhKhachHang" class="form-label">Giới tính</label>
-                            <div class="border rounded p-2 bg-light">
-                                @{ 
-                                    var gioiTinh = ViewBag.KhachHang.Gioitinh;
-                                    var gioiTinhHienThi = gioiTinh ? "Nam" : "Nữ"; 
-                                }
-                                @gioiTinhHienThi
-                            </div>
-                        </div>
-
                         <!-- Hiển thị tên tour -->
                         <div class="form-group mb-3">
                             <label class="form-label">Tour</label>

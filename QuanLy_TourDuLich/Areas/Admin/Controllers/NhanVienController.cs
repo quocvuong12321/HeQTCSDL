@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using QuanLy_TourDuLich.Models;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace QuanLy_TourDuLich.Areas.Admin.Controllers
 {
@@ -29,14 +31,30 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
             {
                 try
                 {
-                    db.NhanViens.InsertOnSubmit(model);
-                    db.SubmitChanges();
+                    using (var connection = new SqlConnection(db.Connection.ConnectionString))
+                    {
+                        connection.Open();
+                        using (var command = new SqlCommand("ThemNhanVien", connection))
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
+                            command.Parameters.AddWithValue("@NhanVien_id", model.NhanVien_id);
+                            command.Parameters.AddWithValue("@HoTen", model.HoTen);
+                            command.Parameters.AddWithValue("@DiaChi", model.DiaChi);
+                            command.Parameters.AddWithValue("@Email", model.Email);
+                            command.Parameters.AddWithValue("@DienThoai", model.DienThoai ?? (object)DBNull.Value);
+                            command.Parameters.AddWithValue("@GIOITINH", model.GioiTinh);
+                            command.Parameters.AddWithValue("@password", model.Password ?? (object)DBNull.Value);
+                            command.Parameters.AddWithValue("@VaiTro", model.VaiTro);
+
+                            command.ExecuteNonQuery();
+                        }
+                    }
+                    return RedirectToAction("Index");
                 }
                 catch (Exception ex)
                 {
                     throw new Exception("Lỗi: " + ex.Message);
                 }
-                return RedirectToAction("Index");
             }
             return View(model);
         }
@@ -90,13 +108,24 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
         [HttpPost, ActionName("XoaNhanVien")]
         public ActionResult XacNhanXoa(string id)
         {
-            NhanVien nhanVien = db.NhanViens.FirstOrDefault(nv => nv.NhanVien_id == id);
-            if (nhanVien != null)
+            try
             {
-                db.NhanViens.DeleteOnSubmit(nhanVien);
-                db.SubmitChanges();
+                using (var connection = new SqlConnection(db.Connection.ConnectionString))
+                {
+                    connection.Open();
+                    using (var command = new SqlCommand("XoaNhanVien", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@NhanVien_id", id);
+                        command.ExecuteNonQuery();
+                    }
+                }
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            catch (Exception ex)
+            {
+                throw new Exception("Lỗi: " + ex.Message);
+            }
         }
 
         public ActionResult ChiTietNhanVien(string id)

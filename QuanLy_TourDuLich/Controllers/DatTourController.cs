@@ -46,18 +46,6 @@ namespace QuanLy_TourDuLich.Controllers
             }
             KhachHang kh = db.KhachHangs.SingleOrDefault(t => t.KhachHang_id == "KH001");
 
-            //// Thêm khách hàng vào cơ sở dữ liệu nếu chưa tồn tại
-            //var existingKhachHang = db.KhachHangs.SingleOrDefault(t => t.Email == email);
-            //if (existingKhachHang == null)
-            //{
-            //    db.KhachHangs.InsertOnSubmit(khachHang);
-            //    db.SubmitChanges();
-            //}
-            //else
-            //{
-            //    khachHang = existingKhachHang;
-            //}
-
             // Tạo đối tượng DatTour
             var datTour = new DatTour
             {
