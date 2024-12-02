@@ -34,8 +34,8 @@ CREATE TABLE [Tour] (
   [NgayKhoiHanh] date,
   [NgayKetThuc] date,
   [SoLuongCon] int,
-  [LoaiTour] nvarchar(255) NOT NULL CHECK ([LoaiTour] IN (N'Trong nước', N'Ngoài nước')) ,
-  [TrangThai] nvarchar(255) NOT NULL CHECK ([TrangThai] IN (N'Mở bán', N'Hết chỗ', N'Đang diễn ra', N'Đã hoàn thành'))
+  [LoaiTour] nvarchar(255) NOT NULL,
+  [TrangThai] nvarchar(255) NOT NULL 
 )
 GO
 
@@ -60,7 +60,7 @@ CREATE TABLE [NhanVien] (
   [DienThoai] varchar(20),
   [GioiTinh] bit,
   [Password] varchar(128),
-  [VaiTro] nvarchar(255) NOT NULL CHECK ([VaiTro] IN (N'Quản lý', N'Hướng dẫn viên', N'Nhân viên'))
+  [VaiTro] nvarchar(255) NOT NULL
 )
 GO
 
@@ -233,13 +233,16 @@ ALTER TABLE [Tour]
 ADD CONSTRAINT CK_DIEMDI_DIEMDEN CHECK([DiemKhoiHanh_id] <> [DiemDen_id]),
 	CONSTRAINT CK_NGAYKH_NGAYKT CHECK([NgayKhoiHanh] <> [NgayKetThuc]),
 	CONSTRAINT CK_SOLUONGCON CHECK([SOLUONGCON] >= 0),
-	CONSTRAINT CK_GIA CHECK([GIA] >= 0)
+	CONSTRAINT CK_GIA CHECK([GIA] >= 0),
+	CONSTRAINT CK_LOAITOUR CHECK ([LoaiTour] IN (N'Trong nước', N'Ngoài nước')),
+	CONSTRAINT CK_TRANGTHAI CHECK ([TrangThai] IN (N'Mở bán', N'Hết chỗ', N'Đang diễn ra', N'Đã hoàn thành'))
+
 
 ----------------------------Vẹn--------------------------------------------------
 -- Ràng buộc toàn vẹn cho bảng Nhân viên
 ALTER TABLE [NhanVien] ADD CONSTRAINT UQ_NhanVien_Email UNIQUE ([Email])
 ALTER TABLE [NhanVien] ADD CONSTRAINT UQ_NhanVien_DienThoai UNIQUE ([DienThoai])
-
+ALTER TABLE [NhanVien] ADD CONSTRAINT CK_VAITRO CHECK ([VaiTro] IN (N'Quản lý', N'Hướng dẫn viên', N'Nhân viên'))
 -- Ràng buộc toàn vẹn cho bảng Hành khách
 ALTER TABLE [HanhKhach] ADD CHECK (NgaySinh <= GETDATE() -- Ngày sinh không được là ngày tương lai
 							   AND NgaySinh >= DATEADD(YEAR, -120, GETDATE()) -- Ngày sinh không cách hiện tại quá 120 năm
@@ -247,7 +250,6 @@ ALTER TABLE [HanhKhach] ADD CHECK (NgaySinh <= GETDATE() -- Ngày sinh không đ
 
 ----------------------------Phong--------------------------------------------------
 ALTER TABLE [TinhThanh] ADD CONSTRAINT CK_TinhThanh_Id CHECK ([TinhThanh_id] > 0 )
-Go
 ALTER TABLE [KhachSan] ADD CONSTRAINT CK_TinhTrang CHECK ([Tinhtrang] In (N'Còn Phòng',N'Hết Phòng'))
 Go
 		
