@@ -216,7 +216,6 @@ ADD
 
 ALTER TABLE [HuyTour] 
 ADD 
-	CONSTRAINT CK_HuyTour_NgayHuy CHECK ([NgayHuy] >= CAST(GETDATE() AS DATE)),
 	CONSTRAINT CK_HuyTour_TrangThai CHECK (TrangThai IN (N'Đã xác nhận',N'Chưa xác nhận')),
 	CONSTRAINT UNI_HuyTour_DatTour_id UNIQUE ([DatTour_id])
 

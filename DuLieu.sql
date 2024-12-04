@@ -1887,9 +1887,9 @@ go
 
 INSERT INTO [HuyTour] ([DatTour_id], [NgayHuy], [LyDo], [TrangThai])
 VALUES 
-(1, CAST(GETDATE() AS DATE), N'Khách hàng bận việc cá nhân', N'Chưa xác nhận'), 
-(3, DATEADD(DAY, 2, CAST(GETDATE() AS DATE)), N'Lý do sức khỏe', N'Chưa xác nhận'), 
-(4, DATEADD(DAY, 5, CAST(GETDATE() AS DATE)), N'Không còn nhu cầu đi tour', N'Chưa xác nhận');
+(1, GETDATE(), N'Khách hàng bận việc cá nhân', N'Chưa xác nhận'), 
+(3, GETDATE(), N'Lý do sức khỏe', N'Chưa xác nhận'), 
+(4, GETDATE(), N'Không còn nhu cầu đi tour', N'Chưa xác nhận');
 
 go
 

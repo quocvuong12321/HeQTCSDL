@@ -181,18 +181,51 @@ END
 GO
 
 
+-- sau khi insert vào bảng thanh toán thì tự động có tổng tiền, không cần tính bằng tay
+CREATE TRIGGER TRG_AfterInsertThanhToan_CalculateTongTien
+ON ThanhToan
+AFTER INSERT
+AS
+BEGIN
+    DECLARE @DatTour_id INT;
+    DECLARE @SoNguoi INT;
+    DECLARE @Gia DECIMAL(12, 2);
+    DECLARE @TongTien DECIMAL(12, 2);
+
+    SELECT @DatTour_id = DatTour_id
+    FROM inserted;
+
+    SELECT 
+        @SoNguoi = dt.SoNguoi,
+        @Gia = t.Gia
+    FROM DatTour dt
+    JOIN Tour t ON dt.Tour_id = t.Tour_id
+    WHERE dt.DatTour_id = @DatTour_id;
+
+    SET @TongTien = @SoNguoi * @Gia;
+
+    UPDATE ThanhToan
+    SET TongTien = @TongTien
+    WHERE DatTour_id = @DatTour_id;
+END;
+GO
+
+--INSERT INTO ThanhToan (DatTour_id, NgayThanhToan, HinhThuc_id)
+--VALUES (1, GETDATE(), N'Thẻ ATM');
+
+
+
+
 -- Procedure thêm 1 Đặt Tour
 CREATE PROCEDURE SP_DatTour
-	@DatTour_id int,
     @KhachHang_id varchar(36),
     @Tour_id varchar(36),
-    @SoNguoi int,
-    @GhiChu nvarchar(128)
+    @SoNguoi int
 AS
 BEGIN
 
-    INSERT INTO DatTour (KhachHang_id, Tour_id, SoNguoi, GhiChu, NgayDat)
-    VALUES (@KhachHang_id, @Tour_id, @SoNguoi, @GhiChu, GETDATE());
+    INSERT INTO DatTour (KhachHang_id, Tour_id, SoNguoi, NgayDat)
+    VALUES (@KhachHang_id, @Tour_id, @SoNguoi, GETDATE());
 END
 GO
 
@@ -225,6 +258,8 @@ BEGIN
     RETURN @Status;
 END
 GO
+
+-- select dbo.FN_CheckTourStatus('TOUR001') 
 
 -- function kết hợp cursor Duyệt Qua Các Khách Hàng và Thông Tin Đặt Tour
 CREATE FUNCTION dbo.GetTourInfo()
@@ -276,6 +311,8 @@ BEGIN
     RETURN;
 END;
 GO
+
+-- select * from dbo.GetTourInfo()
 
 CREATE PROCEDURE ShowDatTour
 AS
@@ -335,8 +372,8 @@ BEGIN
     SELECT 
         T.Tour_id,              
         T.Name AS TenTour,     
-        TK.Name AS DiemKhoiHanh,    -- Lấy tên điểm khởi hành từ bảng TinhThanh
-        DN.Name AS DiemDen,         -- Lấy tên điểm đến từ bảng TinhThanh
+        TK.Name AS DiemKhoiHanh,    
+        DN.Name AS DiemDen,         
         T.NgayKhoiHanh,      
         T.NgayKetThuc        
     FROM 
@@ -344,9 +381,9 @@ BEGIN
     INNER JOIN 
         Tour T ON DT.Tour_id = T.Tour_id
     INNER JOIN 
-        TinhThanh TK ON T.DiemKhoiHanh_id = TK.TinhThanh_id  -- Kết nối với bảng TinhThanh cho điểm khởi hành
+        TinhThanh TK ON T.DiemKhoiHanh_id = TK.TinhThanh_id  
     INNER JOIN 
-        TinhThanh DN ON T.DiemDen_id = DN.TinhThanh_id        -- Kết nối với bảng TinhThanh cho điểm đến
+        TinhThanh DN ON T.DiemDen_id = DN.TinhThanh_id       
     WHERE 
         DT.DatTour_id = @DatTour_id;  
 END;
