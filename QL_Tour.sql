@@ -229,8 +229,8 @@ ADD
 ----------------------------Vương--------------------------------------------------
 
 ALTER TABLE [Tour]
-ADD CONSTRAINT CK_DIEMDI_DIEMDEN CHECK([DiemKhoiHanh_id] <> [DiemDen_id]),
-	CONSTRAINT CK_NGAYKH_NGAYKT CHECK([NgayKhoiHanh] <> [NgayKetThuc]),
+ADD CONSTRAINT CK_NGAYKH_NGAYKT CHECK([NgayKhoiHanh] < [NgayKetThuc]),
+	CONSTRAINT CK_DIEMDI_DIEMDEN CHECK([DiemKhoiHanh_id] <> [DiemDen_id]),
 	CONSTRAINT CK_SOLUONGCON CHECK([SOLUONGCON] >= 0),
 	CONSTRAINT CK_GIA CHECK([GIA] >= 0),
 	CONSTRAINT CK_LOAITOUR CHECK ([LoaiTour] IN (N'Trong nước', N'Ngoài nước')),

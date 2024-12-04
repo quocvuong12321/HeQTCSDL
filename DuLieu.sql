@@ -1701,7 +1701,7 @@ Sau đó khởi hành đi tham quan:</span></p>
 
 <p><span style="font-family:Tahoma,Geneva,sans-serif">Đến giờ hẹn, HDV đưa đoàn ra sân bay đáp&nbsp;<strong>chuyến bay dự kiến 3U3903&nbsp;</strong><strong>(2</strong><strong>0:35-23:15</strong><strong>) về TPHCM.&nbsp;</strong>Về đến sân bay Tân Sơn Nhất đoàn làm thủ tục nhập cảnh Việt Nam và nhận lại hành lý cá nhân. Kết thúc chương trình, chia tay và hẹn gặp lại Quý khách.<br />
 <em>**Trường hợp bất khả kháng như thiên tai, thời tiết, chính trị,... không thể tham quan được các điểm theo chương trình thì sẽ được thay thế bằng các điểm tham quan khác tùy theo tình hình thực tế.</em></span></p>
-', 2, 6, N'CD8F7FAA-12DA-4C77-9117-2C49ED8107D9', CAST(0xD2470B00 AS Date), CAST(0xD9470B00 AS Date), 25, N'Ngoài nước', N'Mở bán')
+', 2, 6, N'CD8F7FAA-12DA-4C77-9117-2C49ED8107D9', CAST(0xD2470B00 AS Date), '2025-1-04', 25, N'Ngoài nước', N'Mở bán')
 GO
 SET IDENTITY_INSERT [dbo].[Image_Tour] ON 
 

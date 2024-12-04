@@ -439,6 +439,26 @@ begin
 end
 Go
 
+
+--Trigger cập nhật lại số lượng còn của 1 tour khi thêm 1 HuyTour mới
+--Khi thêm bản ghi mới vào bảng HuyTour, tự động Tăng SoLuongCon trong bảng Tour.
+create trigger updateSoLuongCon_HuyTour 
+on HuyTour
+after insert
+as
+begin
+	update Tour
+	set SoLuongCon = SoLuongCon + SoNguoi
+	from Tour t
+	join DatTour dt on dt.Tour_id = t.Tour_id
+	join inserted i on i.DatTour_id = dt.DatTour_id
+
+end
+Go
+
+
+
+
 --Function Trả về số lượng chỗ còn lại (SoLuongCon) của tour dựa trên Tour_id.
 create function SoLuongCon (@tourid varchar(36))
 returns int
@@ -509,7 +529,7 @@ BEGIN
 
     -- Khởi tạo cursor
     DECLARE TourCursor CURSOR FOR
-    SELECT Tour_id FROM Tour WHERE TrangThai = 'Dang_Dien_Ra';
+    SELECT Tour_id FROM Tour WHERE TrangThai = N'Đã hoàn thành';
 
     OPEN TourCursor;
     FETCH NEXT FROM TourCursor INTO @Tour_id;
@@ -628,15 +648,33 @@ go
 
 ----------------------------Phong--------------------------------------------------
 ------------trigger xóa các đánh giá liên quan đến một tour khi tour bị xóa khỏi bảng [Tour]
-CREATE TRIGGER delete_danhgia 
-ON Tour
-AFTER DELETE
+------------trigger kiểm nhà hàng chọn cho một tour có thuộc tỉnh thành mà tour đó đi đến hay không 
+CREATE TRIGGER trg_CheckTinhThanh_NhaHang_Tour
+ON NhaHang_Tour
+INSTEAD OF INSERT
 AS
 BEGIN
-Delete from [DanhGia] 
-Where [Tour_id] = ( Select [Tour_id] From Deleted)
-END 
-GO 
+    DECLARE @NhaHang_id VARCHAR(36);
+    DECLARE @Tour_id VARCHAR(36);
+    DECLARE @TinhThanhNhaHang INT;
+    DECLARE @TinhThanhTour INT;
+
+    
+    SELECT @NhaHang_id = NhaHang_id, @Tour_id = Tour_id FROM INSERTED;
+   
+    SELECT @TinhThanhNhaHang = TinhThanh_id FROM NhaHang WHERE NhaHang_id = @NhaHang_id;
+
+    SELECT @TinhThanhTour = DiemDen_id FROM Tour WHERE Tour_id = @Tour_id;
+
+    IF @TinhThanhNhaHang != @TinhThanhTour
+    BEGIN
+        RAISERROR ('TinhThanh của nhà hàng không khớp với TinhThanh của điểm đến trong tour!', 16, 1);
+        RETURN;
+    END 
+    INSERT INTO NhaHang_Tour (NhaHang_id, Tour_id)
+    SELECT NhaHang_id, Tour_id FROM INSERTED;
+END
+GO
 ------------proc kiểm tra các ks còn phòng cho điểm đến của Tour
 CREATE PROC kiemtra_khachsan @Tour_id varchar(36)
 AS 
