@@ -348,5 +348,48 @@ begin
 end
 go
 
+CREATE TRIGGER trgUpdateNhanVienRole
+ON NhanVien
+FOR UPDATE
+AS
+IF update(VaiTro)
+BEGIN
+    DECLARE @NhanVien_id VARCHAR(36)
+    DECLARE @newVaiTro NVARCHAR(128)
+    DECLARE @oldVaiTro NVARCHAR(128)
 
+    SELECT @NhanVien_id = inserted.NhanVien_id, 
+           @newVaiTro = inserted.VaiTro,
+           @oldVaiTro = deleted.VaiTro
+    FROM inserted
+    JOIN deleted ON inserted.NhanVien_id = deleted.NhanVien_id;
 
+    -- Nếu vai trò không thay đổi thì không làm gì cả
+    IF @newVaiTro = @oldVaiTro
+        RETURN;
+
+    -- Xóa role cũ
+    DECLARE @oldRole NVARCHAR(128);
+    IF @oldVaiTro = N'Quản lý'
+        SET @oldRole = 'Quanly';
+    ELSE IF @oldVaiTro = N'Nhân viên'
+        SET @oldRole = 'NhanVien';
+    ELSE 
+        SET @oldRole = 'HuongDanVien';
+
+    DECLARE @SQL NVARCHAR(MAX);
+    SET @SQL = N'EXEC sp_droprolemember ''' + @oldRole + ''', [' + @NhanVien_id + N'];';
+    EXEC sp_executesql @SQL;
+
+    -- Thêm role mới
+    DECLARE @newRole NVARCHAR(128);
+    IF @newVaiTro = N'Quản lý'
+        SET @newRole = 'Quanly';
+    ELSE IF @newVaiTro = N'Nhân viên'
+        SET @newRole = 'NhanVien';
+    ELSE 
+        SET @newRole = 'HuongDanVien';
+
+    SET @SQL = N'EXEC sp_addrolemember ''' + @newRole + ''', [' + @NhanVien_id + N'];';
+    EXEC sp_executesql @SQL;
+END

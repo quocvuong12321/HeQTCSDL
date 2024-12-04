@@ -1922,13 +1922,11 @@ EXEC ThemNhanVien @NhanVien_id = 'NV003', @HoTen = N'Lê Thị Mai', @DiaChi = N
 EXEC ThemNhanVien @NhanVien_id = 'NV004', @HoTen = N'Nguyẽn Trí Dũng', @DiaChi = N'24 Đường số 16, TP. HCM', @Email = 'dung.nguyen@example.com', @DienThoai = '0989417295', @GioiTinh = 0, @Password = '123', @VaiTro = N'Nhân viên'; 
 EXEC ThemNhanVien @NhanVien_id = 'NV005', @HoTen = N'Lê Thị Trúc Mai', @DiaChi = N'140 Lê Trọng Tấn, TP. HCM', @Email = 'maitruc.le@example.com', @DienThoai = '0989285714', @GioiTinh = 1, @Password = '123', @VaiTro = N'Hướng dẫn viên'; 
 EXEC ThemNhanVien @NhanVien_id = 'NV006', @HoTen = N'Nguyễn Bích Trâm', @DiaChi = N'56/12 Cầu Giấy, TP. HCM', @Email = 'tram.bich@example.com', @DienThoai = '0969767512', @GioiTinh = 1, @Password = '123', @VaiTro = N'Hướng dẫn viên'; 
+go
 
-
-INSERT INTO [PhanCong_NhanVien] ([Tour_id], [NhanVien_id])
-VALUES 
-('TOUR001', 'NV002'),
-('TOUR002', 'NV002')
+INSERT INTO PhanCong_NhanVien VALUES ('TOUR001', 'NV002')
+INSERT INTO PhanCong_NhanVien VALUES ('TOUR002', 'NV005')
 go
 --select*from KhachHang
 --select*from DatTour
---select*from HanhKhach
+--select*from PhanCong_NhanVien

@@ -1,44 +1,33 @@
 ﻿use QL_Tour
 go
 
-
 ----------------------------------------Vẹn------------------------------------
 -- 1. Trigger: Kiểm tra vai trò nhân viên
 CREATE TRIGGER trg_CheckVaiTroOnInsert
 ON PhanCong_NhanVien
 FOR INSERT
 AS
-BEGIN
-    DECLARE @NhanVien_id VARCHAR(36);
-	DECLARE @Tour_id VARCHAR(36);
-
-    SELECT @NhanVien_id = NhanVien_id, @Tour_id = Tour_id FROM inserted;
-
-    IF EXISTS ( SELECT*FROM NhanVien WHERE NhanVien_id = @NhanVien_id AND VaiTro != N'Hướng dẫn viên' )
+    IF EXISTS (SELECT * FROM NhanVien WHERE NhanVien_id = (SELECT NhanVien_id FROM inserted) AND VaiTro != N'Hướng dẫn viên')
 	BEGIN 
 		PRINT N'Nhân viên được phân công không có vai trò "Hướng dẫn viên"'
-		ROLLBACK TRANSACTION; 
+		ROLLBACK TRANSACTION
 	END
-END
 GO
 
 -- 2. Function: Tính tổng số tiền thanh toán của một tour
--- Function này sẽ tính tổng `TongTien` từ bảng `ThanhToan` dựa trên `Tour_id`.
 CREATE FUNCTION fn_TongTienThanhToan (@Tour_id VARCHAR(36))
 RETURNS DECIMAL(12, 2)
 AS
 BEGIN
     DECLARE @TongTien DECIMAL(12, 2)
     SELECT @TongTien = SUM(TongTien)
-    FROM ThanhToan
-    JOIN DatTour ON ThanhToan.DatTour_id = DatTour.DatTour_id
+    FROM ThanhToan JOIN DatTour ON ThanhToan.DatTour_id = DatTour.DatTour_id
     WHERE DatTour.Tour_id = @Tour_id
-    RETURN ISNULL(@TongTien, 0)
+    RETURN @TongTien
 END
 GO
 
 -- 3. Procedure: Thêm mới tour
--- Procedure này sẽ thêm một tour mới vào bảng `Tour` và liên kết với các thông tin `KhachSan`, `NhaHang`
 CREATE PROCEDURE proc_ThemMoiTour
     @Tour_id VARCHAR(36),
     @Name NVARCHAR(128),
@@ -57,11 +46,11 @@ AS
 BEGIN
 	begin transaction
 
-	INSERT INTO [Tour] VALUES (
+	INSERT INTO Tour VALUES (
 		@Tour_id, @Name, @Gia, @MoTa, @LichTrinh, @DiemKhoiHanh_id,
         @DiemDen_id, @KhachSan_id, @NgayKhoiHanh, @NgayKetThuc,
-        @SoLuongCon, @LoaiTour,@TrangThai)
-
+        @SoLuongCon, @LoaiTour, @TrangThai
+	)
 	if @@ERROR = 0 
 		commit transaction
 	else
@@ -69,111 +58,111 @@ BEGIN
 END
 GO
 
-
 -- 4. Cursor: Kiểm tra các tour hết chỗ
--- Cursor này sẽ duyệt qua các tour và kiểm tra tour nào đã hết chỗ (`SoLuongCon = 0`), rồi tự động chuyển trạng thái thành `Da_Dong`.
-DECLARE @Tour_id VARCHAR(36)
-DECLARE tour_cursor CURSOR FOR SELECT Tour_id FROM [Tour] WHERE SoLuongCon = 0 AND TrangThai = 'Mo_ban'
-OPEN tour_cursor
-FETCH NEXT FROM tour_cursor INTO @Tour_id
-WHILE @@FETCH_STATUS = 0
+CREATE PROCEDURE UpdateTourStatus
+AS
 BEGIN
-    UPDATE [Tour]
-    SET TrangThai = 'Da_Dong'
-    WHERE Tour_id = @Tour_id
+    DECLARE @Tour_id VARCHAR(36)
+    
+    DECLARE tour_cursor CURSOR FOR 
+    SELECT Tour_id 
+    FROM Tour 
+    WHERE SoLuongCon = 0 AND TrangThai = N'Mở bán'
+
+    OPEN tour_cursor
     FETCH NEXT FROM tour_cursor INTO @Tour_id
+
+    WHILE @@FETCH_STATUS = 0
+    BEGIN
+        UPDATE Tour
+        SET TrangThai = N'Hết chỗ'
+        WHERE Tour_id = @Tour_id
+
+        FETCH NEXT FROM tour_cursor INTO @Tour_id
+    END
+
+    CLOSE tour_cursor
+    DEALLOCATE tour_cursor
 END
-CLOSE tour_cursor
-DEALLOCATE tour_cursor
 GO
 
---5 Thủ tục thêm đặt tour
-CREATE TYPE HanhKhachType AS TABLE
-(
+--5. Thủ tục thêm đặt tour
+CREATE TYPE HanhKhachList AS TABLE (
     HoTen NVARCHAR(128),
     NgaySinh DATE,
     GioiTinh BIT
-);
-GO
+)
+go
 CREATE PROCEDURE AddTourBooking
-    @KhachHang_id VARCHAR(36),
-    @Name NVARCHAR(128),
-    @Email NVARCHAR(128),
-    @DienThoai VARCHAR(20),
-    @DiaChi NVARCHAR(128),
-    @Password NVARCHAR(128),
-    @Gioitinh BIT,
-    @Tour_id VARCHAR(36),
-    @SoNguoi INT,
-    @HanhKhach HanhKhachType READONLY
+    @KhachHang_id VARCHAR(36), 
+	@Tour_id VARCHAR(36), 
+	@SoNguoi INT,
+    @HanhKhach HanhKhachList READONLY
 AS
-BEGIN
-    SET NOCOUNT ON;
+BEGIN TRANSACTION
+    BEGIN TRY
+		IF NOT EXISTS (SELECT * FROM KhachHang WHERE KhachHang_id = @KhachHang_id)
+		BEGIN
+			PRINT N'Id khách hàng không tồn tại'
+			ROLLBACK TRANSACTION
+			RETURN
+		END
 
-    -- Thêm dữ liệu vào bảng DatTour
-    INSERT INTO DatTour (KhachHang_id, NgayDat, Tour_id, SoNguoi)
-    VALUES (@KhachHang_id, GETDATE(), @Tour_id, @SoNguoi);
+		IF NOT EXISTS (SELECT * FROM Tour WHERE Tour_id = @Tour_id)
+		BEGIN
+			PRINT N'Id tour không tồn tại'
+			ROLLBACK TRANSACTION
+			RETURN
+		END
 
-    -- Lấy ID của DatTour vừa thêm
-    DECLARE @DatTour_id INT;
-    SET @DatTour_id = SCOPE_IDENTITY();
+		IF (SELECT COUNT(*) FROM @HanhKhach) != @SoNguoi
+		BEGIN
+			PRINT N'Số người không khớp với danh sách hành khách'
+			ROLLBACK TRANSACTION
+			RETURN
+		END
 
-    -- Thêm dữ liệu vào bảng HanhKhach
-    INSERT INTO HanhKhach (HoTen, NgaySinh, GioiTinh, DatTour_id, Tour_id)
-    SELECT HoTen, NgaySinh, GioiTinh, @DatTour_id, @Tour_id
-    FROM @HanhKhach;
-END
-GO
+		DECLARE @SoLuongCon INT
+		SELECT @SoLuongCon = SoLuongCon
+        FROM Tour
+        WHERE Tour_id = @Tour_id
 
---6 Trigger update role nhan vien
-CREATE TRIGGER trgUpdateNhanVienRole
-ON NhanVien
-FOR UPDATE
-AS
-IF update(VaiTro)
-BEGIN
-    SET NOCOUNT ON;
+		IF @SoLuongCon = 0
+		BEGIN
+			PRINT N'Tour này đã hết chỗ'
+			ROLLBACK TRANSACTION
+			RETURN
+		END
 
-    DECLARE @NhanVien_id VARCHAR(36);
-    DECLARE @newVaiTro NVARCHAR(128);
-    DECLARE @oldVaiTro NVARCHAR(128);
+		IF (SELECT COUNT(*) FROM @HanhKhach) > @SoLuongCon
+		BEGIN
+			PRINT N'Số lượng hành khách của tour này chỉ còn: ' + CAST(@SoLuongCon AS CHAR(3))
+			ROLLBACK TRANSACTION
+			RETURN
+		END
 
-    -- Lấy ID nhân viên và vai trò mới từ inserted table
-    SELECT @NhanVien_id = inserted.NhanVien_id, 
-           @newVaiTro = inserted.VaiTro,
-           @oldVaiTro = deleted.VaiTro
-    FROM inserted
-    JOIN deleted ON inserted.NhanVien_id = deleted.NhanVien_id;
+		INSERT INTO DatTour (KhachHang_id, NgayDat, Tour_id, SoNguoi)
+		VALUES (@KhachHang_id, GETDATE(), @Tour_id, @SoNguoi)
 
-    -- Nếu vai trò không thay đổi thì không làm gì cả
-    IF @newVaiTro = @oldVaiTro
-        RETURN;
+		DECLARE @DatTour_id INT
+		SELECT @DatTour_id = SCOPE_IDENTITY()
 
-    -- Xóa role cũ
-    DECLARE @oldRole NVARCHAR(128);
-    IF @oldVaiTro = N'Quản lý'
-        SET @oldRole = 'Quanly';
-    ELSE IF @oldVaiTro = N'Nhân viên'
-        SET @oldRole = 'NhanVien';
-    ELSE 
-        SET @oldRole = 'HuongDanVien';
+		INSERT INTO HanhKhach (HoTen, NgaySinh, GioiTinh, DatTour_id, Tour_id)
+		SELECT HoTen, NgaySinh, GioiTinh, @DatTour_id, @Tour_id
+		FROM @HanhKhach
+	END TRY
 
-    DECLARE @SQL NVARCHAR(MAX);
-    SET @SQL = N'EXEC sp_droprolemember ''' + @oldRole + ''', [' + @NhanVien_id + N'];';
-    EXEC sp_executesql @SQL;
+	BEGIN CATCH
+		PRINT N'Lỗi hệ thống, đặt tour thất bại'
+		DECLARE @ErrorMessage NVARCHAR(1000)
+		SELECT @ErrorMessage = N'Lỗi: ' + ERROR_MESSAGE()
+		RAISERROR(@ErrorMessage, 16, 1)
+		ROLLBACK TRANSACTION
+		RETURN
+	END CATCH
 
-    -- Thêm role mới
-    DECLARE @newRole NVARCHAR(128);
-    IF @newVaiTro = N'Quản lý'
-        SET @newRole = 'Quanly';
-    ELSE IF @newVaiTro = N'Nhân viên'
-        SET @newRole = 'NhanVien';
-    ELSE 
-        SET @newRole = 'HuongDanVien';
-
-    SET @SQL = N'EXEC sp_addrolemember ''' + @newRole + ''', [' + @NhanVien_id + N'];';
-    EXEC sp_executesql @SQL;
-END;
+	PRINT N'Đặt tour thành công'
+COMMIT TRANSACTION
 GO
 
 --------------------------Bảo----------------------------------------------------------
