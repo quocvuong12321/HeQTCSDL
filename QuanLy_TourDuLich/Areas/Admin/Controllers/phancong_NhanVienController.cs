@@ -20,7 +20,7 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
         public ActionResult ThemMoiPhanCong()
         {
             ViewBag.Tour_id = new SelectList(db.Tours.ToList(), "Tour_id", "Name");
-            ViewBag.NhanVien_id = new SelectList(db.NhanViens.ToList(), "NhanVien_id", "HoTen");
+            ViewBag.NhanVien_id = new SelectList(db.NhanViens.Where(nv => nv.VaiTro == "Hướng dẫn viên").ToList(), "NhanVien_id", "HoTen");
             return View(new PhanCong_NhanVien());
         }
 
@@ -42,7 +42,7 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
             }
 
             ViewBag.Tour_id = new SelectList(db.Tours.ToList(), "Tour_id", "Name");
-            ViewBag.NhanVien_id = new SelectList(db.NhanViens.ToList(), "NhanVien_id", "HoTen");
+            ViewBag.NhanVien_id = new SelectList(db.NhanViens.Where(nv => nv.VaiTro == "Hướng dẫn viên").ToList(), "NhanVien_id", "HoTen");
             return View(model);
         }
 

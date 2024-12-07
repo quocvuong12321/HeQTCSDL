@@ -1,11 +1,9 @@
 ﻿@model QuanLy_TourDuLich.Models.PhanCong_NhanVien
 
 @{
-    ViewBag.Title = "Thêm mới Phân Công Nhân Viên";
+    ViewBag.Title = "Thêm mới Phân Công";
     Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
 }
-
-<h2>Thêm mới Phân Công Nhân Viên</h2>
 
 @using (Html.BeginForm())
 {
@@ -27,7 +25,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.NhanVien_id, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.NhanVien_id, (SelectList)ViewBag.NhanVien_id, "Chọn Nhân Viên", new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.NhanVien_id, (SelectList)ViewBag.NhanVien_id, "Chọn Hướng dẫn viên", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.NhanVien_id, "", new { @class = "text-danger" })
             </div>
         </div>
