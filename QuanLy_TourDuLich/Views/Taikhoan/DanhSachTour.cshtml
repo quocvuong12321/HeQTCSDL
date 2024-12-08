@@ -1,0 +1,22 @@
+﻿
+@{
+    Layout = null;
+}
+<h2>Danh Sách Tour Du Lịch</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Mã Tour</th>
+            <th>Tên Tour</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var tour in Model)
+        {
+<tr>
+    <td>@tour.Tour_id</td>
+    <td>@tour.Name</td>
+</tr>}
+    </tbody>
+</table>

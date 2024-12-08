@@ -13,7 +13,6 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
     public class DatTourController : Controller
     {
         // GET: Admin/DatTour
-
         QuanLyTourDuLichDataContext db = new QuanLyTourDuLichDataContext();
 
         public ActionResult HienThiDatTour()
@@ -114,7 +113,6 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
             // Trả về dữ liệu vào view
             return View(listHanhKhachDatTour);
         }
-
         public ActionResult XacNhanDatTour(int DatTour_id)
         {
             var datTour = db.DatTours.FirstOrDefault(d => d.DatTour_id == DatTour_id);
@@ -171,7 +169,6 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
 
             return View(listHuyTour); // Trả về danh sách cho view
         }
-
 
         public ActionResult XacNhanHuyTour(int DatTour_id)
         {

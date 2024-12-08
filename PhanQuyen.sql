@@ -83,7 +83,7 @@ go
 sp_addrole 'NhanVien'
 go
 
-GRANT SELECT
+GRANT SELECT, UPDATE
 ON Tour
 TO [NhanVien]
 go

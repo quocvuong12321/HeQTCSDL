@@ -1,0 +1,61 @@
+﻿@model IEnumerable<QuanLy_TourDuLich.Models.KhachSan>
+@using QuanLy_TourDuLich.Models;
+@{
+    ViewBag.Title = "Khachsan";
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
+}
+
+<h2>Danh Sách Khách Sạn</h2>
+
+<form action="~/Quanli/ThemKhachSan" method="post">
+    <div class="form-group">
+        <input type="text" name="Name" placeholder="Tên Khách Sạn" required class="form-control" />
+        <input type="text" name="TinhThanh_id" placeholder="Mã Tỉnh Thành" required class="form-control" />
+        <button type="submit" class="btn btn-success">Thêm Khách Sạn</button>
+    </div>
+</form>
+
+<table class="table">
+    <tr>
+        <th>
+            <p>Tên Khách Sạn</p>
+        </th>
+        <th>
+            <p>Mã Tỉnh Thành Của Khách Sạn</p>
+        </th>
+        <th>
+            <p>Tình Trạng</p>
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TinhThanh_id)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Tinhtrang)
+    </td>
+
+    <td>
+        <!-- Form sửa -->
+        <form action="~/Quanli/SuaKhachSan" method="post" style="display:inline;">
+            <input type="hidden" name="KhachSan_id" value="@item.KhachSan_id" />
+            <button type="submit" class="btn btn-warning">Sửa</button>
+        </form>
+
+        <!-- Form xóa -->
+        <form action="~/Quanli/XoaKhachSan" method="post" style="display:inline;">
+            <input type="hidden" name="KhachSan_id" value="@item.KhachSan_id" />
+            <button type="submit" class="btn btn-danger">Xóa</button>
+        </form>
+    </td>
+</tr>
+    }
+
+</table>

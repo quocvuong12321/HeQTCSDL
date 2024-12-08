@@ -13,6 +13,7 @@ namespace QuanLy_TourDuLich
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
         }
     }
 }

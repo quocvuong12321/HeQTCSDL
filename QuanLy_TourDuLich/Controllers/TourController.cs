@@ -10,7 +10,6 @@ namespace QuanLy_TourDuLich.Controllers
     {
         // GET: Tour
         QuanLyTourDuLichDataContext db = new QuanLyTourDuLichDataContext();
-
         public ActionResult HienThiTour()
         {
             List<Tour> lst = db.Tours.Where(t => t.TrangThai.Equals("Mở bán")).ToList();

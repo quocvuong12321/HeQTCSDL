@@ -85,10 +85,10 @@
 
     <div class="form-container" style="margin-top: 200px">
         <h2>Đăng Nhập</h2>
-        <form action="~/TaiKhoan/DangNhap" method="POST">
+        <form action="~/TaiKhoan/DangNhap" method="post">
             <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required placeholder="Nhập địa chỉ email">
+                <label for="taikhoan">Nhap Tai Khoan:</label>
+                <input type="text" id="taikhoan" name="taikhoan" required placeholder="Nhập tài khoản">
             </div>
 
             <div class="form-group">
@@ -100,7 +100,7 @@
 
         <div class="form-footer">
             <p>Bạn chưa có tài khoản? <a href="/Taikhoan/Dangky">Đăng Ký</a></p>
-            <p>Đăng nhập cho nhân viên<a href="Admin/TaiKhoanNhanVien/DangNhapNV">Đi đến đăng nhập</a></p>
+            <p>Đăng nhập cho nhân viên<a href="~/admin/TaiKhoanNhanVien/DangNhapNV">Đi đến đăng nhập</a></p>
         </div>
     </div>
 

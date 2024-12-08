@@ -1,0 +1,43 @@
+﻿@model IEnumerable<QuanLy_TourDuLich.Models.NhaHang>
+@{ ViewBag.Title = "Nhà Hàng";
+                Layout = "~/Views/Shared/_LayoutPage1.cshtml"; }
+
+<h2>Danh Sách Nhà Hàng</h2>
+
+<!-- Form thêm nhà hàng -->
+<form action="~/Quanli/ThemNhaHang" method="post">
+    <div class="form-group">
+        <input type="text" name="Name" placeholder="Tên Nhà Hàng" required class="form-control" />
+        <input type="text" name="TinhThanh_id" placeholder="Mã Tỉnh Thành" required class="form-control" />
+        <button type="submit" class="btn btn-success">Thêm Nhà Hàng</button>
+    </div>
+</form>
+
+<!-- Bảng hiển thị danh sách nhà hàng -->
+<table class="table">
+    <tr>
+        <th>Tên Nhà Hàng</th>
+        <th>Mã Tỉnh Thành</th>
+        <th>Hành Động</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.TinhThanh_id)</td>
+                <td>
+                    <!-- Form sửa -->
+                    <form action="~/Quanli/SuaNhaHang" method="post" style="display:inline;">
+                        <input type="hidden" name="NhaHang_id" value="@item.NhaHang_id" />
+                        <button type="submit" class="btn btn-warning">Sửa</button>
+                    </form>
+
+                    <!-- Form xóa -->
+                    <form action="~/Quanli/XoaNhaHang" method="post" style="display:inline;">
+                        <input type="hidden" name="NhaHang_id" value="@item.NhaHang_id" />
+                        <button type="submit" class="btn btn-danger">Xóa</button>
+                    </form>
+                </td>
+            </tr>
+    }
+</table>

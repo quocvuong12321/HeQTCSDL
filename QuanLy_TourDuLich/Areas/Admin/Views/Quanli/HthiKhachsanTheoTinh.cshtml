@@ -1,0 +1,39 @@
+﻿@model IEnumerable<QuanLy_TourDuLich.Models.sp_HthiKhachSanTheoTinhResult>
+
+@{
+    ViewBag.Title = "HthiKhachsanTheoTinh";
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
+}
+
+<h2>Danh sách Khách Sạn Theo Tỉnh</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+          <p> Tên Khách Sạn</p>
+        </th>
+        <th>
+          <p>Mã Khách Sạn</p>
+        </th>
+        <th>
+           <p>Tình Trạng</p>
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KhachSan_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tinhtrang)
+        </td>
+    </tr>
+}
+
+</table>

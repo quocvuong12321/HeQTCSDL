@@ -15,82 +15,89 @@ namespace QuanLy_TourDuLich.Controllers
         // GET: Taikhoan
         
         QuanLyTourDuLichDataContext db = new QuanLyTourDuLichDataContext();
-        //private string connectionString;
-
-
-
-        // hàm tạo mã khách hàng mới 
+        
+        // Form đăng ký cho khách hàng chưa có tài khoản 
+        public ActionResult Dangky()
+        {
+            return View();
+        }
        
-        //public ActionResult Dangky()
-        //{
-        //    return View();
-        //}
+        [HttpPost]
+        public ActionResult Dangky(FormCollection c)
+        {
+            KhachHang kh = new KhachHang();
+            if (ModelState.IsValid)
+            {
 
-        //[HttpPost]
-        //public ActionResult Dangky(KhachHang kh)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var check = db.KhachHangs.FirstOrDefault(s => s.Email == kh.Email);
-        //        if (check == null)
-        //        {
-        //            kh.KhachHang_id = GenerateMaKhachHang();
-        //            kh.Password = HashPassword(kh.Password); // Securely hash the password
-        //            db.KhachHangs.InsertOnSubmit(kh);
-        //            db.SubmitChanges();
-        //            return RedirectToAction("Dangnhap"); // Redirect to login page
-        //        }
-        //        else
-        //        {
-        //            ModelState.AddModelError("Email", "Email already exists.");
-        //        }
-        //    }
-        //    return View();
-        //}
-
+                // Kiểm tra email đã tồn tại trong cơ sở dữ liệu chưa
+                var check = db.KhachHangs.FirstOrDefault(s => s.Email == kh.Email);
+                if (check == null)
+                {
+                    
+                    // Gán mã khách hàng mới và hash mật khẩu trước khi lưu
+                    kh.KhachHang_id = c["taikhoan"];
+                    kh.Name = c["Name"];
+                    kh.Email = c["Email"];
+                    kh.DienThoai = c["Dienthoai"];
+                    kh.DiaChi = c["Diachi"];
+                    kh.Password = c["Password"];
+                    kh.Gioitinh = Convert.ToBoolean(c["Gioitinh"]);
+                    // Thêm khách hàng mới vào cơ sở dữ liệu
+                    db.ThemKhachHang(kh.KhachHang_id, kh.Name, kh.Email, kh.DienThoai, kh.DiaChi, kh.Password, kh.Gioitinh);
+                    // Chuyển hướng đến trang đăng nhập
+                    return RedirectToAction("Dangnhap");
+                }
+                else
+                {
+                    // Thêm thông báo lỗi nếu email đã tồn tại
+                    ModelState.AddModelError("Email", "Email này đã được sử dụng.");
+                }
+            }
+            // Nếu có lỗi, trả về view với thông tin đã nhập
+            return View(kh);
+        }
+        // Form đăng nhập 
         public ActionResult Dangnhap()
         {
             return View();
         }
 
         [HttpPost]
-        //public ActionResult Dangnhap(FormCollection col)
-        //{
-        //    string email = col["email"];
-        //    string password = HashPassword(col["password"]);
-            
+        public ActionResult Dangnhap(FormCollection col)
+        {
+            string taikhoan = col["taikhoan"];
+            string password = col["password"];
 
-        //    // Tạo đối tượng DataContext
-        //    using (QuanLyTourDuLichDataContext db = new QuanLyTourDuLichDataContext())
-        //    {
-        //        // Gọi Stored Procedure thông qua LINQ to SQL
-        //        var kh = db.sp_KiemTraDangNhap(email,password).FirstOrDefault ( t => t.Email == email && t.Password == password);
+            // Tạo đối tượng DataContext
+            using (QuanLyTourDuLichDataContext db = new QuanLyTourDuLichDataContext())
+            {
+                // Gọi Stored Procedure thông qua LINQ to SQL
+                int kh = db.sp_KiemTraDangNhap(taikhoan, password);
 
-        //        if (kh != null)
-        //        {
-        //            Session["kh"] = email;
-        //            return RedirectToAction("HienThiTour", "Tour");
-        //        }
-        //        else
-        //        {
-        //            ModelState.AddModelError("DangNhap", "Invalid login credentials");
-        //        }
-        //    }
-        //    return View();
-        //}
+                if (kh == 1)
+                {
+                   string connection = string.Format("Data Source=DESKTOP-86N3SME\\SQL_KING;Database=QL_Tour;Integrated Security=False;User Id={0};Password={1};", taikhoan, password);
+                    Session["ConnectionString"] = connection;
+                    Session["Role"] = "Khách hàng";
+                    Session["kh"] = taikhoan;
+                    return RedirectToAction("HienThiTour", "Tour");
+                }
+                else
+                {
+                    ModelState.AddModelError("DangNhap", "Invalid login credentials");
+                }
+            }
+            return View();
+        }
 
-        public ActionResult Index() // trang gioi thieu web 
+    
+        public ActionResult Index()     // trang gioi thieu web tĩnh
         {
             return View();
         }
 
-        public ActionResult Logout()
-        {
-            Session["kh"] = null;
-            return RedirectToAction("Dangnhap");
-        }
-
-        public ActionResult VietDanhgia()
+        //Viet danh gia cua nguoi dung
+        public ActionResult VietDanhgia() // Form viết đánh giá
         {
            
             return View();
@@ -105,7 +112,6 @@ namespace QuanLy_TourDuLich.Controllers
                 {
                     // Gọi Stored Procedure trực tiếp từ LINQ to SQL DataContext
                     db.sp_ThemDanhGia(review.TourId, review.KhachHangId, review.NoiDung, review.Vote);
-
                     TempData["Message"] = "Đánh giá đã được thêm thành công!";
                     return RedirectToAction("Index");
                 }

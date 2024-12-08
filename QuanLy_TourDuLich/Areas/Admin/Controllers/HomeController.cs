@@ -9,7 +9,7 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
     public class HomeController : Controller
     {
         // GET: Admin/Home
-        public ActionResult Index()
+        public ActionResult AccessDenied()
         {
             return View();
         }

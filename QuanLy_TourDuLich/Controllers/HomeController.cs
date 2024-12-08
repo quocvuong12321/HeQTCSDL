@@ -9,7 +9,7 @@ namespace QuanLy_TourDuLich.Controllers
     public class HomeController : Controller
     {
         // GET: Home
-        public ActionResult Index()
+        public ActionResult AccessDenied()
         {
             return View();
         }

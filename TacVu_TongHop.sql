@@ -427,34 +427,58 @@ go
 --Trigger cập nhật số lượng còn của 1 tour khi thêm 1 đặt tour mới
 --Khi thêm bản ghi mới vào bảng DatTour, tự động giảm SoLuongCon trong bảng Tour.
 
-create trigger updateSoLuongCon 
-on DatTour
-after insert
-as
-begin
-	update Tour
-	set SoLuongCon = SoLuongCon -i.SoNguoi
-	from Tour t
-	join inserted i on i.Tour_id = t.Tour_id
-end
+CREATE TRIGGER updateSoLuongCon
+ON DatTour
+AFTER INSERT
+AS
+BEGIN
+    DECLARE @Tour_id INT, @SoNguoi INT, @SoLuongCon INT;
+
+    -- Lấy giá trị từ bản ghi được chèn
+    SELECT @Tour_id = Tour_id, @SoNguoi = SoNguoi
+    FROM inserted;
+
+    -- Cập nhật số lượng còn
+    UPDATE Tour
+    SET SoLuongCon = SoLuongCon - @SoNguoi
+    WHERE Tour_id = @Tour_id;
+
+    -- Kiểm tra và cập nhật trạng thái nếu hết chỗ
+    SELECT @SoLuongCon = SoLuongCon
+    FROM Tour
+    WHERE Tour_id = @Tour_id;
+
+    IF @SoLuongCon <= 0
+    BEGIN
+        UPDATE Tour
+        SET TrangThai = N'Hết chỗ'
+        WHERE Tour_id = @Tour_id;
+    END
+END;
 Go
 
 
 --Trigger cập nhật lại số lượng còn của 1 tour khi thêm 1 HuyTour mới
 --Khi thêm bản ghi mới vào bảng HuyTour, tự động Tăng SoLuongCon trong bảng Tour.
-create trigger updateSoLuongCon_HuyTour 
-on HuyTour
-after insert
-as
-begin
-	update Tour
-	set SoLuongCon = SoLuongCon + SoNguoi
-	from Tour t
-	join DatTour dt on dt.Tour_id = t.Tour_id
-	join inserted i on i.DatTour_id = dt.DatTour_id
+CREATE TRIGGER updateSoLuongCon_HuyTour
+ON HuyTour
+AFTER INSERT
+AS
+BEGIN
+    -- Cập nhật số lượng còn
+    UPDATE t
+    SET t.SoLuongCon = t.SoLuongCon + dt.SoNguoi
+    FROM Tour t
+    JOIN DatTour dt ON dt.Tour_id = t.Tour_id
+    JOIN inserted i ON i.DatTour_id = dt.DatTour_id;
 
-end
-Go
+    -- Cập nhật trạng thái nếu số lượng còn > 0
+    UPDATE t
+    SET t.TrangThai = N'Còn chỗ'
+    FROM Tour t
+    WHERE t.SoLuongCon > 0 AND t.TrangThai = N'Hết chỗ';
+END;
+GO
 
 
 
@@ -733,3 +757,128 @@ GO
 		And  @Tour_id = pc.Tour_id
 		)
 Go
+ALTER PROCEDURE sp_KiemTraDangNhap
+    @Khachhang_id VARCHAR(36),
+    @Password NVARCHAR(100)
+AS
+BEGIN
+    DECLARE @Result INT;
+
+    IF EXISTS (
+        SELECT 1 FROM Khachhang
+        WHERE KhachHang_id = @Khachhang_id AND Password = @Password
+    )
+    BEGIN
+        SET @Result = 1;
+    END
+    ELSE
+    BEGIN
+        SET @Result = 0;
+    END
+
+    RETURN @Result;
+END
+GO
+
+---- pro hien thi loc nha hang theo tinh thanh 
+
+create proc sp_HthiNhaHangTheoTinh 
+ @matinhthanh int 
+As 
+ begin 
+	select NhaHang.Name, NhaHang_id from NhaHang
+	where NhaHang.TinhThanh_id = @matinhthanh
+ end
+ go
+ 
+ ----- proc loc khach san theo tinh
+ create proc sp_HthiKhachSanTheoTinh 
+ @matinhthanh int 
+As 
+ begin 
+	select KhachSan.Name, KhachSan.KhachSan_id, Tinhtrang from KhachSan
+	where KhachSan.TinhThanh_id = @matinhthanh
+
+ end
+ go
+ --- proc Kiem tra dang nhap cho nhan vien 
+ Create PROCEDURE sp_KiemTraDangNhapNV
+    @Nhanvien_id VARCHAR(36),
+    @Password NVARCHAR(100)
+AS
+BEGIN
+	declare @Result int
+    IF NOT EXISTS (
+        SELECT * FROM NhanVien
+        WHERE NhanVien_id = @Nhanvien_id and Password = @Password
+    )
+    BEGIN
+         SET @Result = 0;
+    END
+    ELSE
+    BEGIN
+      SET @Result = 1;
+    END
+	return @Result
+END
+Go
+
+
+
+--- proc thống kê doanh thu
+  CREATE PROCEDURE sp_ThongKeDoanhThu
+    @Year INT = NULL  -- Tham số lọc theo năm (có thể truyền vào hoặc không)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT
+        YEAR(tt.NgayThanhToan) AS Nam,
+        MONTH(tt.NgayThanhToan) AS Thang,
+        t.Tour_id,
+        t.Name AS TenTour,
+        SUM(tt.TongTien) AS DoanhThu
+    FROM
+        ThanhToan tt
+    JOIN
+        DatTour dt ON tt.DatTour_id = dt.DatTour_id
+    JOIN
+        Tour t ON dt.Tour_id = t.Tour_id
+    WHERE
+        (@Year IS NULL OR YEAR(tt.NgayThanhToan) = @Year)  -- Lọc theo năm nếu có
+    GROUP BY
+        YEAR(tt.NgayThanhToan),
+        MONTH(tt.NgayThanhToan),
+        t.Tour_id,
+        t.Name
+    ORDER BY
+        Nam DESC,
+        Thang DESC,
+        DoanhThu DESC;
+END;
+
+---- proc them mot danh gia vao bang danh gia
+go
+CREATE PROCEDURE sp_ThemDanhGia
+    @Tour_id VARCHAR(36),
+    @KhachHang_id VARCHAR(36),
+    @NoiDung NVARCHAR(MAX),
+    @Vote INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Kiểm tra tính hợp lệ của dữ liệu đầu vào
+    IF @Vote < 1 OR @Vote > 5
+    BEGIN
+        RAISERROR (N'Số sao đánh giá phải từ 1 đến 5.', 16, 1);
+        RETURN;
+    END
+
+    -- Thêm đánh giá vào bảng DanhGia
+    INSERT INTO DanhGia (Tour_id, KhachHang_id, NoiDung, Vote)
+    VALUES (@Tour_id, @KhachHang_id, @NoiDung, @Vote);
+
+    PRINT N'Đánh giá đã được thêm thành công.';
+END;
+go

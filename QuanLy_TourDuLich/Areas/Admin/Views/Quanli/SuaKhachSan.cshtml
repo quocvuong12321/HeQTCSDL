@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "SuaKhachSan";
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
+}
+
+@model QuanLy_TourDuLich.Models.KhachSan
+
+<h2>Sửa Thông Tin Khách Sạn</h2>
+
+<form action="~/Quanli/CapNhatKhachSan" method="post">
+    <input type="hidden" name="KhachSan_id" value="@Model.KhachSan_id" />
+    <div class="form-group">
+        <label>Tên Khách Sạn:</label>
+        <input type="text" name="Name" value="@Model.Name" required class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Mã Tỉnh Thành:</label>
+        <input type="number" name="TinhThanh_id" value="@Model.TinhThanh_id" required class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Tình Trạng:</label>
+        <input type="text" name="Tinhtrang" value="@Model.Tinhtrang" required class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Cập Nhật</button>
+</form>
+

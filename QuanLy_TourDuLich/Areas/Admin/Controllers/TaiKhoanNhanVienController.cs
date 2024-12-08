@@ -18,20 +18,23 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult DangNhapNV(FormCollection col)
         {
-            string email = col["email"];
+            string id = col["id"];
             string password =col["password"];
-
-
             // Tạo đối tượng DataContext
             using (QuanLyTourDuLichDataContext db = new QuanLyTourDuLichDataContext())
             {
                 // Gọi Stored Procedure thông qua LINQ to SQL
-                var kh = db.sp_KiemTraDangNhapNV(email, password).FirstOrDefault(t => t.Email == email && t.Password == password);
+                var ktdangnhap = db.sp_KiemTraDangNhapNV(id, password);
 
-                if (kh != null)
+                if (ktdangnhap == 1)
                 {
-                    Session["kh"] = email;
-                    return RedirectToAction("Index", "Home","Admin");
+                    string connection = string.Format("Data Source=DESKTOP-86N3SME\\SQL_KING;Database=QL_Tour;Integrated Security=False;User Id={0};Password={1};", id, password);
+                    Session["ConnectionString"] = connection;
+                    var nv = db.NhanViens.FirstOrDefault(t => t.NhanVien_id == id);
+                    string setRole = nv.VaiTro; /*== "Quản lý" ? "1" : (nv.VaiTro == "Nhân viên" ? "2" : "3");*/
+                    Session["Role"] = setRole;
+                    Session["kh"] = nv;
+                    return Redirect("~/Admin/Tour/Index");
                 }
                 else
                 {
@@ -40,16 +43,11 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
             }
             return View();
         }
-        public ActionResult Danhgia()
-        {
-            List<DanhGia> dgia = db.DanhGias.ToList();
-            return View(dgia);
-        }
-
         public ActionResult Thongkedoanhthu()
         {
             List<sp_ThongKeDoanhThuResult> thongke = new List<sp_ThongKeDoanhThuResult>().ToList();
             return View(thongke);
         }
+
     }
 }

@@ -8,6 +8,7 @@ using System.Threading;
 using System.IO;
 namespace QuanLy_TourDuLich.Areas.Admin.Controllers
 {
+
     public class TourController : Controller
     {
         // GET: Admin/Tour

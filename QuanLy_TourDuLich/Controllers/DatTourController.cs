@@ -18,7 +18,7 @@ namespace QuanLy_TourDuLich.Controllers
             var khachHangId = Session["kh"];
             if (khachHangId == null)
             {
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("Dangnhap", "TaiKhoan");
             }
             // Lấy thông tin tour từ cơ sở dữ liệu theo tour_id
             Tour tour = db.Tours.SingleOrDefault(t => t.Tour_id == tour_id);

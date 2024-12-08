@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "SuaNhaHang";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@model QuanLy_TourDuLich.Models.NhaHang
+
+<h2>Sửa Thông Tin Nhà Hàng</h2>
+
+<form action="CapNhatNhaHang" method="post">
+    <input type="hidden" name="NhaHang_id" value="@Model.NhaHang_id" />
+    <div class="form-group">
+        <label>Tên Nhà Hàng:</label>
+        <input type="text" name="Name" value="@Model.Name" required class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Mã Tỉnh Thành:</label>
+        <input type="number" name="TinhThanh_id" value="@Model.TinhThanh_id" required class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Cập Nhật</button>
+</form>
+
