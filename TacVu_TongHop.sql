@@ -150,6 +150,8 @@ BEGIN TRANSACTION
 		INSERT INTO HanhKhach (HoTen, NgaySinh, GioiTinh, DatTour_id, Tour_id)
 		SELECT HoTen, NgaySinh, GioiTinh, @DatTour_id, @Tour_id
 		FROM @HanhKhach
+
+		SELECT @DatTour_id AS DatTour_id
 	END TRY
 
 	BEGIN CATCH
@@ -757,7 +759,7 @@ GO
 		And  @Tour_id = pc.Tour_id
 		)
 Go
-ALTER PROCEDURE sp_KiemTraDangNhap
+CREATE PROCEDURE sp_KiemTraDangNhap
     @Khachhang_id VARCHAR(36),
     @Password NVARCHAR(100)
 AS

@@ -51,7 +51,7 @@ namespace QuanLy_TourDuLich.Controllers
             var khachHangId = Session["kh"]?.ToString();
             if (khachHangId == null)
             {
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("DangNhap", "TaiKhoan");
             }
 
             int soNguoi = Convert.ToInt32(form["SoNguoi"]);
@@ -71,8 +71,8 @@ namespace QuanLy_TourDuLich.Controllers
 
             try
             {
-                _datTourService.AddTourBooking(khachHangId, tour_id, soNguoi, hanhKhachList);
-                return RedirectToAction("XacNhan", new { id = tour_id });
+                int datTourId = _datTourService.AddTourBooking(khachHangId, tour_id, soNguoi, hanhKhachList);
+                return RedirectToAction("XacNhan", new { id = datTourId });
             }
             catch (Exception ex)
             {

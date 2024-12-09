@@ -14,7 +14,7 @@ namespace QuanLy_TourDuLich.Models
             _db = new QuanLyTourDuLichDataContext();
         }
 
-        public void AddTourBooking(string khachHangId, string tourId, int soNguoi, List<HanhKhach> hanhKhachList)
+        public int AddTourBooking(string khachHangId, string tourId, int soNguoi, List<HanhKhach> hanhKhachList)
         {
             using (var connection = new SqlConnection(_db.Connection.ConnectionString))
             {
@@ -50,12 +50,14 @@ namespace QuanLy_TourDuLich.Models
                     try
                     {
                         connection.Open();
-                        command.ExecuteNonQuery();
-                        Console.WriteLine("Đặt tour thành công");
+                        var datTourId = (int)command.ExecuteScalar();
+                        Console.WriteLine("Đặt tour thành công, DatTour_id: " + datTourId);
+                        return datTourId;
                     }
                     catch (Exception ex)
                     {
                         Console.WriteLine("Lỗi khi đặt tour: " + ex.Message);
+                        throw;
                     }
                 }
             }
