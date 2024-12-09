@@ -1873,8 +1873,8 @@ VALUES
 ('KH002', '2024-11-05', 'TOUR001', 3),
 ('KH004', '2024-11-15', 'TOUR002', 5),
 ('KH005', '2024-11-18', 'TOUR001', 6);
-
 go
+
 
 INSERT INTO [ThanhToan] ([DatTour_id], [NgayThanhToan], [HinhThuc_id], [TongTien])
 VALUES 
@@ -1882,8 +1882,10 @@ VALUES
 (3, '2024-11-06', N'Momo', 21000000.00),
 (4, '2024-11-12', N'Chuyển khoản ngân hàng', 65000000.00),
 (1, '2024-11-17', N'Chuyển khoản ngân hàng', 40000000.00);
-
 go
+
+
+
 
 INSERT INTO [HuyTour] ([DatTour_id], [NgayHuy], [LyDo], [TrangThai])
 VALUES 

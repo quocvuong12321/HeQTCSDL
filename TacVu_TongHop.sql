@@ -427,12 +427,12 @@ go
 --Trigger cập nhật số lượng còn của 1 tour khi thêm 1 đặt tour mới
 --Khi thêm bản ghi mới vào bảng DatTour, tự động giảm SoLuongCon trong bảng Tour.
 
-CREATE TRIGGER updateSoLuongCon
+CREATE  TRIGGER updateSoLuongCon
 ON DatTour
 AFTER INSERT
 AS
 BEGIN
-    DECLARE @Tour_id INT, @SoNguoi INT, @SoLuongCon INT;
+    DECLARE @Tour_id varchar(128), @SoNguoi INT, @SoLuongCon INT;
 
     -- Lấy giá trị từ bản ghi được chèn
     SELECT @Tour_id = Tour_id, @SoNguoi = SoNguoi
