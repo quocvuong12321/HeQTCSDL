@@ -50,7 +50,6 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
                             command.Parameters.AddWithValue("@GIOITINH", model.GioiTinh);
                             command.Parameters.AddWithValue("@password", model.Password ?? (object)DBNull.Value);
                             command.Parameters.AddWithValue("@VaiTro", model.VaiTro);
-
                             command.ExecuteNonQuery();
                         }
                     }

@@ -135,5 +135,12 @@ namespace QuanLy_TourDuLich.Controllers
             return View(db.KhachHangs.FirstOrDefault(t => t.KhachHang_id == id));
         }
 
+
+        public ActionResult LichSuDatTour(string id)
+        {
+            var dsDatTour = db.DatTours.Where(t => t.KhachHang_id.Equals(id)).ToList();
+
+            return View(dsDatTour);
+        }
     }
 }

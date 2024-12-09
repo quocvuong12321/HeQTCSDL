@@ -211,7 +211,7 @@ ALTER TABLE [DatTour]
 ADD 
 	CONSTRAINT DF_DatTour_GhiChu DEFAULT N'Chưa xác nhận' for GhiChu,
 	CONSTRAINT CK_DatTour_SoNguoi CHECK ([SoNguoi] > 0),
-	CONSTRAINT CK_DatTour_GhiChu CHECK (GhiChu IN (N'Đã xác nhận',N'Chưa xác nhận'))
+	CONSTRAINT CK_DatTour_GhiChu CHECK (GhiChu IN (N'Đã xác nhận',N'Chưa xác nhận',N'Đã huỷ'))
 
 
 ALTER TABLE [HuyTour] 

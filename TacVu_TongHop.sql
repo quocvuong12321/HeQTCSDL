@@ -171,14 +171,13 @@ GO
 -- trigger Xóa Bản Ghi Trong ThanhToan khi Hủy Tour
 CREATE TRIGGER TR_DeleteThanhToanOnHuyTour
 ON HuyTour
-AFTER INSERT
+AFTER UPDATE
 AS
 BEGIN
-    DECLARE @DatTour_id int;
-
-    SELECT @DatTour_id = DatTour_id FROM INSERTED;
-
-    DELETE FROM ThanhToan WHERE DatTour_id = @DatTour_id;
+	DELETE ThanhToan
+    FROM ThanhToan tt
+    INNER JOIN inserted i ON tt.DatTour_id = i.DatTour_id
+    WHERE i.TrangThai = N'Đã xác nhận';
 END
 GO
 
@@ -462,9 +461,9 @@ Go
 
 --Trigger cập nhật lại số lượng còn của 1 tour khi thêm 1 HuyTour mới
 --Khi thêm bản ghi mới vào bảng HuyTour, tự động Tăng SoLuongCon trong bảng Tour.
-CREATE TRIGGER updateSoLuongCon_HuyTour
+CREATE  TRIGGER updateSoLuongCon_HuyTour
 ON HuyTour
-AFTER INSERT
+AFTER UPDATE
 AS
 BEGIN
     -- Cập nhật số lượng còn
@@ -472,16 +471,16 @@ BEGIN
     SET t.SoLuongCon = t.SoLuongCon + dt.SoNguoi
     FROM Tour t
     JOIN DatTour dt ON dt.Tour_id = t.Tour_id
-    JOIN inserted i ON i.DatTour_id = dt.DatTour_id;
+    JOIN inserted i ON i.DatTour_id = dt.DatTour_id
+	where i.TrangThai = N'Đã xác nhận'
 
     -- Cập nhật trạng thái nếu số lượng còn > 0
     UPDATE t
-    SET t.TrangThai = N'Còn chỗ'
+    SET t.TrangThai = N'Mở bán'
     FROM Tour t
     WHERE t.SoLuongCon > 0 AND t.TrangThai = N'Hết chỗ';
 END;
 GO
-
 
 
 

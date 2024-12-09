@@ -4,7 +4,7 @@
 @{
     ViewBag.Title = "ThongTinNguoiDung";
 }
-<div class="container col-md-6">
+<div class="container col-md-7">
     <b style="font-size:32px" class="text-dark">Thông tin người dùng</b>
     <table class="table table-striped">
         <tr>
@@ -28,4 +28,5 @@
             <td>@Model.Gioitinh</td>
         </tr>
     </table>
+    <a href="~/TaiKhoan/LichSuDatTour/@Model.KhachHang_id" class="btn btn-success">Lịch sử đặt tour</a>
 </div>

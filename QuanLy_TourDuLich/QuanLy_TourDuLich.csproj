@@ -1226,6 +1226,8 @@
     <Content Include="Views\Taikhoan\VietDanhgia.cshtml" />
     <Content Include="Views\Home\AccessDenied.cshtml" />
     <Content Include="Views\Taikhoan\ThongTinNguoiDung.cshtml" />
+    <Content Include="Views\Taikhoan\LichSuDatTour.cshtml" />
+    <Content Include="Views\DatTour\XacNhanHuyTour.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

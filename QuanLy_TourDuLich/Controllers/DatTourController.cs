@@ -73,6 +73,21 @@ namespace QuanLy_TourDuLich.Controllers
             try
             {
                 int datTourId = _datTourService.AddTourBooking(khachHangId, tour_id, soNguoi, hanhKhachList);
+
+                string hinhThucThanhToan = form["HinhThuc"];
+
+
+                ThanhToan thanhToan = new ThanhToan
+                {
+                    DatTour_id = datTourId,
+                    NgayThanhToan = DateTime.Now,
+                    HinhThuc_id = hinhThucThanhToan
+                };
+
+                db.ThanhToans.InsertOnSubmit(thanhToan);
+                db.SubmitChanges();
+
+
                 return RedirectToAction("XacNhan", new { id = datTourId });
             }
             catch (Exception ex)
@@ -106,6 +121,42 @@ namespace QuanLy_TourDuLich.Controllers
             ViewBag.HanhKhachs = hanhKhachs;
 
             return View(datTour);
+        }
+
+        public ActionResult HuyTour(int id,string lydo)
+        {
+            var dtour = db.DatTours.FirstOrDefault(t => t.DatTour_id == id);
+
+            if (dtour == null)
+            {
+                TempData["ErrorMessage"] = "Không tìm thấy thông tin đặt tour.";
+                return RedirectToAction("LichSuDatTour","TaiKhoan"); 
+            }
+
+            if (dtour.GhiChu == "Chưa xác nhận")
+            {
+                HuyTour ht = new HuyTour();
+                ht.DatTour_id = id;
+                ht.NgayHuy = DateTime.Now;
+                ht.LyDo = lydo;
+                ht.TrangThai = "Chưa xác nhận";
+
+                db.HuyTours.InsertOnSubmit(ht);
+                db.SubmitChanges();
+                return View("XacNhanHuyTour");
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Tour không thể hủy vì đã ở trạng thái: " + dtour.GhiChu;
+                return RedirectToAction("LichSuDatTour", "TaiKhoan");
+
+            }
+
+        }
+
+        public ActionResult XacNhanHuyTour()
+        {
+            return View();
         }
     }
 }

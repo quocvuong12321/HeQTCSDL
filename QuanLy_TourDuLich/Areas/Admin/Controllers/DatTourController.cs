@@ -181,6 +181,10 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
         {
             var huyTour = db.HuyTours.FirstOrDefault(d => d.DatTour_id == DatTour_id);
 
+            var dtour = db.DatTours.FirstOrDefault(t => t.DatTour_id == DatTour_id);
+
+            var lsthanhkhach = db.HanhKhaches.Where(t => t.DatTour_id == DatTour_id);
+
             if (huyTour == null)
             {
                 return HttpNotFound();
@@ -190,13 +194,14 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
             {
                 huyTour.TrangThai = "Đã xác nhận";
 
+                dtour.GhiChu = "Đã huỷ";
+
+                db.HanhKhaches.DeleteAllOnSubmit(lsthanhkhach);
+
                 db.SubmitChanges();
             }
 
             return RedirectToAction("HienThiHuyTour");
         }
-
-
-
     }
 }
