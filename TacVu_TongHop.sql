@@ -93,7 +93,7 @@ CREATE TYPE HanhKhachList AS TABLE (
     GioiTinh BIT
 )
 go
-CREATE PROCEDURE AddTourBooking
+Create PROCEDURE AddTourBooking
     @KhachHang_id VARCHAR(36), 
 	@Tour_id VARCHAR(36), 
 	@SoNguoi INT,

@@ -7,12 +7,18 @@ using QuanLy_TourDuLich.Models;
 
 namespace QuanLy_TourDuLich.Areas.Admin.Controllers
 {
+    [PhanQuyen("Quản lý")]
+
     public class PhanCongNhanVienController : Controller
     {
         QuanLyTourDuLichDataContext db = new QuanLyTourDuLichDataContext();
 
         public ActionResult Index()
         {
+            if (Session["kh"] == null)
+            {
+                return RedirectToAction("DangNhapNV", "TaiKhoanNhanVien");
+            }
             var dsPhanCong = db.PhanCong_NhanViens.ToList();
             return View(dsPhanCong);
         }

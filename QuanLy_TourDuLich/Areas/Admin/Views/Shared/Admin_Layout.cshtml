@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using QuanLy_TourDuLich.Models;
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -127,15 +128,21 @@
             <a href="#"><i class="fas fa-home"></i> Website</a>
             <a href="#"><i class="fas fa-bell"></i></a>
             <div class="dropdown">
-                <button class="dropdown-toggle">
-                    <i class="fas fa-user"></i> admin
-                </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Profile</a>
-                    <a class="dropdown-item" href="#">Settings</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Logout</a>
-                </div>
+                @if (Session["kh"] != null)
+                {
+                    var nv = Session["kh"] as NhanVien;
+                    <button class="dropdown-toggle">
+                        <span>Hi, @nv.HoTen</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="~/Admin/TaiKhoanNhanVien/DangXuat">Logout</a>
+                    </div>
+                }
+                else
+                {
+                    Html.Action("DangNhapNV", "TaiKhoanNhanVien");
+                }
+
             </div>
         </div>
     </header>
@@ -148,7 +155,9 @@
             <a href="~/Admin/NhanVien/Index">Quản lý nhân viên</a>
             <a href="~/Admin/PhanCongNhanVien/Index">Phân công nhân viên</a>
             <a href="~/Admin/QuanLyHanhKhachTour/Index">Danh sách hành khách</a>
-
+            <a href="~/Admin/Quanli/Nhahang">Quản lý Nhà hàng</a>
+            <a href="~/Admin/Quanli/Khachsan">Quản lý Khách sạn</a>
+            <a href="~/Admin/DanhGia/QLDanhgia">Quản lý đánh giá</a>
         </div>
         <!-- Main Content -->
         <div class="main-content">

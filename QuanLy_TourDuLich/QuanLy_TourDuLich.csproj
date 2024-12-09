@@ -1115,6 +1115,7 @@
     <Compile Include="Areas\Admin\Controllers\phancong_NhanVienController.cs" />
     <Compile Include="Areas\Admin\Controllers\TaiKhoanNhanVienController.cs" />
     <Compile Include="Areas\Admin\Controllers\TourController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PhanQuyen.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyHanhKhachDatTour.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyDatTour.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyHuyTour.cs" />
@@ -1173,11 +1174,6 @@
     <Content Include="Areas\Admin\Views\TaiKhoanNhanVien\DangNhapNV.cshtml" />
     <Content Include="Areas\Admin\Views\TaiKhoanNhanVien\Danhgia.cshtml" />
     <Content Include="Areas\Admin\Views\TaiKhoanNhanVien\Thongkedoanhthu.cshtml" />
-    <Content Include="Models\QuanLyTourDuLich.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>QuanLyTourDuLich.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Areas\Admin\Views\Quanli\HthiKhachsanTheoTinh.cshtml" />
     <Content Include="Areas\Admin\Views\Quanli\HthiNhahangTheoTinh.cshtml" />
     <Content Include="Areas\Admin\Views\Quanli\Khachsan.cshtml" />
@@ -1189,6 +1185,13 @@
     <Content Include="Areas\Admin\Views\QuanLyHanhKhachTour\details.cshtml" />
     <Content Include="Areas\Admin\Views\QuanLyHanhKhachTour\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Home\AccessDenied.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_LayoutPage1.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_LayoutPage2.cshtml" />
+    <Content Include="Models\QuanLyTourDuLich.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>QuanLyTourDuLich.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Models\QuanLyTourDuLich.dbml.layout">
       <DependentUpon>QuanLyTourDuLich.dbml</DependentUpon>
     </None>
@@ -1216,13 +1219,13 @@
     <Content Include="Views\Tour\ChiTietTour.cshtml" />
     <Content Include="Views\Tour\TimKiemNangCao.cshtml" />
     <Content Include="Views\Tour\SanPhamLienQuan.cshtml" />
-    <Content Include="Views\DatTour\ThanhToan.cshtml" />
     <Content Include="Views\Taikhoan\Dangky.cshtml" />
     <Content Include="Views\Taikhoan\Dangnhap.cshtml" />
     <Content Include="Views\Taikhoan\DanhSachTour.cshtml" />
     <Content Include="Views\Taikhoan\Index.cshtml" />
     <Content Include="Views\Taikhoan\VietDanhgia.cshtml" />
     <Content Include="Views\Home\AccessDenied.cshtml" />
+    <Content Include="Views\Taikhoan\ThongTinNguoiDung.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

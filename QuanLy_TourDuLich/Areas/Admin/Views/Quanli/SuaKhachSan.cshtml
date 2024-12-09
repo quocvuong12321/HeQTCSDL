@@ -1,14 +1,14 @@
 ﻿
 @{
     ViewBag.Title = "SuaKhachSan";
-    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutPage2.cshtml";
 }
 
 @model QuanLy_TourDuLich.Models.KhachSan
 
 <h2>Sửa Thông Tin Khách Sạn</h2>
 
-<form action="~/Quanli/CapNhatKhachSan" method="post">
+<form action="~/Admin/Quanli/CapNhatKhachSan" method="post">
     <input type="hidden" name="KhachSan_id" value="@Model.KhachSan_id" />
     <div class="form-group">
         <label>Tên Khách Sạn:</label>

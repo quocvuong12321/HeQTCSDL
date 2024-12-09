@@ -5,8 +5,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using QuanLy_TourDuLich.Models;
-namespace QuanLy_TourDuLich.Controllers  // 2019
+namespace QuanLy_TourDuLich.Areas.Admin.Controllers
 {
+    [PhanQuyen("Quản lý")]
     public class QuanliController : Controller
     {
         // GET: Quanli

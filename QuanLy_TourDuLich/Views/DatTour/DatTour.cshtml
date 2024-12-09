@@ -13,7 +13,8 @@
                     <h4>Đặt Tour</h4>
                 </div>
                 <div class="card-body">
-                    <form method="post">
+                    <form action="~/DatTour/DatTour" method="post">
+                        <input type="hidden" name="tour_id" value="@Model.Tour_id" />
                         <!-- Hiển thị tên tour -->
                         <div class="form-group mb-3">
                             <label class="form-label">Tour</label>
@@ -147,7 +148,7 @@
         const dateInputs = document.querySelectorAll('input[type="date"]');
         dateInputs.forEach(input => {
             const date = new Date(input.value);
-            const formattedDate = date.toISOString().split('T')[0]; // Định dạng YYYY-MM-DD 
+            const formattedDate = date.toISOString().split('T')[0]; // Định dạng YYYY-MM-DD
             input.value = formattedDate;
         });
     }

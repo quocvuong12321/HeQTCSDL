@@ -58,7 +58,15 @@
     <div class="container">
         <h1><i class="fas fa-exclamation-triangle"></i> Bạn không có quyền truy cập trang này</h1>
         <p>Rất tiếc, bạn không có quyền truy cập vào trang này. Vui lòng liên hệ quản trị viên nếu bạn nghĩ rằng đây là một sự cố.</p>
-        <a href="@Url.Action("HienThiTour", "Tour")">Quay lại trang chủ</a>
+        @if (Session["Role"].ToString() != "Hướng dẫn viên")
+        {
+            <a href="@Url.Action("Index", "Tour")">Quay lại trang chủ</a>
+        }
+        else
+        {
+            <a href="@Url.Action("Index", "QuanLyHanhKhachTour")">Quay lại trang chủ</a>
+
+        }
     </div>
 </body>
 </html>

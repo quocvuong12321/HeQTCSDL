@@ -36,46 +36,51 @@
         <th>
             <label>Số lượng còn</label>
         </th>
-
+        <th><label>Trạng thái</label></th>
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.LoaiTour)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @String.Format("{0:0,00} VNĐ / người", item.Gia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TinhThanh1.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TinhThanh.Name)
-            </td>
-            <td>
-                @String.Format("{0:dd/MM/yyyy}", item.NgayKhoiHanh)
-            </td>
-            <td>
-                @String.Format("{0:dd/MM/yyyy}", item.NgayKetThuc)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SoLuongCon)
-            </td>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.LoaiTour)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td>
+        @String.Format("{0:0,00} VNĐ / người", item.Gia)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TinhThanh1.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TinhThanh.Name)
+    </td>
+    <td>
+        @String.Format("{0:dd/MM/yyyy}", item.NgayKhoiHanh)
+    </td>
+    <td>
+        @String.Format("{0:dd/MM/yyyy}", item.NgayKetThuc)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.SoLuongCon)
+    </td>
+    <td>@item.TrangThai</td>
+    
+    <td>
+        @if (Session["Role"].ToString() == "Quản lý")
+        {
 
-            <td>
-                <a href="~/Admin/Tour/Edit/@item.Tour_id">Sửa</a> |
-                <a href="~/Admin/Tour/ChiTietTour/@item.Tour_id">Chi tiết</a> |
-                <a href="~/Admin/Tour/ThemHinhAnhTour/@item.Tour_id">Thêm ảnh</a> |
-                <a href="~/Admin/Tour/XoaHinhAnh/@item.Tour_id">Xóa ảnh</a>
-
-            </td>
-        </tr>
+            <a href="~/Admin/Tour/Edit/@item.Tour_id">Sửa | </a>
+            <a href="~/Admin/Tour/ThemHinhAnhTour/@item.Tour_id">Thêm ảnh | </a>
+            <a href="~/Admin/Tour/XoaHinhAnh/@item.Tour_id">Xóa ảnh | </a>
+            <a href="~/Admin/Tour/ChiTietTour/@item.Tour_id">Chi tiết | </a>
+            <a href="~/Admin/Tour/ThemNhaHang/@item.Tour_id">Thêm nhà hàng  </a>
+        }
+    </td>
+    </tr>
     }
 
 </table>

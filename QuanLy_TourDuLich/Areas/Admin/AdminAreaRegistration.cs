@@ -24,8 +24,9 @@ namespace QuanLy_TourDuLich.Areas.Admin
                 "Admin_default",
                 "Admin/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional, area = "Admin" }
-
             );
+
+
         }
     }
 }

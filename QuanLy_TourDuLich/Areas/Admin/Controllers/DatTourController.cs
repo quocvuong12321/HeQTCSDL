@@ -14,9 +14,13 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
     {
         // GET: Admin/DatTour
         QuanLyTourDuLichDataContext db = new QuanLyTourDuLichDataContext();
-
+        [PhanQuyen("Quản lý","Nhân viên")]
         public ActionResult HienThiDatTour()
         {
+            if (Session["kh"] == null)
+            {
+                return RedirectToAction("DangNhapNV", "TaiKhoanNhanVien");
+            }
             var listDatTour = new List<QuanLyDatTour>(); // Khởi tạo danh sách để chứa dữ liệu
 
             using (var connection = new SqlConnection(db.Connection.ConnectionString))
@@ -41,7 +45,6 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
                                 Tour_id = reader["Tour_id"] != DBNull.Value ? reader["Tour_id"].ToString() : string.Empty,
                                 TongTien = reader["TongTien"] != DBNull.Value ? (decimal)reader["TongTien"] : 0m // Thêm tổng tiền
                             };
-
                             listDatTour.Add(item); // Thêm đối tượng vào danh sách
                         }
                     }
@@ -51,6 +54,7 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
             return View(listDatTour); // Trả về danh sách cho view
         }
 
+        [PhanQuyen("Quản lý", "Nhân viên")]
         public ActionResult HienThiChiTietDatTour(int DatTour_id)
         {
             var listHanhKhachDatTour = new List<QuanLyHanhKhachDatTour>(); // Khởi tạo danh sách để chứa dữ liệu hành khách
@@ -113,6 +117,7 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
             // Trả về dữ liệu vào view
             return View(listHanhKhachDatTour);
         }
+        [PhanQuyen("Nhân viên")]
         public ActionResult XacNhanDatTour(int DatTour_id)
         {
             var datTour = db.DatTours.FirstOrDefault(d => d.DatTour_id == DatTour_id);
@@ -132,6 +137,7 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
             return RedirectToAction("HienThiDatTour");
         }
 
+        [PhanQuyen("Quản lý", "Nhân viên")]
         public ActionResult HienThiHuyTour()
         {
             var listHuyTour = new List<QuanLyHuyTour>(); // Khởi tạo danh sách để chứa dữ liệu
@@ -169,6 +175,7 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
 
             return View(listHuyTour); // Trả về danh sách cho view
         }
+        [PhanQuyen("Nhân viên")]
 
         public ActionResult XacNhanHuyTour(int DatTour_id)
         {

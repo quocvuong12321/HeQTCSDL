@@ -9,12 +9,17 @@ using System.Data.SqlClient;
 
 namespace QuanLy_TourDuLich.Areas.Admin.Controllers
 {
+    [PhanQuyen("Quản lý")]
     public class NhanVienController : Controller
     {
         QuanLyTourDuLichDataContext db = new QuanLyTourDuLichDataContext();
 
         public ActionResult Index()
         {
+            if (Session["kh"] == null)
+            {
+                return RedirectToAction("DangNhapNV", "TaiKhoanNhanVien");
+            }
             List<NhanVien> dsNhanVien = db.NhanViens.ToList();
             return View(dsNhanVien);
         }

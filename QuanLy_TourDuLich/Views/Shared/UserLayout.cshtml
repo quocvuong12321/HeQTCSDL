@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using QuanLy_TourDuLich.Models;
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -44,8 +45,17 @@
                         <a href="@Url.Action("HienThiTour", "Tour")" class="nav-item nav-link">Trang chủ</a>
                         <a href="~/Tour/TimKiemNangCao" class="nav-item nav-link">Tours</a>
                         <a href="~/Tour/GioiThieu" class="nav-item nav-link">Giới thiệu</a>
-                        <a href="~/TaiKhoan/Dangnhap" class="nav-item nav-link">Đăng nhập</a>
-                        <a href="~/TaiKhoan/Dangky" class="nav-item nav-link">Đăng ký</a>
+                        @if (Session["kh"] != null)
+                        {
+                            var kh = Session["kh"] as KhachHang;
+                            <a href="@Url.Action("DangXuat","TaiKhoan")" class="nav-item nav-link">Đăng xuất</a>
+                            <a class="nav-item nav-link" href="~/TaiKhoan/ThongTinNguoiDung/@kh.KhachHang_id"><i class="fa fa-user" aria-hidden="true"></i> Hi, @kh.Name</a>
+                        }
+                        else
+                        {
+                            <a href="~/TaiKhoan/Dangnhap" class="nav-item nav-link">Đăng nhập</a>
+                            <a href="~/TaiKhoan/Dangky" class="nav-item nav-link">Đăng ký</a>
+                        }
                     </div>
                 </div>
             </nav>

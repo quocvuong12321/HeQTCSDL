@@ -2,12 +2,12 @@
 @using QuanLy_TourDuLich.Models;
 @{
     ViewBag.Title = "Khachsan";
-    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutPage2.cshtml";
 }
 
 <h2>Danh Sách Khách Sạn</h2>
 
-<form action="~/Quanli/ThemKhachSan" method="post">
+<form action="~/Admin/Quanli/ThemKhachSan" method="post">
     <div class="form-group">
         <input type="text" name="Name" placeholder="Tên Khách Sạn" required class="form-control" />
         <input type="text" name="TinhThanh_id" placeholder="Mã Tỉnh Thành" required class="form-control" />
@@ -44,13 +44,13 @@
 
     <td>
         <!-- Form sửa -->
-        <form action="~/Quanli/SuaKhachSan" method="post" style="display:inline;">
+        <form action="~/Admin/Quanli/SuaKhachSan" method="post" style="display:inline;">
             <input type="hidden" name="KhachSan_id" value="@item.KhachSan_id" />
             <button type="submit" class="btn btn-warning">Sửa</button>
         </form>
 
         <!-- Form xóa -->
-        <form action="~/Quanli/XoaKhachSan" method="post" style="display:inline;">
+        <form action="~/Admin/Quanli/XoaKhachSan" method="post" style="display:inline;">
             <input type="hidden" name="KhachSan_id" value="@item.KhachSan_id" />
             <button type="submit" class="btn btn-danger">Xóa</button>
         </form>

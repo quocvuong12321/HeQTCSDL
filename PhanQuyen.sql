@@ -148,7 +148,7 @@ go
 sp_addrole 'HuongDanVien'
 go
 
-grant select, update
+grant select
 on Tour
 to HuongDanVien
 go
@@ -198,7 +198,7 @@ on KhachSan
 to HuongDanVien
 go
 
-grant select, delete
+grant select
 on PhanCong_NhanVien
 to HuongDanVien
 go

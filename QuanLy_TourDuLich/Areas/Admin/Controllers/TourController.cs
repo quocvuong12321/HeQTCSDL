@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using QuanLy_TourDuLich.Models;
 using System.Threading;
 using System.IO;
+using QuanLy_TourDuLich.Areas.Admin.Models;
+
 namespace QuanLy_TourDuLich.Areas.Admin.Controllers
 {
 
@@ -13,10 +15,16 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
     {
         // GET: Admin/Tour
         QuanLyTourDuLichDataContext db = new QuanLyTourDuLichDataContext();
+        [PhanQuyen("Quản lý","Nhân viên")]
         public ActionResult Index()
         {
+            if (Session["kh"] == null)
+            {
+                return RedirectToAction("DangNhapNV", "TaiKhoanNhanVien");
+            }
             List<Tour> dsTour = db.Tours.ToList();
             return View(dsTour);
+            
         }
 
         public JsonResult GetKhachSanByTinhThanh(int tinhThanhId)
@@ -29,21 +37,23 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
             return Json(khachSanList, JsonRequestBehavior.AllowGet);
         }
 
-
+        [PhanQuyen("Quản lý")]
         public ActionResult ThemMoiTour()
         {
-            int SoTour = db.Tours.Count() + 1;
-            string MaTour = "Tour" + SoTour.ToString("D3");
-            ViewBag.MaTour = MaTour;
-            ViewBag.NhaHang= new SelectList(db.NhaHangs.ToList().OrderBy(t => t.NhaHang_id), "NhaHang_id", "Name");
-            ViewBag.KhachSan= new SelectList(db.KhachSans.ToList().OrderBy(t => t.KhachSan_id), "KhachSan_id", "Name");
-            ViewBag.TinhThanh = new SelectList(db.TinhThanhs.ToList().OrderBy(t => t.TinhThanh_id), "TinhThanh_id", "Name");
-            return View(new Tour());
+            using (QuanLyTourDuLichDataContext db = new QuanLyTourDuLichDataContext())
+            {
+                int SoTour = db.Tours.Count() + 1;
+                string MaTour = "Tour" + SoTour.ToString("D3");
+                ViewBag.MaTour = MaTour;
+                ViewBag.NhaHang = new SelectList(db.NhaHangs.ToList().OrderBy(t => t.NhaHang_id), "NhaHang_id", "Name");
+                ViewBag.KhachSan = new SelectList(db.KhachSans.ToList().OrderBy(t => t.KhachSan_id), "KhachSan_id", "Name");
+                ViewBag.TinhThanh = new SelectList(db.TinhThanhs.ToList().OrderBy(t => t.TinhThanh_id), "TinhThanh_id", "Name");
+                return View(new Tour());
+            }
         }
 
         [HttpPost]
         [ValidateInput(false)]
-
         public ActionResult ThemMoiTour(Tour model)
         {
             if (ModelState.IsValid)
@@ -79,7 +89,7 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
             ViewBag.KhachHang = new SelectList(db.KhachSans.ToList().OrderBy(t => t.KhachSan_id), "KhachSan_id", "Name");
             return View(model);
         }
-
+        [PhanQuyen("Quản lý")]
         public ActionResult ThemHinhAnhTour(string id)
         {
             Tour t = db.Tours.FirstOrDefault(a=>a.Tour_id == id);
@@ -91,6 +101,7 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
             ViewBag.TourId = id;
             return View("ThemHinhAnhTour", t);
         }
+
 
         [HttpPost]
         public ActionResult ThemHinhAnhTour(Tour t, IEnumerable<HttpPostedFileBase> fileUpLoad)
@@ -137,17 +148,18 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
             }
             return View(t);
         }
+        [PhanQuyen("Quản lý")]
 
         public ActionResult ChiTietTour(string id) // Hiển thị chi tiết tour
         {
             return View(db.Tours.FirstOrDefault(t => t.Tour_id == id));
         }
-
+        [PhanQuyen("Quản lý")]
         public ActionResult dsAnh(string id) //Lấy ra List hình ảnh của tour có Tour_id == id
         {
             return PartialView(db.Image_Tours.Where(t => t.Tour_id == id).ToList());
         }
-
+        [PhanQuyen("Quản lý")]
         public ActionResult Edit(string id)
         {
             ViewBag.TinhThanh = new SelectList(db.TinhThanhs.ToList().OrderBy(t => t.TinhThanh_id), "TinhThanh_id", "Name");
@@ -182,6 +194,7 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
             ViewBag.KhachSan = new SelectList(db.KhachSans.ToList().OrderBy(t => t.KhachSan_id), "KhachSan_id", "Name");
             return RedirectToAction("Index");
         }
+        [PhanQuyen("Quản lý")]
 
         public ActionResult XoaHinhAnh(string id)
         {
@@ -208,6 +221,7 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
 
             return RedirectToAction("XoaHinhAnh", new { id = tourId });
         }
+        [PhanQuyen("Quản lý")]
 
         public ActionResult ThemNhaHang(string id)
         {
@@ -221,7 +235,7 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
 
             return View(tour);
         }
-
+        [PhanQuyen("Quản lý")]
         [HttpPost]
         public ActionResult kqThemNhaHang(string id, string maNhaHang)
         {

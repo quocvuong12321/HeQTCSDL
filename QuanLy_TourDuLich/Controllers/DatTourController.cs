@@ -48,7 +48,8 @@ namespace QuanLy_TourDuLich.Controllers
         [HttpPost]
         public ActionResult DatTour(FormCollection form, string tour_id)
         {
-            var khachHangId = Session["kh"]?.ToString();
+            var kh = Session["kh"] as KhachHang;
+            var khachHangId = kh.KhachHang_id;
             if (khachHangId == null)
             {
                 return RedirectToAction("DangNhap", "TaiKhoan");

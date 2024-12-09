@@ -79,7 +79,7 @@ namespace QuanLy_TourDuLich.Controllers
                    string connection = string.Format("Data Source=DESKTOP-86N3SME\\SQL_KING;Database=QL_Tour;Integrated Security=False;User Id={0};Password={1};", taikhoan, password);
                     Session["ConnectionString"] = connection;
                     Session["Role"] = "Khách hàng";
-                    Session["kh"] = taikhoan;
+                    Session["kh"] = db.KhachHangs.FirstOrDefault(t=>t.KhachHang_id==taikhoan);
                     return RedirectToAction("HienThiTour", "Tour");
                 }
                 else
@@ -122,8 +122,18 @@ namespace QuanLy_TourDuLich.Controllers
             }
             return View(review);
         }
+
+        public ActionResult DangXuat()
+        {
+            Session["kh"] = null;
+            return RedirectToAction("HienThiTour", "Tour");
+        }
     
+
+        public ActionResult ThongTinNguoiDung(string id)
+        {
+            return View(db.KhachHangs.FirstOrDefault(t => t.KhachHang_id == id));
+        }
+
     }
-
-
 }

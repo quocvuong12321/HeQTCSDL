@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using QuanLy_TourDuLich.Models;
 
 namespace QuanLy_TourDuLich.Areas.Admin.Controllers
@@ -28,12 +29,19 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
 
                 if (ktdangnhap == 1)
                 {
-                    string connection = string.Format("Data Source=DESKTOP-86N3SME\\SQL_KING;Database=QL_Tour;Integrated Security=False;User Id={0};Password={1};", id, password);
-                    Session["ConnectionString"] = connection;
+                    //string connection = string.Format("Data Source=DESKTOP-86N3SME\\SQL_KING;Database=QL_Tour;Integrated Security=False;User Id={0};Password={1};", id, password);
+                    //Session["ConnectionString"] = connection;
                     var nv = db.NhanViens.FirstOrDefault(t => t.NhanVien_id == id);
                     string setRole = nv.VaiTro; /*== "Quản lý" ? "1" : (nv.VaiTro == "Nhân viên" ? "2" : "3");*/
                     Session["Role"] = setRole;
                     Session["kh"] = nv;
+
+                    FormsAuthentication.SetAuthCookie(id, false);
+
+                    if(setRole.Equals("Hướng dẫn viên"))
+                    {
+                        return Redirect("~/Admin/QuanLyHanhKhachTour/Index");
+                    }
                     return Redirect("~/Admin/Tour/Index");
                 }
                 else
@@ -49,5 +57,13 @@ namespace QuanLy_TourDuLich.Areas.Admin.Controllers
             return View(thongke);
         }
 
+        public ActionResult DangXuat()
+        {
+            Session["kh"] = null;
+            Session["Role"] = null;
+            Session["ConnectionString"] = null;
+
+            return RedirectToAction("DangNhapNV");
+        }
     }
 }

@@ -1,0 +1,31 @@
+﻿
+@model QuanLy_TourDuLich.Models.KhachHang 
+
+@{
+    ViewBag.Title = "ThongTinNguoiDung";
+}
+<div class="container col-md-6">
+    <b style="font-size:32px" class="text-dark">Thông tin người dùng</b>
+    <table class="table table-striped">
+        <tr>
+            <th>Họ và tên</th>
+            <td>@Model.Name</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>@Model.Email</td>
+        </tr>
+        <tr>
+            <th>Số điện thoại</th>
+            <td>@Model.DienThoai</td>
+        </tr>
+        <tr>
+            <th>Địa chỉ</th>
+            <td>@Model.DiaChi</td>
+        </tr>
+        <tr>
+            <th>Giới tính</th>
+            <td>@Model.Gioitinh</td>
+        </tr>
+    </table>
+</div>

@@ -69,7 +69,7 @@ namespace QuanLy_TourDuLich.Controllers
 
         public ActionResult SanPhamLienQuan(int diemden, string id)
         {
-            if (/*string.IsNullOrEmpty(diemden)*/ string.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(id))
             {
                 return PartialView(new List<Tour>());
             }

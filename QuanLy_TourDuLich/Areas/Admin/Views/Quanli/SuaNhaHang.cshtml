@@ -1,13 +1,13 @@
 ﻿
 @{
     ViewBag.Title = "SuaNhaHang";
-    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutPage1.cshtml";
 }
 @model QuanLy_TourDuLich.Models.NhaHang
 
 <h2>Sửa Thông Tin Nhà Hàng</h2>
 
-<form action="CapNhatNhaHang" method="post">
+<form action="/Admin/QuanliCapNhatNhaHang" method="post">
     <input type="hidden" name="NhaHang_id" value="@Model.NhaHang_id" />
     <div class="form-group">
         <label>Tên Nhà Hàng:</label>
