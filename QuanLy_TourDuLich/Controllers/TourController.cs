@@ -21,7 +21,7 @@ namespace QuanLy_TourDuLich.Controllers
             var imgs_tour = db.Image_Tours.OrderBy(a => a.Name).Where(t => t.Tour_id == id).Take(1).ToList();
             return PartialView(imgs_tour);
         }
-
+        
         public ActionResult ChiTietTour(string id)
         {
             var danhgia = db.DanhGias.Where(f => f.Tour_id == id).ToList();
